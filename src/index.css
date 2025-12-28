@@ -1,11 +1,169 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+/* Google Sans font - Using Inter as it's very similar and available via Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+/* Techie theme fonts */
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --primary-bg: #FDFDFD;
+  --accent-primary: #3B82F6;
+  --text-color: #111827;
+}
+
+.dark {
+  --primary-bg: #0F1012;
+  --accent-primary: #3B82F6;
+  --text-color: #E5E7EB;
+  color-scheme: dark;
+}
+
+.techie-mode {
+  --primary-bg: #121212;
+  --accent-primary: #3B82F6;
+  --text-color: #E5E7EB;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+/* Add smooth transitions for dark/light mode switches */
+body {
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Terminal-style blinking cursor */
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.2em;
+  background-color: currentColor;
+  margin-left: 2px;
+  animation: cursor .6s linear infinite alternate;
+}
+
+/* Custom component styles using blue, white, and black */
+.accent-gradient {
+  @apply bg-gradient-to-r from-accent-primary to-black dark:from-accent-primary dark:to-white;
+}
+
+.accent-text {
+  @apply text-accent-primary;
+}
+
+.highlight-text {
+  @apply text-accent-primary;
+}
+
+.creative-accent {
+  @apply text-accent-primary;
+}
+
+/* Shiny swish button hover effect - refined and subtle */
+@keyframes shiny-sweep {
+  0% {
+    transform: translateX(-100%) translateY(-50%) rotate(15deg);
+  }
+  100% {
+    transform: translateX(calc(100% + 100px)) translateY(-50%) rotate(15deg);
+  }
+}
+
+/* Fade in up animation for contact cards */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.shiny-button {
+  position: relative;
+  overflow: hidden;
+  background-color: #1f2937; /* dark gray */
+  color: white;
+  border: none;
+  border-radius: 9999px; /* pill-shaped */
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.shiny-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 30%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.1) 80%,
+    transparent 100%
+  );
+  z-index: 1;
+  opacity: 0;
+  transform: translateX(-100%) translateY(-50%) rotate(15deg);
+  transition: opacity 0.3s ease;
+}
+
+.shiny-button:hover::before {
+  opacity: 1;
+  animation: shiny-sweep 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.shiny-button:hover {
+  background-color: #111827; /* darker on hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transform: translateY(-1px);
+}
+
+.shiny-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.shiny-button > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Dark mode button styling */
+.dark .shiny-button {
+  background-color: #1f2937;
+}
+
+.dark .shiny-button:hover {
+  background-color: #111827;
+}
+
+.dark .shiny-button::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 20%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.08) 80%,
+    transparent 100%
+  );
+}
