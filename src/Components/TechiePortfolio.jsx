@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import { FaTerminal, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 import ThemeSwitcher from './ThemeSwitcher';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const TechiePortfolio = ({ onModeToggle }) => {
   const [input, setInput] = useState('');
@@ -362,6 +363,10 @@ const TechiePortfolio = ({ onModeToggle }) => {
       </div>
     </div>
   );
+};
+
+TechiePortfolio.propTypes = {
+  onModeToggle: PropTypes.func.isRequired
 };
 
 export default TechiePortfolio;
