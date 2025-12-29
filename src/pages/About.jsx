@@ -53,13 +53,13 @@ function About() {
 
 
   const experiences = [
-    {
-      title: 'Full-Stack Developer',
-      company: 'Adyime Solutions',
-      period: 'Nov 2025 – Present',
-      location: 'Delhi',
-      description: 'Works on web & mobile features using React, React Native, and Next.js. Enhances UI/UX, improves performance, and collaborates across product teams.'
-    },
+    // {
+    //   title: 'Full-Stack Developer',
+    //   company: 'Adyime Solutions',
+    //   period: 'Nov 2025 – Present',
+    //   location: 'Delhi',
+    //   description: 'Works on web & mobile features using React, React Native, and Next.js. Enhances UI/UX, improves performance, and collaborates across product teams.'
+    // },
     {
       title: 'Software Development Engineer',
       company: 'COOX',
