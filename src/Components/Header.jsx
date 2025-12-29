@@ -13,8 +13,8 @@ function Header({ onModeToggle, isTechieMode }) {
     if (savedMode !== null) {
       return savedMode === 'true';
     }
-    // If no preference in localStorage, check system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Default to light mode
+    return false;
   });
   const resumeLink = import.meta.env.VITE_RESUME_LINK;
 
