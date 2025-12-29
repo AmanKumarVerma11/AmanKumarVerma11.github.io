@@ -15,11 +15,11 @@ const ThemeSwitcher = ({ isTechieMode, onModeToggle }) => {
   return (
     <div className="relative inline-flex items-center">
       <span className="mr-3 text-sm font-medium text-gray-600 dark:text-gray-300 hidden sm:inline">
-        {isTechieMode ? 'Techie' : 'Normal'}
+        {isTechieMode ? '> Terminal_' : '✨ Classic'}
       </span>
       <button 
         onClick={handleToggle}
-        aria-label={isTechieMode ? "Switch to normal mode" : "Switch to techie mode"}
+        aria-label={isTechieMode ? "Switch to classic mode" : "Switch to terminal mode"}
         className={`
           w-16 h-8 flex items-center rounded-full p-1 transition-all duration-300 focus:outline-none
           ${isTechieMode 

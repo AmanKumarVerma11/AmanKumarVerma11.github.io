@@ -23,7 +23,7 @@ const TechiePortfolio = ({ onModeToggle }) => {
       "contact      - Show contact information",
       "blog         - Read my latest blog posts",
       "clear        - Clear the terminal screen",
-      "theme        - Switch to normal mode UI",
+      "theme        - Switch to ✨ Classic mode",
       "social       - Show social media links",
       "exit         - Close terminal (switch to normal mode)"
     ],
@@ -76,6 +76,13 @@ const TechiePortfolio = ({ onModeToggle }) => {
       "Projects",
       "========",
       "",
+      "[FEATURED] Traxsis – AI-Powered Business Consulting Platform",
+      "   Tech: Next.js 16, React 19, TypeScript, MongoDB, Prisma, Gemini API, LangChain",
+      "   Description: Full-stack AI SaaS platform democratizing business consulting.",
+      "   Features intelligent chat with Google Gemini, semantic vector search, real-time",
+      "   analytics, goal tracking, and subscription management with payment integration.",
+      "   Link: https://traxsis.com/",
+      "",
       "1. Zeetax – Native Educational App",
       "   Tech: React Native, Expo, Next.js, PostgreSQL, Prisma",
       "   Description: Built a native mobile app for exploring books, notes & digital",
@@ -125,11 +132,11 @@ const TechiePortfolio = ({ onModeToggle }) => {
     },
     theme: () => {
       setTimeout(() => onModeToggle(), 500);
-      return ["Switching to normal mode..."];
+      return ["Switching to ✨ Classic mode..."];
     },
     exit: () => {
       setTimeout(() => onModeToggle(), 500);
-      return ["Exiting terminal..."];
+      return ["Exiting > Terminal_... Welcome to ✨ Classic!"];
     },
     social: () => [
       "Social Media",
@@ -277,7 +284,7 @@ const TechiePortfolio = ({ onModeToggle }) => {
       "  skills   - Technical skills",
       "  projects - My projects",
       "  contact  - Contact info",
-      "  theme    - Switch to normal UI",
+      "  theme    - Switch to ✨ Classic mode",
       "",
       "Tips: Use Tab for completion, ↑/↓ for history, 'clear' to reset"
     ];
