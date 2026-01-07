@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import TechiePortfolio from "./Components/TechiePortfolio";
 import { useSearchParams } from "react-router-dom";
+import VirtualCompanion from "./Components/VirtualCompanion";
 
 function App() {
   const [searchParams] = useSearchParams();
@@ -63,6 +64,7 @@ function App() {
         </div>
       </main>
       <Footer isTechieMode={isTechieMode} />
+      {!isTechieMode && <VirtualCompanion />}
     </div>
   );
 }

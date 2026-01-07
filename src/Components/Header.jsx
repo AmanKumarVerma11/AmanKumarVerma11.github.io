@@ -62,7 +62,7 @@ function Header({ onModeToggle, isTechieMode }) {
               </Link>
               {location.pathname !== '/' && (
                 <a href={resumeLink} target="_blank" rel="noopener noreferrer">
-                  <button type="button" className='shiny-button font-lato font-semibold px-3 py-1.5 lg:text-sm lg:px-4'>
+                  <button type="button" className='shiny-button font-lato font-semibold px-2 py-1 lg:text-sm lg:px-3 border-2 border-accent-primary bg-accent-primary/10 dark:bg-accent-primary/20 shadow-lg shadow-accent-primary/30 hover:shadow-xl hover:shadow-accent-primary/50 transition-all duration-300'>
                     Resume
                   </button>
                 </a>
@@ -82,7 +82,9 @@ function Header({ onModeToggle, isTechieMode }) {
             </nav>
 
             <div className='flex items-center gap-4'>
-              <ThemeSwitcher isTechieMode={isTechieMode} onModeToggle={onModeToggle} />
+              <div className='hidden lg:block'>
+                <ThemeSwitcher isTechieMode={isTechieMode} onModeToggle={onModeToggle} />
+              </div>
               
               <button 
                 onClick={toggleDarkMode} 
@@ -119,6 +121,16 @@ function Header({ onModeToggle, isTechieMode }) {
             {item.text}
           </Link>
         ))}
+        <div className="mt-4 pt-4 border-t border-white/20 dark:border-black/20">
+          <div className="flex flex-col items-center gap-2">
+            <span className="text-sm font-medium text-white dark:text-black mb-1">
+              {isTechieMode ? '> Terminal_' : '✨ Classic'}
+            </span>
+            <div onClick={toggleMenu}>
+              <ThemeSwitcher isTechieMode={isTechieMode} onModeToggle={onModeToggle} />
+            </div>
+          </div>
+        </div>
       </nav>
     </div>
   );

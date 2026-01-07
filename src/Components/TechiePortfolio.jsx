@@ -272,9 +272,9 @@ const TechiePortfolio = ({ onModeToggle }) => {
   // Display welcome message when component mounts
   useEffect(() => {
     const welcomeMessage = [
-      "╔═══════════════════════════════════════════════════════════╗",
-      "║  AMAN KUMAR VERMA  │  🚀 Full-Stack Developer 🚀         ║",
-      "╚═══════════════════════════════════════════════════════════╝",
+      "AMAN KUMAR VERMA",
+      "==================",
+      "🚀 Full-Stack Developer 🚀",
       "",
       "Welcome to my interactive portfolio terminal!",
       "",
@@ -286,7 +286,8 @@ const TechiePortfolio = ({ onModeToggle }) => {
       "  contact  - Contact info",
       "  theme    - Switch to ✨ Classic mode",
       "",
-      "Tips: Use Tab for completion, ↑/↓ for history, 'clear' to reset"
+      "Tips: Use Tab for completion,",
+      "↑/↓ for history, 'clear' to reset"
     ];
     
     setOutputHistory([{ type: 'output', content: welcomeMessage }]);
@@ -295,25 +296,27 @@ const TechiePortfolio = ({ onModeToggle }) => {
   return (
     <div className="h-screen bg-[#121212] text-[#E5E7EB] font-['IBM_Plex_Mono'] flex flex-col overflow-hidden">
       {/* Terminal Header */}
-      <div className="bg-[#1A1A1A] p-3 flex items-center justify-between border-b border-[#333]">
-        <div className="flex items-center space-x-2">
-          <div className="flex space-x-2">
-            <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-            <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+      <div className="bg-[#1A1A1A] p-2 sm:p-3 flex items-center justify-between border-b border-[#333]">
+        <div className="flex items-center space-x-1 sm:space-x-2 flex-1 min-w-0">
+          <div className="flex space-x-1 sm:space-x-2 flex-shrink-0">
+            <div className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full"></div>
+            <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-500 rounded-full"></div>
+            <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full"></div>
           </div>
-          <span className="text-[#0EA5E9] ml-3 font-bold">aman@portfolio:~</span>
+          <span className="text-[#0EA5E9] ml-2 sm:ml-3 font-bold text-xs sm:text-sm truncate">aman@portfolio:~</span>
         </div>
         
-        <div className="flex items-center space-x-4">
-          <ThemeSwitcher isTechieMode={true} onModeToggle={onModeToggle} />
+        <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
+          <div className="hidden sm:block">
+            <ThemeSwitcher isTechieMode={true} onModeToggle={onModeToggle} />
+          </div>
         </div>
       </div>
       
       {/* Terminal Body */}
       <div 
         ref={terminalRef}
-        className="flex-grow px-4 pt-4 pb-1 overflow-auto bg-[#121212] font-mono relative"
+        className="flex-grow px-2 sm:px-4 pt-2 sm:pt-4 pb-1 overflow-auto bg-[#121212] font-mono relative"
         style={{
           backgroundImage: 'linear-gradient(rgba(18, 18, 18, 0.99), rgba(18, 18, 18, 0.99)), url("data:image/svg+xml,%3Csvg width=\'6\' height=\'6\' viewBox=\'0 0 6 6\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23222222\' fill-opacity=\'0.4\' fill-rule=\'evenodd\'%3E%3Cpath d=\'M5 0h1L0 5v1H0V0h5z\'/%3E%3C/g%3E%3C/svg%3E")',
           lineHeight: '1.5'
@@ -323,13 +326,13 @@ const TechiePortfolio = ({ onModeToggle }) => {
           <div key={index} className="mb-1">
             {item.type === 'command' ? (
               <div className="flex">
-                <span className="text-[#0EA5E9] mr-2">$</span>
-                <span className="text-[#22C55E]">{item.content}</span>
+                <span className="text-[#0EA5E9] mr-1 sm:mr-2 text-xs sm:text-sm">$</span>
+                <span className="text-[#22C55E] text-xs sm:text-sm break-words">{item.content}</span>
               </div>
             ) : (
-              <div className="text-[#E5E7EB] ml-3 whitespace-pre-line text-sm">
+              <div className="text-[#E5E7EB] ml-1 sm:ml-3 whitespace-pre-line text-xs sm:text-sm break-words">
                 {item.content.map((line, i) => (
-                  <div key={i} className="leading-relaxed">{line}</div>
+                  <div key={i} className="leading-relaxed break-words">{line}</div>
                 ))}
               </div>
             )}
@@ -338,14 +341,14 @@ const TechiePortfolio = ({ onModeToggle }) => {
         
         {/* Command Input */}
         <form onSubmit={handleSubmit} className="flex items-center mt-1">
-          <span className="text-[#0EA5E9] mr-2">$</span>
+          <span className="text-[#0EA5E9] mr-1 sm:mr-2 text-xs sm:text-sm flex-shrink-0">$</span>
           <input
             ref={inputRef}
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-grow bg-transparent border-none outline-none text-[#22C55E] caret-[#22C55E]"
+            className="flex-grow bg-transparent border-none outline-none text-[#22C55E] caret-[#22C55E] text-xs sm:text-sm"
             autoFocus
             spellCheck="false"
           />
@@ -353,20 +356,20 @@ const TechiePortfolio = ({ onModeToggle }) => {
       </div>
       
       {/* Terminal Footer */}
-      <div className="bg-[#1A1A1A] px-3 py-1 border-t border-[#333] flex justify-between items-center text-xs flex-shrink-0">
-        <div className="text-gray-500">v1.0.0</div>
-        <div className="flex space-x-4">
-          <a href="https://github.com/AmanKumarVerma11" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#0EA5E9]">
-            <FaGithub />
+      <div className="bg-[#1A1A1A] px-2 sm:px-3 py-1 border-t border-[#333] flex justify-between items-center text-[10px] sm:text-xs flex-shrink-0 gap-2">
+        <div className="text-gray-500 hidden sm:block flex-shrink-0">v1.0.0</div>
+        <div className="flex space-x-2 sm:space-x-4 flex-shrink-0">
+          <a href="https://github.com/AmanKumarVerma11" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#0EA5E9] transition-colors">
+            <FaGithub className="text-sm sm:text-base" />
           </a>
-          <a href="https://linkedin.com/in/aman-kr-verma11" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#0EA5E9]">
-            <FaLinkedin />
+          <a href="https://linkedin.com/in/aman-kr-verma11" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#0EA5E9] transition-colors">
+            <FaLinkedin className="text-sm sm:text-base" />
           </a>
-          <a href="https://twitter.com/mai_amanhoon" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#0EA5E9]">
-            <FaTwitter />
+          <a href="https://twitter.com/mai_amanhoon" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#0EA5E9] transition-colors">
+            <FaTwitter className="text-sm sm:text-base" />
           </a>
         </div>
-        <div className="text-gray-500">Type &apos;help&apos; for commands</div>
+        <div className="text-gray-500 text-[9px] sm:text-xs truncate">Type &apos;help&apos; for commands</div>
       </div>
     </div>
   );
