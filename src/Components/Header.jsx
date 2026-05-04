@@ -74,7 +74,7 @@ function Header() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="lg:hidden border-t border-wire bg-surface px-6 py-5 space-y-1">
+        <div className="animate-slide-down lg:hidden border-t border-wire bg-surface px-6 py-5 space-y-1">
           {navItems.map(({ to, label }) => (
             <Link
               key={to}

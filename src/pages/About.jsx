@@ -3,14 +3,14 @@ import useReveal from '../hooks/useReveal';
 const stamp = ['Delhi', 'Open globally', 'Currently shipping 7-agent orchestration'];
 
 const rightNow = [
-  'Architecting 7-agent AI orchestration at SellAbroad',
-  "Building Intrafy's automation playbook",
+  'Architecting a 7-agent AI orchestration system — full automation from DOM analysis to regression QA',
+  'Running Intrafy — AI-native automation consultancy',
   'Open to founding-engineer roles at AI-native startups',
 ];
 
 const bio = [
   {
-    annotation: '7 agents · live at SellAbroad',
+    annotation: '7 agents · live in production',
     claim: 'I architect multi-agent AI systems.',
   },
   {
@@ -23,12 +23,12 @@ const bio = [
   },
   {
     annotation: 'Next · Node · Postgres · LLMs',
-    claim: 'I work end-to-end across the full stack.',
+    claim: 'I own what I build — frontend to deployment.',
   },
 ];
 
 const shipped = [
-  'A 7-agent AI orchestration that runs Shopify theme onboarding for SellAbroad — replacing hours of per-merchant setup.',
+  'A 7-agent AI orchestration that automates Shopify theme onboarding — DOM analysis, code injection, validation, and regression QA — replacing 4+ hours of per-merchant manual setup.',
   'EasySheets AI — curriculum-aligned assessment generation for Indian schools, hours of teacher work compressed into seconds.',
   'Intrafy — an AI-native automation consultancy where agents run client engagements end-to-end.',
 ];
@@ -115,7 +115,7 @@ function About() {
           className="text-[clamp(2.2rem,5vw,4.4rem)] leading-[1.05] text-ink max-w-[22ch]"
           style={{ fontVariationSettings: "'wdth' 92, 'wght' 600" }}
         >
-          I build the systems that make&nbsp;the&nbsp;demos&nbsp;work.
+          I build the systems that make&nbsp;the&nbsp;demos&nbsp;work<span className="text-signal">.</span>
         </h1>
         <p className="font-mono-sys text-dim text-sm mt-6 tracking-wide">
           Multi-agent AI &nbsp;·&nbsp; persistent memory &nbsp;·&nbsp; recovery built-in.

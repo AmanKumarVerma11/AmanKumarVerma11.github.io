@@ -52,7 +52,7 @@ const Contact = () => {
           className="text-[clamp(2.4rem,5vw,4rem)] leading-[0.96] font-extrabold text-ink mb-5"
           style={{ fontVariationSettings: "'wdth' 84, 'wght' 800" }}
         >
-          Let's talk.
+          Let's talk<span className="text-signal">.</span>
         </h1>
         <p className="text-dim text-base mb-12">
           Have a project, a role, or just want to say hello. I read every message.
@@ -60,12 +60,12 @@ const Contact = () => {
 
         {/* Status messages */}
         {submitStatus === 'success' && (
-          <div className="mb-8 py-3 px-4 bg-surface border border-wire rounded-sm text-sm text-dim">
+          <div className="animate-fade-up mb-8 py-3 px-4 bg-surface border border-wire rounded-sm text-sm text-dim">
             Message sent. I'll get back to you soon.
           </div>
         )}
         {submitStatus === 'error' && (
-          <div className="mb-8 py-3 px-4 bg-surface border border-wire rounded-sm text-sm text-dim">
+          <div className="animate-fade-up mb-8 py-3 px-4 bg-surface border border-wire rounded-sm text-sm text-dim">
             Something went wrong. Email me directly at{' '}
             <a href="mailto:akverma11aug2002@gmail.com" className="text-ink hover:underline underline-offset-4">
               akverma11aug2002@gmail.com

@@ -25,7 +25,7 @@ function Footer() {
           className="magnetic inline-block text-[clamp(2.8rem,7vw,7.5rem)] text-ink leading-[0.88] mb-16 hover:text-dim transition-colors duration-300"
           style={{ fontVariationSettings: "'wdth' 84, 'wght' 800" }}
         >
-          Let's build.
+          Let's build<span className="text-signal">.</span>
         </a>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 border-t border-wire">

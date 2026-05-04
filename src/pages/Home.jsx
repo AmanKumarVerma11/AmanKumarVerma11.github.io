@@ -87,9 +87,10 @@ function Home() {
       wght += (targetWght - wght) * 0.18;
       wdth += (targetWdth - wdth) * 0.14;
 
-      const root = document.documentElement;
-      root.style.setProperty('--name-wght', wght.toFixed(1));
-      root.style.setProperty('--name-wdth', wdth.toFixed(2));
+      const fvs = `'wdth' ${wdth.toFixed(2)}, 'wght' ${wght.toFixed(1)}`;
+      document.querySelectorAll('.hero-name').forEach(el => {
+        el.style.fontVariationSettings = fvs;
+      });
 
       raf = requestAnimationFrame(tick);
     };
@@ -127,7 +128,7 @@ function Home() {
             <div className="overflow-hidden pb-1">
               <div
                 className="hero-name text-[clamp(3.6rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
-                style={{ animationDelay: '0.2s' }}
+                style={{ animationDelay: '0.2s', fontVariationSettings: "'wdth' 86, 'wght' 720" }}
               >
                 Aman Kumar
               </div>
@@ -135,7 +136,7 @@ function Home() {
             <div className="overflow-hidden pb-1">
               <div
                 className="hero-name text-[clamp(3.6rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
-                style={{ animationDelay: '0.35s' }}
+                style={{ animationDelay: '0.35s', fontVariationSettings: "'wdth' 86, 'wght' 720" }}
               >
                 Verma<span className="text-signal">.</span>
               </div>

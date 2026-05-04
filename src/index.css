@@ -7,8 +7,6 @@
     color-scheme: dark;
     --mx: 50%;
     --my: 50%;
-    --name-wght: 720;
-    --name-wdth: 86;
   }
 
   html {
@@ -76,10 +74,15 @@
   animation: page-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
-/* ── Live-instrumented hero name ──────────────────────────── */
+/* ── Mobile menu: slide down ──────────────────────────────── */
 
-.hero-name {
-  font-variation-settings: 'wdth' var(--name-wdth), 'wght' var(--name-wght);
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ── Cursor-tracked spotlight (Home hero) ─────────────────── */
@@ -251,7 +254,5 @@
 
   .spotlight::before { display: none; }
 
-  .hero-name {
-    font-variation-settings: 'wdth' 84, 'wght' 800 !important;
-  }
+  .animate-slide-down { animation: none; }
 }
