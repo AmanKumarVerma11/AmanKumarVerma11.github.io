@@ -36,7 +36,7 @@ const projects = [
     description:
       'Founded an AI-native agentic workflow automation consultancy. Entire site — design, SEO, and deployment — conceived, built, and operated via AI agents. Full technical SEO stack: JSON-LD schemas, Open Graph, Core Web Vitals, sitemap.',
     tech: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-    link: 'https://intrafy.io/',
+    link: 'https://intrafy.in/',
     github: null,
   },
   {

@@ -13,7 +13,7 @@ const selectedWork = [
     num: '02',
     title: 'Intrafy',
     desc: 'AI-Native Automation Consultancy',
-    link: 'https://intrafy.io/',
+    link: 'https://intrafy.in/',
   },
   {
     num: '03',
