@@ -5,7 +5,6 @@ const projects = [
         tech: 'Next.js 16, React 19, TypeScript, MongoDB, Prisma, Google Gemini API, LangChain, Clerk, Tailwind CSS, Radix UI',
         link: 'https://traxsis.com/',
         github: null,
-        featured: true
     },
     {
         title: 'Zeetax – Native Educational App',
@@ -26,14 +25,16 @@ const projects = [
         description: 'AI-powered quiz and worksheet generation platform for Indian schools, enabling educators to produce curriculum-aligned assessments in seconds instead of hours. Designed the end-to-end product: content generation pipeline, educator-facing UI, and deployment — fully independent.',
         tech: 'Next.js, TypeScript, OpenAI, Tailwind CSS',
         link: null,
-        github: null
+        github: null,
+        featured: true
     },
     {
         title: 'Intrafy – AI-Native Automation Consultancy',
         description: 'Founded an AI-native agentic workflow automation consultancy. Entire site — design, SEO, and deployment — conceived, built, and operated via AI agents. Implemented full technical SEO stack: JSON-LD schemas, Open Graph, Core Web Vitals optimization, and sitemap.',
         tech: 'Next.js, TypeScript, Tailwind CSS',
         link: 'https://intrafy.io/',
-        github: null
+        github: null,
+        featured: true
     },
     {
         title: 'Twitter Trends Scraper',
