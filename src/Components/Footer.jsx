@@ -15,12 +15,9 @@ function Footer() {
     <footer className="border-t border-wire">
       <div className="max-w-6xl mx-auto px-6 lg:px-10 pt-20 pb-10">
 
-        <div className="flex items-center gap-3 mb-5">
-          <span className="status-dot" aria-hidden="true" />
-          <p className="text-haze text-xs font-semibold tracking-[0.18em] uppercase">
-            Available for new projects
-          </p>
-        </div>
+        <p className="text-haze text-xs font-semibold tracking-[0.18em] uppercase mb-5">
+          Available for new projects
+        </p>
 
         <a
           ref={magneticRef}

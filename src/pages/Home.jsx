@@ -25,8 +25,10 @@ const selectedWork = [
 
 function Home() {
   const heroRef = useRef(null);
+  const nameRef = useRef(null);
   const ctaRef = useMagnetic(0.18);
 
+  // Cursor-spotlight position
   useEffect(() => {
     const el = heroRef.current;
     if (!el) return;
@@ -39,9 +41,68 @@ function Home() {
       el.style.setProperty('--mx', `${x}%`);
       el.style.setProperty('--my', `${y}%`);
     };
-
     el.addEventListener('mousemove', onMove);
     return () => el.removeEventListener('mousemove', onMove);
+  }, []);
+
+  // Live instrumentation: cursor velocity → wght, scroll → wdth.
+  // Idle drifts both axes back to baseline.
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+    const BASE_WGHT = 720;
+    const PEAK_WGHT = 820;
+    const BASE_WDTH = 86;
+    const PEAK_WDTH = 100;
+
+    let energy = 0;
+    let wght = BASE_WGHT;
+    let wdth = BASE_WDTH;
+    let lastX = 0, lastY = 0, lastT = 0;
+    let raf;
+
+    const onMove = e => {
+      const now = performance.now();
+      if (lastT) {
+        const dt = Math.max(now - lastT, 1);
+        const dx = e.clientX - lastX;
+        const dy = e.clientY - lastY;
+        const speed = Math.hypot(dx, dy) / dt;
+        energy = Math.min(energy + speed * 22, 100);
+      }
+      lastX = e.clientX;
+      lastY = e.clientY;
+      lastT = now;
+    };
+
+    const tick = () => {
+      energy *= 0.92;
+      const targetWght = BASE_WGHT + (energy / 100) * (PEAK_WGHT - BASE_WGHT);
+
+      const vh = window.innerHeight || 1;
+      const progress = Math.min(window.scrollY / vh, 1);
+      const targetWdth = BASE_WDTH + progress * (PEAK_WDTH - BASE_WDTH);
+
+      wght += (targetWght - wght) * 0.18;
+      wdth += (targetWdth - wdth) * 0.14;
+
+      const root = document.documentElement;
+      root.style.setProperty('--name-wght', wght.toFixed(1));
+      root.style.setProperty('--name-wdth', wdth.toFixed(2));
+
+      raf = requestAnimationFrame(tick);
+    };
+
+    if (!isTouch) {
+      window.addEventListener('mousemove', onMove, { passive: true });
+    }
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
@@ -54,40 +115,33 @@ function Home() {
       >
         <div className="w-full max-w-5xl space-y-10">
 
-          <div className="flex items-center gap-3 animate-fade-up" style={{ animationDelay: '0.05s' }}>
-            <span className="status-dot" aria-hidden="true" />
-            <p className="text-haze text-xs font-semibold tracking-[0.18em] uppercase">
-              Full Stack Engineer &amp; AI Systems Builder
-            </p>
-          </div>
+          <p
+            className="text-haze text-xs font-semibold tracking-[0.18em] uppercase animate-fade-up"
+            style={{ animationDelay: '0.05s' }}
+          >
+            Full Stack Engineer &amp; AI Systems Builder
+          </p>
 
-          {/* Name — each line reveals upward from a mask */}
-          <div className="space-y-0 -mt-2">
+          {/* Name — line-mask reveal + live font instrumentation */}
+          <div ref={nameRef} className="space-y-0 -mt-2">
             <div className="overflow-hidden pb-1">
               <div
-                className="text-[clamp(3.6rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
-                style={{
-                  fontVariationSettings: "'wdth' 84, 'wght' 800",
-                  animationDelay: '0.2s',
-                }}
+                className="hero-name text-[clamp(3.6rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
+                style={{ animationDelay: '0.2s' }}
               >
                 Aman Kumar
               </div>
             </div>
             <div className="overflow-hidden pb-1">
               <div
-                className="text-[clamp(3.6rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
-                style={{
-                  fontVariationSettings: "'wdth' 84, 'wght' 800",
-                  animationDelay: '0.35s',
-                }}
+                className="hero-name text-[clamp(3.6rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
+                style={{ animationDelay: '0.35s' }}
               >
                 Verma<span className="text-signal">.</span>
               </div>
             </div>
           </div>
 
-          {/* Bio */}
           <p
             className="text-dim text-lg leading-relaxed max-w-[50ch] animate-fade-up"
             style={{ animationDelay: '0.7s' }}
@@ -96,7 +150,6 @@ function Home() {
             products — from zero to shipped.
           </p>
 
-          {/* CTAs */}
           <div
             className="flex items-center gap-6 animate-fade-up"
             style={{ animationDelay: '0.85s' }}

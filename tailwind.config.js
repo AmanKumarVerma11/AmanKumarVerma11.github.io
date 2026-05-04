@@ -16,7 +16,7 @@ export default {
         dim:     'oklch(0.58 0 0 / <alpha-value>)',
         haze:    'oklch(0.38 0 0 / <alpha-value>)',
         wire:    'oklch(0.18 0 0 / <alpha-value>)',
-        signal:  'oklch(0.84 0.20 135 / <alpha-value>)',
+        signal:  'oklch(0.74 0.09 215 / <alpha-value>)',
       },
       screens: {
         xs: '350px',

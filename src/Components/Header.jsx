@@ -33,17 +33,11 @@ function Header() {
               <Link
                 key={to}
                 to={to}
-                className={`relative text-sm transition-colors duration-200 ${
+                className={`text-sm transition-colors duration-200 ${
                   active ? 'text-ink' : 'text-dim hover:text-ink'
                 }`}
               >
                 {label}
-                {active && (
-                  <span
-                    className="absolute -top-1 -right-2 w-1 h-1 rounded-full bg-signal"
-                    aria-hidden="true"
-                  />
-                )}
               </Link>
             );
           })}
