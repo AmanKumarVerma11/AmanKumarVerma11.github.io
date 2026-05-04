@@ -28,11 +28,20 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        
+        setSubmitStatus(null);
+
         try {
-            // Replace with your actual form submission logic
-            // This could be an API call, email service, etc.
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            const res = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            if (!res.ok) {
+                const data = await res.json();
+                throw new Error(data.error || 'Failed to send');
+            }
+
             setSubmitStatus('success');
             setFormData({ name: '', email: '', message: '' });
         } catch (error) {
