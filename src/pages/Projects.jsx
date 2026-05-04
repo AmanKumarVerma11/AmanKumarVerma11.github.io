@@ -1,85 +1,215 @@
+import { useRef, useEffect, useState } from 'react';
+
+function useReveal() {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold: 0.08 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return [ref, visible];
+}
+
 const projects = [
-    {
-        title: 'Traxsis – AI-Powered Business Consulting Platform',
-        description: 'Full-stack AI SaaS platform that democratizes business consulting. Features intelligent chat with Google Gemini, semantic search via vector embeddings, real-time analytics, goal tracking, and subscription management with Dodo Payments.',
-        tech: 'Next.js 16, React 19, TypeScript, MongoDB, Prisma, Google Gemini API, LangChain, Clerk, Tailwind CSS, Radix UI',
-        link: 'https://traxsis.com/',
-        github: null,
-    },
-    {
-        title: 'Zeetax – Native Educational App',
-        description: 'Built a native mobile app for exploring books, notes & digital learning content. Cross-platform UI with smooth navigation. Backend built with Next.js + PostgreSQL. Optimized performance and state management.',
-        tech: 'React Native, Expo, Next.js, PostgreSQL, Prisma',
-        link: 'https://zeetax.in/',
-        github: null
-    },
-    {
-        title: 'Tyos Sports – E-Commerce + Inventory System',
-        description: 'Full-stack e-commerce platform with automated order & delivery workflows. Features admin dashboards, Razorpay payments, and Shiprocket logistics integration.',
-        tech: 'Next.js, TypeScript, PostgreSQL, Prisma, Tailwind, Razorpay, Shiprocket',
-        link: 'https://tyos.co.in/',
-        github: null
-    },
-    {
-        title: 'EasySheets AI – AI-Powered EdTech Platform',
-        description: 'AI-powered quiz and worksheet generation platform for Indian schools, enabling educators to produce curriculum-aligned assessments in seconds instead of hours. Designed the end-to-end product: content generation pipeline, educator-facing UI, and deployment — fully independent.',
-        tech: 'Next.js, TypeScript, OpenAI, Tailwind CSS',
-        link: null,
-        github: null,
-        featured: true
-    },
-    {
-        title: 'Intrafy – AI-Native Automation Consultancy',
-        description: 'Founded an AI-native agentic workflow automation consultancy. Entire site — design, SEO, and deployment — conceived, built, and operated via AI agents. Implemented full technical SEO stack: JSON-LD schemas, Open Graph, Core Web Vitals optimization, and sitemap.',
-        tech: 'Next.js, TypeScript, Tailwind CSS',
-        link: 'https://intrafy.io/',
-        github: null,
-        featured: true
-    },
-    {
-        title: 'Twitter Trends Scraper',
-        description: 'Scrapes & visualizes real-time Twitter trends. Features proxy rotation, automated scraping, and animated UI with Framer Motion.',
-        tech: 'React, Node.js, Selenium, ProxyMesh, MongoDB, Framer Motion',
-        link: null,
-        github: 'https://github.com/AmanKumarVerma11/Twitter-Trends-Scraper'
-    }
+  {
+    num: '01',
+    title: 'EasySheets AI',
+    subtitle: 'AI-Powered EdTech Platform',
+    description:
+      'Quiz and worksheet generation platform for Indian schools — educators produce curriculum-aligned assessments in seconds instead of hours. Designed the end-to-end product: content generation pipeline, educator-facing UI, and deployment.',
+    tech: ['Next.js', 'TypeScript', 'OpenAI', 'Tailwind CSS'],
+    link: 'https://easysheets-ai.com/',
+    github: null,
+  },
+  {
+    num: '02',
+    title: 'Intrafy',
+    subtitle: 'AI-Native Automation Consultancy',
+    description:
+      'Founded an AI-native agentic workflow automation consultancy. Entire site — design, SEO, and deployment — conceived, built, and operated via AI agents. Full technical SEO stack: JSON-LD schemas, Open Graph, Core Web Vitals, sitemap.',
+    tech: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+    link: 'https://intrafy.io/',
+    github: null,
+  },
+  {
+    num: '03',
+    title: 'Traxsis',
+    subtitle: 'AI-Powered Business Consulting Platform',
+    description:
+      'Full-stack AI SaaS that democratizes business consulting. Intelligent chat with Google Gemini, semantic search via vector embeddings, real-time analytics, goal tracking, and subscription management.',
+    tech: ['Next.js', 'React 19', 'TypeScript', 'MongoDB', 'Gemini API', 'LangChain', 'Clerk', 'Prisma'],
+    link: 'https://traxsis.com/',
+    github: null,
+  },
+  {
+    num: '04',
+    title: 'Zeetax',
+    subtitle: 'Native Educational App',
+    description:
+      'Native mobile app for exploring books, notes, and digital learning content. Cross-platform UI with smooth navigation. Backend on Next.js with PostgreSQL. Optimized performance and state management.',
+    tech: ['React Native', 'Expo', 'Next.js', 'PostgreSQL', 'Prisma'],
+    link: 'https://zeetax.in/',
+    github: null,
+  },
+  {
+    num: '05',
+    title: 'Twitter Trends Scraper',
+    subtitle: 'Real-Time Trend Visualizer',
+    description:
+      'Scrapes and visualizes real-time Twitter trends with proxy rotation, automated scraping pipeline, and animated UI.',
+    tech: ['React', 'Node.js', 'Selenium', 'ProxyMesh', 'MongoDB', 'Framer Motion'],
+    link: null,
+    github: 'https://github.com/AmanKumarVerma11/Twitter-Trends-Scraper',
+  },
+  {
+    num: '06',
+    title: 'Tyos Sports',
+    subtitle: 'E-Commerce + Inventory System',
+    description:
+      'Full-stack e-commerce platform with automated order and delivery workflows. Admin dashboards, Razorpay payments, and Shiprocket logistics integration.',
+    tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'Razorpay', 'Shiprocket'],
+    link: 'https://tyos.co.in/',
+    github: null,
+  },
 ];
 
-const Projects = () => {
-    return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-3xl font-bold mb-8 text-center font-playFair text-text-light dark:text-text-dark">My Projects</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {projects.map((project, index) => (
-                    <div key={index} className={`bg-primary-light dark:bg-primary-dark shadow-sm border rounded-lg overflow-hidden transition-all duration-300 hover:shadow-md ${
-                        project.featured 
-                            ? 'border-2 border-accent-primary dark:border-accent-primary ring-2 ring-accent-primary/20 md:col-span-2 lg:col-span-3' 
-                            : 'border-gray-200 dark:border-indigo-500/30 hover:border-gray-300 dark:hover:border-indigo-500/50'
-                    }`}>
-                        <div className={`p-6 ${project.featured ? 'md:flex md:gap-8 md:items-start' : ''}`}>
-                            <div className={project.featured ? 'md:flex-1' : ''}>
-                                <h2 className={`font-semibold mb-2 text-text-light dark:text-text-dark ${project.featured ? 'text-2xl' : 'text-xl'}`}>{project.title}</h2>
-                                <p className="text-gray-700 dark:text-gray-300 mb-3 text-sm">{project.tech}</p>
-                                <p className="text-gray-700 dark:text-gray-300 mb-4">{project.description}</p>
-                                <div className="flex gap-4">
-                                    {project.link && (
-                                        <a href={project.link} target="_blank" rel="noopener noreferrer" className={`transition-colors duration-300 ${project.featured ? 'bg-accent-primary text-white px-4 py-2 rounded-lg hover:bg-accent-primary-dark inline-flex items-center gap-2' : 'text-accent-primary hover:text-accent-primary-dark dark:hover:text-accent-primary-light'}`}>
-                                            {project.featured ? 'View Live →' : 'View Project'}
-                                        </a>
-                                    )}
-                                    {project.github && (
-                                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-accent-primary hover:text-accent-primary-dark dark:hover:text-accent-primary-light transition-colors duration-300">
-                                            GitHub
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+function ProjectRow({ project, delay }) {
+  const [ref, visible] = useReveal();
+
+  return (
+    <div
+      ref={ref}
+      className={`reveal-item border-t border-wire${visible ? ' is-visible' : ''}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      <div className="group py-8 hover:px-4 px-0 transition-all duration-300">
+        <div className="flex items-start justify-between gap-6">
+          <div className="flex items-start gap-6 min-w-0">
+
+            {/* Number */}
+            <span className="text-haze text-xs tabular-nums mt-[3px] shrink-0 w-5 group-hover:text-ink transition-colors duration-300">
+              {project.num}
+            </span>
+
+            <div className="min-w-0 space-y-3">
+              {/* Title + subtitle */}
+              <div>
+                <span className="project-title-text text-xl text-ink">
+                  {project.title}
+                </span>
+                <span className="text-dim text-sm ml-3">{project.subtitle}</span>
+              </div>
+
+              {/* Description */}
+              <p className="text-dim text-sm leading-relaxed max-w-[60ch]">
+                {project.description}
+              </p>
+
+              {/* Tech tags */}
+              <div className="flex flex-wrap gap-2 pt-1">
+                {project.tech.map(t => (
+                  <span
+                    key={t}
+                    className="text-haze text-xs border border-wire/60 rounded-sm px-2 py-0.5"
+                  >
+                    {t}
+                  </span>
                 ))}
+              </div>
+
+              {/* Links */}
+              <div className="pt-1 flex gap-4">
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-dim text-xs hover:text-ink hover:underline underline-offset-4 transition-colors duration-200"
+                  >
+                    Live site →
+                  </a>
+                )}
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-dim text-xs hover:text-ink hover:underline underline-offset-4 transition-colors duration-200"
+                  >
+                    GitHub →
+                  </a>
+                )}
+              </div>
             </div>
+          </div>
+
+          {/* Arrow */}
+          {(project.link || project.github) && (
+            <svg
+              className="w-4 h-4 text-haze group-hover:text-ink transition-all duration-200 shrink-0 mt-1 group-hover:translate-x-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1.5}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+            </svg>
+          )}
         </div>
-    );
-};
+      </div>
+
+    </div>
+  );
+}
+
+function Projects() {
+  return (
+    <div className="max-w-6xl mx-auto px-6 lg:px-10 py-16">
+
+      {/* Page header */}
+      <div className="mb-16">
+        <p
+          className="text-haze text-xs font-semibold tracking-[0.18em] uppercase mb-4 animate-fade-up"
+          style={{ animationDelay: '0.05s' }}
+        >
+          Work
+        </p>
+        <div className="overflow-hidden">
+          <h1
+            className="text-[clamp(2.4rem,5vw,5rem)] leading-[0.94] font-extrabold text-ink animate-line-reveal"
+            style={{
+              fontVariationSettings: "'wdth' 84, 'wght' 800",
+              animationDelay: '0.15s',
+            }}
+          >
+            Selected Projects
+          </h1>
+        </div>
+        <p
+          className="text-dim text-base mt-5 max-w-[50ch] animate-fade-up"
+          style={{ animationDelay: '0.4s' }}
+        >
+          Things I have built — from AI pipelines to production e-commerce.
+        </p>
+      </div>
+
+      {/* Project roster */}
+      <div className="border-b border-wire">
+        {projects.map((project, i) => (
+          <ProjectRow key={project.num} project={project} delay={i * 60} />
+        ))}
+      </div>
+
+    </div>
+  );
+}
 
 export default Projects;

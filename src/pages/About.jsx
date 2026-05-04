@@ -1,502 +1,291 @@
-import { useState, useEffect } from 'react';
-import { FaCode, FaLaptopCode, FaPalette, FaServer, FaUserGraduate, FaBriefcase, FaRegLightbulb, FaDatabase, FaDocker, FaReact, FaNodeJs, FaSearchengin, FaJava, FaPython } from 'react-icons/fa';
-import { SiTailwindcss, SiFigma, SiMongodb, SiPostgresql, SiPostman, SiExpress } from 'react-icons/si';
-import Portrait from '../assets/fries.jpg';
+import useReveal from '../hooks/useReveal';
+
+const stats = [
+  { value: '2', suffix: '+',  label: 'Years building'      },
+  { value: '6',  suffix: '',  label: 'Products shipped'    },
+  { value: '100', suffix: '+', label: 'Countries automated' },
+];
+
+const currently = [
+  'Architecting a 7-agent AI orchestration system at SellAbroad',
+  'Open to founding-engineer roles at AI-native startups',
+  'Based in Delhi, working with global teams remotely',
+];
+
+const experience = [
+  {
+    title: 'Full Stack Software Engineer',
+    company: 'SellAbroad',
+    period: 'Nov 2025 – Present',
+    location: 'Remote',
+    description:
+      'Architected a 7-agent AI orchestration system that fully automates Shopify theme onboarding — covering live site analysis, DOM selector scouting, validation, code integration, and automated regression QA. Automated cross-border market expansion to 100+ countries with multi-currency pricing, geo-targeting logic, and a BNPL payment matrix — reducing per-merchant setup from hours to minutes. Built a persistent memory and state management layer for reliable multi-phase automation with automatic resume-on-failure.',
+    tech: 'Medusa · Next.js · TypeScript · Shopify APIs · PostgreSQL · Redis · BullMQ · Node.js',
+  },
+  {
+    title: 'Software Development Engineer',
+    company: 'COOX',
+    period: 'Apr 2025 – Oct 2025',
+    location: 'Hybrid',
+    description:
+      'Engineered and shipped production features across web and mobile in a cross-functional team. Identified and eliminated performance bottlenecks — reduced unnecessary re-renders and optimized API call patterns. Diagnosed and resolved production incidents using Sentry in a Scrum-based Agile workflow.',
+    tech: 'Next.js · React Native · TypeScript · Bootstrap · Sentry · Jira',
+  },
+];
+
+const principles = [
+  {
+    num: '01',
+    title: 'Ship beats perfect.',
+    desc: 'A v1 in production teaches more than a v3 in staging.',
+  },
+  {
+    num: '02',
+    title: 'Systems over heroics.',
+    desc: 'If it requires hero work to keep running, it needs a redesign.',
+  },
+  {
+    num: '03',
+    title: 'AI augments, never replaces.',
+    desc: 'The best AI products amplify human judgment, not bypass it.',
+  },
+  {
+    num: '04',
+    title: 'Speed reveals quality.',
+    desc: 'How fast you can iterate matters more than how clean the snapshot looks.',
+  },
+];
+
+const skills = [
+  { category: 'Frontend',        items: ['React.js', 'Next.js', 'React Native', 'TypeScript', 'Tailwind CSS'] },
+  { category: 'Backend',         items: ['Node.js', 'Express.js', 'Medusa', 'BullMQ', 'Prisma ORM', 'REST APIs'] },
+  { category: 'AI & Automation', items: ['Multi-Agent Orchestration', 'LLM Integration', 'RAG Systems', 'Vector Embeddings', 'Prompt Engineering'] },
+  { category: 'Databases',       items: ['PostgreSQL', 'MongoDB (Vector Search)', 'Redis'] },
+  { category: 'Tools',           items: ['Docker', 'Git', 'Sentry', 'Linear', 'Figma', 'Shopify Liquid'] },
+  { category: 'Languages',       items: ['JavaScript', 'TypeScript', 'SQL', 'Python'] },
+];
+
+function StatBlock({ value, suffix, label }) {
+  return (
+    <div>
+      <div
+        className="text-[clamp(2.4rem,4vw,3.4rem)] leading-none text-ink"
+        style={{ fontVariationSettings: "'wdth' 84, 'wght' 800" }}
+      >
+        {value}<span className="text-signal">{suffix}</span>
+      </div>
+      <div className="text-haze text-[10px] uppercase tracking-[0.18em] mt-3 font-semibold">
+        {label}
+      </div>
+    </div>
+  );
+}
+
+function ExperienceRow({ exp, delay }) {
+  const [ref, visible] = useReveal();
+  return (
+    <div
+      ref={ref}
+      className={`reveal-item grid lg:grid-cols-[180px_1fr] gap-4 lg:gap-10 group${visible ? ' is-visible' : ''}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      <div className="space-y-1 pt-0.5">
+        <p className="text-dim text-sm">{exp.period}</p>
+        <p className="text-haze text-xs">{exp.location}</p>
+      </div>
+      <div className="space-y-3 border-t border-wire pt-5 lg:border-0 lg:pt-0">
+        <div>
+          <h3 className="text-ink font-semibold text-lg">{exp.title}</h3>
+          <p className="text-ink text-sm mt-0.5 font-medium">
+            <span className="inline-block w-1 h-1 rounded-full bg-signal mr-2 mb-[3px] align-middle" aria-hidden="true" />
+            {exp.company}
+          </p>
+        </div>
+        <p className="text-dim text-sm leading-relaxed max-w-[65ch]">
+          {exp.description}
+        </p>
+        <p className="text-haze text-xs pt-3 border-t border-wire/50">
+          {exp.tech}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function PrincipleBlock({ p, delay }) {
+  const [ref, visible] = useReveal();
+  return (
+    <div
+      ref={ref}
+      className={`reveal-item group${visible ? ' is-visible' : ''}`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      <span className="text-haze text-xs tabular-nums tracking-widest group-hover:text-signal transition-colors duration-300">
+        {p.num}
+      </span>
+      <h3
+        className="text-ink text-xl mt-3 mb-2"
+        style={{ fontVariationSettings: "'wdth' 90, 'wght' 700" }}
+      >
+        {p.title}
+      </h3>
+      <p className="text-dim text-sm leading-relaxed max-w-[40ch]">
+        {p.desc}
+      </p>
+    </div>
+  );
+}
 
 function About() {
-  const [activeTab, setActiveTab] = useState('skills');
-  const [isVisible, setIsVisible] = useState({});
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible((prev) => ({ ...prev, [entry.target.id]: true }));
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const sections = document.querySelectorAll('.animate-section');
-    sections.forEach((section) => observer.observe(section));
-
-    return () => {
-      sections.forEach((section) => observer.unobserve(section));
-    };
-  }, []);
-
-  const skills = [
-    { name: 'Backend Development', level: 92, icon: <FaServer /> },
-    { name: 'Frontend Development', level: 90, icon: <FaLaptopCode /> },
-    { name: 'AI & Automation', level: 88, icon: <FaCode /> },
-    { name: 'Database Management', level: 88, icon: <FaDatabase /> },
-  ];
-
-  const techStacks = {
-    frontend: ['React.js', 'Next.js', 'React Native', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Bootstrap'],
-    backend: ['Node.js', 'Express.js', 'Medusa', 'BullMQ', 'Shopify APIs', 'Prisma ORM', 'REST API Design'],
-    database: ['PostgreSQL', 'MongoDB (Vector Search)', 'Redis', 'Prisma ORM'],
-    tools: ['Docker', 'Git', 'GitHub', 'Postman', 'Sentry', 'Jira', 'Linear', 'VS Code', 'Figma', 'Shopify Liquid'],
-    ai: ['LLM Integration (Gemini, OpenAI)', 'RAG Systems', 'Vector Embeddings', 'Multi-Agent Orchestration', 'Prompt Engineering'],
-    languages: ['JavaScript', 'TypeScript', 'SQL', 'Python (basic)', 'Java (basic)']
-  };
-
-  const strengths = [
-    { title: 'Fast Learner', description: 'Quick to pick up new technologies and adapt to changing requirements.', icon: <FaCode /> },
-    { title: 'Adaptable Across Stacks', description: 'Comfortable working with different technologies and frameworks, from frontend to backend.', icon: <FaRegLightbulb /> },
-    { title: 'Strong Problem Solver', description: 'Approaches challenges systematically, finding efficient and elegant solutions.', icon: <FaSearchengin /> },
-    { title: 'Systems Thinker', description: 'Understands how components fit together and how to build scalable architectures.', icon: <FaServer /> },
-    { title: 'Calm & Reliable Under Pressure', description: 'Maintains composure and delivers quality work even in challenging situations.', icon: <FaBriefcase /> },
-    { title: 'Ownership Mindset', description: 'Takes full responsibility for projects from conception to deployment and beyond.', icon: <FaLaptopCode /> }
-  ];
-
-
-  const experiences = [
-    {
-      title: 'Full Stack Software Engineer',
-      company: 'SellAbroad',
-      period: 'Nov 2025 – Present',
-      location: 'Remote',
-      description: 'Architected a 7-agent AI orchestration system that fully automates Shopify theme onboarding — covering live site analysis, DOM selector scouting, validation, code integration, and automated regression QA. Automated cross-border market expansion to 100+ countries with multi-currency pricing, geo-targeting logic, and a BNPL payment matrix — reducing per-merchant setup from hours to minutes. Built a persistent memory and state management layer for reliable multi-phase automation with automatic resume-on-failure.',
-      tech: 'Medusa · Next.js · TypeScript · Shopify APIs · PostgreSQL · Redis · BullMQ · Node.js'
-    },
-    {
-      title: 'Software Development Engineer',
-      company: 'COOX',
-      period: 'Apr 2025 – Oct 2025',
-      location: 'Hybrid',
-      description: 'Engineered and shipped production features across web and mobile using Next.js, React Native, and TypeScript in a cross-functional team. Identified and eliminated performance bottlenecks — reduced unnecessary re-renders and optimized API call patterns. Diagnosed and resolved production incidents using Sentry in a Scrum-based Agile workflow with sprint planning and delivery tracking via Jira.',
-      tech: 'Next.js · React Native · TypeScript · Bootstrap · Sentry · Jira'
-    }
-  ];
-
-  const education = [
-    {
-      degree: 'B.Tech in Information Technology',
-      school: 'IPEC (AKTU)',
-      period: '2024',
-      description: 'CGPA: 7.01/10'
-    }
-  ];
-
   return (
-    <div className="py-12">
-      <div 
-        id="hero-section" 
-        className={`animate-section mb-16 transition-opacity duration-1000 ${
-          isVisible['hero-section'] ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <div className="flex flex-col lg:flex-row items-stretch gap-8">
-          <div className="lg:w-3/5 lg:pr-8 mb-8 lg:mb-0">
-            <h1 className="text-4xl font-bold mb-4 font-playFair text-text-light dark:text-text-dark">
-              About <span className="text-accent-primary">Me</span>
-            </h1>
-            <p className="text-lg text-text-light dark:text-text-dark mb-6 font-lato">
-              Hi, I&#39;m <span className="font-semibold">Aman Kumar Verma</span> — a Full-Stack Software Engineer with 2+ years of experience building scalable web apps, AI-integrated platforms, and production automation systems. I specialize in <span className="font-semibold">multi-agent AI orchestration, RAG pipelines, and LLM integrations</span> — from AI-powered SaaS to cross-border e-commerce automation at scale.
-            </p>
-            <p className="text-lg text-text-light dark:text-text-dark mb-6 font-lato">
-              I&#39;m passionate about building AI-native systems that replace manual workflows with intelligent, autonomous pipelines. Whether it&#39;s architecting a 7-agent orchestration system, building RAG search infrastructure, or shipping cross-platform mobile apps — I approach every problem with the same mindset: learn fast, move with purpose, deliver with clarity.
-            </p>
-            <p className="text-lg text-text-light dark:text-text-dark mb-6 font-lato">
-              As Mark Zuckerberg said: &#34;Ideas don&#39;t come fully formed… no one does when they begin.&#34; That mindset drives everything I build — I start, adapt, and grow with every project.
-            </p>
-            <div className="bg-gradient-to-r from-accent-primary to-black dark:from-accent-primary dark:to-white p-0.5 rounded-lg">
-              <div className="bg-primary-light dark:bg-primary-dark p-5 rounded-lg">
-                <h3 className="text-xl font-semibold mb-3 text-text-light dark:text-text-dark">Personal Details</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3">
-                  <div className="font-lato">
-                    <span className="font-semibold text-gray-700 dark:text-gray-300">Name:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">Aman Kumar Verma</span>
-                  </div>
-                  <div className="font-lato">
-                    <span className="font-semibold text-gray-700 dark:text-gray-300">Email:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">akverma11aug2002@gmail.com</span>
-                  </div>
-                  <div className="font-lato">
-                    <span className="font-semibold text-gray-700 dark:text-gray-300">Location:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">Delhi, India</span>
-                  </div>
-                  <div className="font-lato">
-                    <span className="font-semibold text-gray-700 dark:text-gray-300">Education:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">B.Tech (IT)</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="lg:w-2/5 relative flex justify-center items-center lg:pl-4">
-            <div className="w-full max-w-sm lg:max-w-md relative">
-              <div className="relative z-10 rounded-xl shadow-lg overflow-hidden group cursor-pointer">
-                <div className="relative overflow-hidden rounded-xl aspect-[3/4]">
-                  <img 
-                    src={Portrait} 
-                    alt="Aman Kumar Verma - Full-Stack Developer" 
-                    className="w-full h-full object-cover rounded-xl transition-all duration-500 ease-out group-hover:scale-105 grayscale group-hover:grayscale-0"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="max-w-6xl mx-auto px-6 lg:px-10 py-16 space-y-28">
 
-      <div
-        id="quote-section"
-        className={`animate-section mb-16 transition-opacity duration-1000 ${
-          isVisible['quote-section'] ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <div className="bg-gradient-to-r from-blue-50/50 to-gray-100/50 dark:from-gray-800/50 dark:to-gray-900/50 border border-gray-200/50 dark:border-indigo-500/30 p-8 rounded-lg text-center backdrop-blur-sm">
-          <blockquote className="text-xl italic font-semibold text-gray-700 dark:text-gray-300">
-            &#34;Ideas don&#39;t come fully formed… no one does when they begin.&#34;
-            <footer className="text-sm mt-2 text-gray-500 dark:text-gray-400">— Mark Zuckerberg</footer>
-          </blockquote>
+      {/* ── Identity ──────────────────────────────────────────── */}
+      <section className="space-y-10 max-w-4xl">
+        <div className="flex items-center gap-3 animate-fade-up" style={{ animationDelay: '0.05s' }}>
+          <span className="status-dot" aria-hidden="true" />
+          <p className="text-haze text-xs font-semibold tracking-[0.18em] uppercase">
+            Available for new projects
+          </p>
         </div>
-      </div>
 
-      <div
-        id="strengths-section"
-        className={`animate-section mb-16 transition-opacity duration-1000 ${
-          isVisible['strengths-section'] ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <h2 className="text-2xl font-bold mb-6 text-center font-playFair dark:text-white">
-          Personal <span className="text-blue-600">Strengths</span>
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {strengths.map((strength, index) => (
-            <div
-              key={index}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-indigo-500/30 overflow-hidden transition-all duration-300 hover:shadow-md hover:border-gray-200 dark:hover:border-indigo-500/50 hover:-translate-y-0.5"
+        <div className="-mt-2">
+          <div className="overflow-hidden pb-1">
+            <h1
+              className="text-[clamp(3rem,7vw,6rem)] leading-[0.94] text-ink animate-line-reveal"
+              style={{
+                fontVariationSettings: "'wdth' 84, 'wght' 800",
+                animationDelay: '0.2s',
+              }}
             >
-              <div className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="text-2xl text-blue-500 mr-3">
-                    {strength.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold dark:text-white">{strength.title}</h3>
-                </div>
-                <p className="text-gray-700 dark:text-gray-300">{strength.description}</p>
-              </div>
+              Aman Kumar
+            </h1>
+          </div>
+          <div className="overflow-hidden pb-1">
+            <h1
+              className="text-[clamp(3rem,7vw,6rem)] leading-[0.94] text-ink animate-line-reveal"
+              style={{
+                fontVariationSettings: "'wdth' 84, 'wght' 800",
+                animationDelay: '0.32s',
+              }}
+            >
+              Verma<span className="text-signal">.</span>
+            </h1>
+          </div>
+        </div>
+
+        <div className="space-y-5 animate-fade-up" style={{ animationDelay: '0.65s' }}>
+          <p className="text-dim text-base leading-relaxed max-w-[60ch]">
+            Full-Stack Software Engineer with 2+ years building scalable web
+            applications, AI-integrated platforms, and production automation
+            systems. I specialize in multi-agent AI orchestration, RAG pipelines,
+            and LLM integrations — from AI-powered SaaS to cross-border e-commerce
+            automation at scale.
+          </p>
+          <p className="text-dim text-base leading-relaxed max-w-[60ch]">
+            Learn fast. Move with purpose. Deliver with clarity.
+          </p>
+        </div>
+      </section>
+
+      {/* ── Stats ─────────────────────────────────────────────── */}
+      <section className="grid grid-cols-3 gap-6 sm:gap-12 max-w-3xl border-t border-wire pt-12">
+        {stats.map(s => (
+          <StatBlock key={s.label} {...s} />
+        ))}
+      </section>
+
+      {/* ── Currently ─────────────────────────────────────────── */}
+      <section>
+        <div className="flex items-center gap-3 mb-10">
+          <span className="status-dot" aria-hidden="true" />
+          <h2 className="text-haze text-xs font-semibold tracking-[0.18em] uppercase">
+            Currently
+          </h2>
+        </div>
+        <ul className="space-y-4">
+          {currently.map((line, i) => (
+            <li key={i} className="text-ink text-lg leading-relaxed max-w-[60ch] flex items-baseline gap-4">
+              <span className="text-haze text-xs tabular-nums shrink-0">{String(i + 1).padStart(2, '0')}</span>
+              <span>{line}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* ── Experience ────────────────────────────────────────── */}
+      <section>
+        <h2 className="text-haze text-xs font-semibold tracking-[0.18em] uppercase mb-10">
+          Experience
+        </h2>
+        <div className="space-y-12">
+          {experience.map((exp, i) => (
+            <ExperienceRow key={i} exp={exp} delay={i * 80} />
+          ))}
+        </div>
+      </section>
+
+      {/* ── Principles ────────────────────────────────────────── */}
+      <section>
+        <h2 className="text-haze text-xs font-semibold tracking-[0.18em] uppercase mb-10">
+          Principles
+        </h2>
+        <div className="grid md:grid-cols-2 gap-x-12 gap-y-12 max-w-4xl">
+          {principles.map((p, i) => (
+            <PrincipleBlock key={p.num} p={p} delay={i * 60} />
+          ))}
+        </div>
+      </section>
+
+      {/* ── Skills ────────────────────────────────────────────── */}
+      <section>
+        <h2 className="text-haze text-xs font-semibold tracking-[0.18em] uppercase mb-10">
+          Skills
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-10">
+          {skills.map(({ category, items }) => (
+            <div key={category}>
+              <h3 className="text-ink text-sm font-semibold mb-3">{category}</h3>
+              <ul className="space-y-1.5">
+                {items.map(item => (
+                  <li key={item} className="text-dim text-sm hover:text-ink transition-colors duration-200 cursor-default">
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
-      </div>
+      </section>
 
-      <div className="mb-10">
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-          <button
-            onClick={() => setActiveTab('skills')}
-            className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-              activeTab === 'skills'
-                ? 'shiny-button'
-                : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-            }`}
-          >
-            Skills
-          </button>
-          <button
-            onClick={() => setActiveTab('experience')}
-            className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-              activeTab === 'experience'
-                ? 'shiny-button'
-                : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-            }`}
-          >
-            Experience
-          </button>
-          <button
-            onClick={() => setActiveTab('education')}
-            className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-              activeTab === 'education'
-                ? 'shiny-button'
-                : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-            }`}
-          >
-            Education
-          </button>
-        </div>
-
-        <div 
-          id="skills-section"
-          className={`animate-section transition-all duration-500 ${
-            activeTab === 'skills' ? 'opacity-100 block' : 'opacity-0 hidden'
-          }`}
-        >
-          <h2 className="text-2xl font-bold mb-8 text-center font-playFair dark:text-white">
-            Technical <span className="text-blue-600">Skillset</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {skills.map((skill, index) => (
-              <div 
-                key={index} 
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-indigo-500/30 overflow-hidden transition-all duration-300 hover:shadow-md hover:border-gray-200 dark:hover:border-indigo-500/50 hover:-translate-y-0.5"
-              >
-                <div className="p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="text-2xl text-blue-500 mr-3">
-                      {skill.icon}
-                    </div>
-                    <h3 className="text-xl font-semibold dark:text-white">{skill.name}</h3>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mb-2">
-                    <div 
-                      className="bg-gradient-to-r from-blue-500 to-teal-400 h-2.5 rounded-full transition-all duration-1000 ease-out"
-                      style={{ width: `${skill.level}%` }}
-                    ></div>
-                  </div>
-                  <div className="text-right text-sm text-gray-600 dark:text-gray-400">
-                    {skill.level}%
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 space-y-6">
-            <div className="bg-gradient-to-r from-blue-50/50 to-gray-100/50 dark:from-gray-800/50 dark:to-gray-900/50 border border-gray-200/50 dark:border-indigo-500/30 p-6 rounded-lg backdrop-blur-sm">
-              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center">
-                <FaReact className="mr-2 text-blue-500" /> Frontend
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {techStacks.frontend.map((tech, index) => {
-                  let icon;
-                  if (tech.includes('React')) icon = <FaReact className="mr-1" />;
-                  else if (tech.includes('Tailwind')) icon = <SiTailwindcss className="mr-1" />;
-                  else icon = <FaLaptopCode className="mr-1" />;
-                  
-                  return (
-                    <span 
-                      key={index} 
-                      className="bg-white dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm flex items-center"
-                    >
-                      {icon} {tech}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-            
-            <div className="bg-gradient-to-r from-blue-50/50 to-gray-100/50 dark:from-gray-800/50 dark:to-gray-900/50 border border-gray-200/50 dark:border-indigo-500/30 p-6 rounded-lg backdrop-blur-sm">
-              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center">
-                <FaServer className="mr-2 text-blue-500" /> Backend
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {techStacks.backend.map((tech, index) => {
-                  let icon;
-                  if (tech.includes('Node')) icon = <FaNodeJs className="mr-1" />;
-                  else if (tech.includes('Express')) icon = <SiExpress className="mr-1" />;
-                  else icon = <FaCode className="mr-1" />;
-                  
-                  return (
-                    <span 
-                      key={index} 
-                      className="bg-white dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm flex items-center"
-                    >
-                      {icon} {tech}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-            
-            <div className="bg-gradient-to-r from-blue-50/50 to-gray-100/50 dark:from-gray-800/50 dark:to-gray-900/50 border border-gray-200/50 dark:border-indigo-500/30 p-6 rounded-lg backdrop-blur-sm">
-              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center">
-                <FaCode className="mr-2 text-blue-500" /> AI & Automation
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {techStacks.ai.map((tech, index) => (
-                  <span
-                    key={index}
-                    className="bg-white dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm flex items-center"
-                  >
-                    <FaCode className="mr-1" /> {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-blue-50/50 to-gray-100/50 dark:from-gray-800/50 dark:to-gray-900/50 border border-gray-200/50 dark:border-indigo-500/30 p-6 rounded-lg backdrop-blur-sm">
-              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center">
-                <FaDatabase className="mr-2 text-blue-500" /> Databases
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {techStacks.database.map((tech, index) => {
-                  let icon;
-                  if (tech.includes('Mongo')) icon = <SiMongodb className="mr-1" />;
-                  else if (tech.includes('Postgres')) icon = <SiPostgresql className="mr-1" />;
-                  else icon = <FaDatabase className="mr-1" />;
-                  
-                  return (
-                    <span 
-                      key={index} 
-                      className="bg-white dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm flex items-center"
-                    >
-                      {icon} {tech}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-            
-            <div className="bg-gradient-to-r from-blue-50/50 to-gray-100/50 dark:from-gray-800/50 dark:to-gray-900/50 border border-gray-200/50 dark:border-indigo-500/30 p-6 rounded-lg backdrop-blur-sm">
-              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center">
-                <FaCode className="mr-2 text-blue-500" /> Tools & DevOps
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {techStacks.tools.map((tech, index) => {
-                  let icon;
-                  if (tech.includes('Docker')) icon = <FaDocker className="mr-1" />;
-                  else if (tech.includes('Postman')) icon = <SiPostman className="mr-1" />;
-                  else if (tech.includes('Figma')) icon = <SiFigma className="mr-1" />;
-                  else if (tech.includes('Git')) icon = <FaCode className="mr-1" />;
-                  else icon = <FaCode className="mr-1" />;
-                  
-                  return (
-                    <span 
-                      key={index} 
-                      className="bg-white dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm flex items-center"
-                    >
-                      {icon} {tech}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-            
-            <div className="bg-gradient-to-r from-blue-50/50 to-gray-100/50 dark:from-gray-800/50 dark:to-gray-900/50 border border-gray-200/50 dark:border-indigo-500/30 p-6 rounded-lg backdrop-blur-sm">
-              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center">
-                <FaCode className="mr-2 text-blue-500" /> Languages
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {techStacks.languages.map((tech, index) => {
-                  let icon;
-                  if (tech.includes('Python')) icon = <FaPython className="mr-1" />;
-                  else if (tech.includes('Java')) icon = <FaJava className="mr-1" />;
-                  else icon = <FaCode className="mr-1" />;
-                  
-                  return (
-                    <span 
-                      key={index} 
-                      className="bg-white dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm flex items-center"
-                    >
-                      {icon} {tech}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div 
-          id="experience-section"
-          className={`animate-section transition-all duration-500 ${
-            activeTab === 'experience' ? 'opacity-100 block' : 'opacity-0 hidden'
-          }`}
-        >
-          <h2 className="text-2xl font-bold mb-8 text-center font-playFair dark:text-white">
-            <span className="text-blue-600">Experience</span>
-          </h2>
-          <div className="relative border-l-2 border-accent-primary pl-8 ml-4">
-            {experiences.map((exp, index) => (
-              <div 
-                key={index} 
-                className="mb-10 relative"
-              >
-                <div className="absolute -left-10 w-6 h-6 bg-accent-primary rounded-full flex items-center justify-center ring-2 ring-accent-primary/20 dark:ring-accent-primary/30">
-                  <div className="w-3 h-3 bg-white dark:bg-gray-800 rounded-full"></div>
-                </div>
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-indigo-500/30 p-6 transition-all duration-300 hover:shadow-md hover:border-gray-200 dark:hover:border-indigo-500/50">
-                  <div className="flex flex-wrap justify-between items-center mb-2">
-                    <h3 className="text-xl font-semibold text-text-light dark:text-text-dark">{exp.title}</h3>
-                    <span className="text-sm font-medium bg-accent-primary/10 text-accent-primary dark:bg-accent-primary/20 dark:text-accent-primary py-1 px-3 rounded-full">{exp.period}</span>
-                  </div>
-                  <div className="text-gray-600 dark:text-gray-400 font-medium mb-1">{exp.company}</div>
-                  {exp.location && <div className="text-gray-500 dark:text-gray-500 text-sm mb-3">{exp.location}</div>}
-                  <p className="text-gray-700 dark:text-gray-300">{exp.description}</p>
-                  {exp.tech && <p className="text-xs text-gray-500 dark:text-gray-500 mt-3 font-mono border-t border-gray-100 dark:border-gray-700 pt-3">{exp.tech}</p>}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div 
-          id="education-section"
-          className={`animate-section transition-all duration-500 ${
-            activeTab === 'education' ? 'opacity-100 block' : 'opacity-0 hidden'
-          }`}
-        >
-          <h2 className="text-2xl font-bold mb-8 text-center font-playFair dark:text-white">
-            <span className="text-blue-600">Education</span> & Qualifications
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {education.map((edu, index) => (
-              <div 
-                key={index} 
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-md hover:border-gray-200 dark:hover:border-gray-600"
-              >
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xl font-semibold dark:text-white">{edu.degree}</h3>
-                    <FaUserGraduate className="text-accent-primary text-2xl" />
-                  </div>
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-gray-600 dark:text-gray-400 font-medium">{edu.school}</span>
-                    <span className="text-sm bg-accent-primary/10 text-accent-primary dark:bg-accent-primary/20 dark:text-accent-primary px-3 py-1 rounded-full font-medium">{edu.period}</span>
-                  </div>
-                  <p className="text-gray-700 dark:text-gray-300">{edu.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div 
-        id="vision-section" 
-        className={`animate-section mt-16 transition-opacity duration-1000 ${
-          isVisible['vision-section'] ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <h2 className="text-2xl font-bold mb-8 text-center font-playFair dark:text-white">
-          Vision & <span className="text-blue-600">Philosophy</span>
+      {/* ── Education ─────────────────────────────────────────── */}
+      <section className="border-t border-wire pt-14">
+        <h2 className="text-haze text-xs font-semibold tracking-[0.18em] uppercase mb-8">
+          Education
         </h2>
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-          <p className="text-gray-700 dark:text-gray-300 mb-6 text-center">
-            I build systems that feel fast, intuitive, and clean. I believe great developers aren&#39;t the ones who know everything — they&#39;re the ones who can learn anything. I thrive in fast-moving teams, love solving real problems, and push myself with every project. I build, iterate, and learn — always ready for what&#39;s next.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 mt-8">
-            <a 
-              href="https://github.com/AmanKumarVerma11" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="shiny-button flex items-center gap-2"
-            >
-              <FaCode /> View GitHub
-            </a>
-            <a 
-              href="https://www.linkedin.com/in/aman-kr-verma11/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="shiny-button flex items-center gap-2"
-            >
-              <FaBriefcase /> Let&#39;s Connect
-            </a>
-            <a 
-              href="mailto:akverma11aug2002@gmail.com" 
-              className="shiny-button flex items-center gap-2"
-            >
-              <FaRegLightbulb /> Contact Me
-            </a>
+        <div className="grid lg:grid-cols-[180px_1fr] gap-4 lg:gap-10">
+          <p className="text-dim text-sm pt-0.5">2020 – 2024</p>
+          <div className="border-t border-wire pt-5 lg:border-0 lg:pt-0">
+            <h3 className="text-ink font-semibold">B.Tech in Information Technology</h3>
+            <p className="text-dim text-sm mt-1">IPEC (AKTU) · CGPA 7.01 / 10</p>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* ── Contact CTA at end ────────────────────────────────── */}
+      <section className="border-t border-wire pt-14">
+        <p className="text-haze text-xs font-semibold tracking-[0.18em] uppercase mb-3">
+          Want to work together?
+        </p>
+        <a
+          href="mailto:akverma11aug2002@gmail.com"
+          className="text-ink text-2xl link-grow hover:text-dim transition-colors duration-200"
+          style={{ fontVariationSettings: "'wdth' 90, 'wght' 700" }}
+        >
+          akverma11aug2002@gmail.com →
+        </a>
+      </section>
+
     </div>
   );
 }

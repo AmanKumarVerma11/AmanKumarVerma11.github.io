@@ -1,138 +1,113 @@
-// filepath: /C:/Users/akver/Desktop/amanPortfolio/src/Components/Header.jsx
-import { useState, useEffect } from 'react';
-import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import ThemeSwitcher from './ThemeSwitcher';
 
-function Header({ onModeToggle, isTechieMode }) {
+const navItems = [
+  { to: '/',        label: 'Home'     },
+  { to: '/about',   label: 'About'    },
+  { to: '/projects', label: 'Projects' },
+  { to: '/contact', label: 'Contact'  },
+];
+
+function Header() {
   const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check localStorage first
-    const savedMode = localStorage.getItem('darkMode');
-    if (savedMode !== null) {
-      return savedMode === 'true';
-    }
-    // Default to light mode
-    return false;
-  });
+  const [menuOpen, setMenuOpen] = useState(false);
   const resumeLink = import.meta.env.VITE_RESUME_LINK;
 
-  // Apply dark mode on initial render and when it changes
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    // Save preference to localStorage
-    localStorage.setItem('darkMode', isDarkMode);
-  }, [isDarkMode]);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
-  const menuItems = [
-    { href: "/", text: "Home" },
-    { href: "/about", text: "About" },
-    { href: "/projects", text: "Projects" },
-    { href: "/contact", text: "Contact" },
-  ];
-
   return (
-    <div className="sticky top-0 z-50 w-full font-playFair transition-all duration-300">
-      {/* Glassmorphism background - different for light and dark modes */}
-      <div className="absolute inset-0 bg-white/70 dark:bg-[#09090b]/80 backdrop-blur-md transition-all duration-300"></div>
-      
-      <div className="relative max-w-[1300px] mx-auto">
-        {/* Navbar Container */}
-        <div className="w-full px-4 sm:px-6 lg:px-8">
-          {/* Actual Navbar - with interactive border effects */}
-          <div className="relative flex items-center justify-between h-[75px] lg:h-[85px] z-50">
-            <div className='flex items-center justify-center gap-3 lg:gap-5'>
-              <Link to="/">
-                <h1 className="font-bold text-text-light dark:text-text-dark text-2xl lg:text-3xl">
-                  Aman<span className='text-accent-primary hover:text-accent-primary-dark dark:hover:text-accent-primary-light font-cursive'>.tech</span>
-                </h1>
+    <header className="sticky top-0 z-50 border-b border-wire bg-canvas/90 backdrop-blur-md">
+      <div className="max-w-6xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+
+        <Link
+          to="/"
+          className="text-ink font-bold text-base tracking-tight transition-colors duration-200"
+          style={{ fontVariationSettings: "'wght' 700" }}
+        >
+          Aman<span className="text-signal">.</span>
+        </Link>
+
+        {/* Desktop nav */}
+        <nav className="hidden lg:flex items-center gap-8">
+          {navItems.map(({ to, label }) => {
+            const active = location.pathname === to;
+            return (
+              <Link
+                key={to}
+                to={to}
+                className={`relative text-sm transition-colors duration-200 ${
+                  active ? 'text-ink' : 'text-dim hover:text-ink'
+                }`}
+              >
+                {label}
+                {active && (
+                  <span
+                    className="absolute -top-1 -right-2 w-1 h-1 rounded-full bg-signal"
+                    aria-hidden="true"
+                  />
+                )}
               </Link>
-              {location.pathname !== '/' && (
-                <a href={resumeLink} target="_blank" rel="noopener noreferrer">
-                  <button type="button" className='shiny-button font-lato font-semibold px-2 py-1 lg:text-sm lg:px-3 border-2 border-accent-primary bg-accent-primary/10 dark:bg-accent-primary/20 shadow-lg shadow-accent-primary/30 hover:shadow-xl hover:shadow-accent-primary/50 transition-all duration-300'>
-                    Resume
-                  </button>
-                </a>
-              )}
-            </div>
-            
-            <nav className="hidden lg:flex justify-between items-center font-lato gap-6 text-lg text-gray-600 dark:text-gray-300">
-              {menuItems.map((item, index) => (
-                <Link 
-                  key={index} 
-                  to={item.href} 
-                  className="relative hover:text-accent-primary dark:hover:text-accent-primary active:text-accent-primary-dark dark:active:text-accent-primary-light before:absolute before:bottom-[-4px] before:left-0 before:w-0 before:h-[1.5px] before:bg-accent-primary dark:before:bg-accent-primary before:transition-all before:duration-300 before:ease-in-out hover:before:w-full"
-                >
-                  {item.text}
-                </Link>
-              ))}
-            </nav>
+            );
+          })}
+          {resumeLink && (
+            <a
+              href={resumeLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-dim border border-wire rounded px-3 py-1.5 hover:text-ink hover:border-dim transition-all duration-200"
+            >
+              Resume
+            </a>
+          )}
+        </nav>
 
-            <div className='flex items-center gap-4'>
-              <div className='hidden lg:block'>
-                <ThemeSwitcher isTechieMode={isTechieMode} onModeToggle={onModeToggle} />
-              </div>
-              
-              <button 
-                onClick={toggleDarkMode} 
-                className='text-xl transition-transform duration-300 hover:scale-110 hover:text-accent-primary dark:hover:text-accent-primary'
-                aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-              >
-                {isDarkMode ? <FaSun className="text-accent-primary" /> : <FaMoon className="text-text-light dark:text-text-dark" />}
-              </button>
-              
-              <button 
-                className='lg:hidden z-50 text-xl hover:text-accent-primary dark:hover:text-accent-primary active:text-accent-primary-dark dark:active:text-accent-primary-light transition-colors duration-200' 
-                onClick={toggleMenu} 
-                aria-label="Toggle menu"
-              >
-                {isMenuOpen ? <FaTimes className="text-white" /> : <FaBars className="text-text-light dark:text-text-dark" />}
-              </button>
-            </div>
-          </div>
-        </div>
+        {/* Mobile hamburger */}
+        <button
+          className="lg:hidden text-dim hover:text-ink transition-colors p-1"
+          onClick={() => setMenuOpen(v => !v)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+        >
+          {menuOpen ? (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" clipRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" />
+            </svg>
+          ) : (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" clipRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" />
+            </svg>
+          )}
+        </button>
       </div>
-      
-      {/* Line under navigation - full width */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gray-200 dark:bg-indigo-500/30"></div>
 
-      {/* Mobile Menu with Glassmorphism - also enhanced with interactive effects */}
-      <nav className={`fixed top-0 right-0 bottom-0 flex flex-col justify-center bg-gradient-to-b from-accent-primary/90 to-black/90 dark:from-accent-primary/80 dark:to-white/80 backdrop-blur-md w-64 p-6 text-white dark:text-black border-l border-white/20 hover:border-white/50 dark:hover:border-white/40 transition-all duration-300 ease-in-out z-40 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        {menuItems.map((item, index) => (
-          <Link 
-            key={index} 
-            to={item.href} 
-            className="py-2 text-lg font-lato transition-colors duration-200 relative hover:text-white dark:hover:text-black active:text-white dark:active:text-black before:absolute before:bottom-[-4px] before:left-0 before:w-0 before:h-[1.5px] before:bg-white dark:before:bg-black before:transition-all before:duration-300 before:ease-in-out hover:before:w-full active:before:bg-white dark:active:before:bg-black" 
-            onClick={toggleMenu}
-          >
-            {item.text}
-          </Link>
-        ))}
-        <div className="mt-4 pt-4 border-t border-white/20 dark:border-black/20">
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-sm font-medium text-white dark:text-black mb-1">
-              {isTechieMode ? '> Terminal_' : '✨ Classic'}
-            </span>
-            <div onClick={toggleMenu}>
-              <ThemeSwitcher isTechieMode={isTechieMode} onModeToggle={onModeToggle} />
-            </div>
-          </div>
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="lg:hidden border-t border-wire bg-surface px-6 py-5 space-y-1">
+          {navItems.map(({ to, label }) => (
+            <Link
+              key={to}
+              to={to}
+              onClick={() => setMenuOpen(false)}
+              className={`block py-2 text-sm transition-colors duration-200 ${
+                location.pathname === to
+                  ? 'text-ink'
+                  : 'text-dim hover:text-ink'
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+          {resumeLink && (
+            <a
+              href={resumeLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block pt-3 text-sm text-dim hover:text-ink transition-colors duration-200"
+            >
+              Resume →
+            </a>
+          )}
         </div>
-      </nav>
-    </div>
+      )}
+    </header>
   );
 }
 

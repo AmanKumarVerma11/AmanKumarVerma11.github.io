@@ -1,65 +1,174 @@
-import { useState, useEffect } from 'react';
-import { FaArrowRight } from "react-icons/fa";
-import Hero from "../assets/Hero.png";
-import Triangles from "../assets/triangles.png";
-import Waves from "../assets/Waves.png";
-import Circles from "../assets/circles.png";
+import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import useMagnetic from '../hooks/useMagnetic';
+
+const selectedWork = [
+  {
+    num: '01',
+    title: 'EasySheets AI',
+    desc: 'AI-Powered EdTech Platform',
+    link: 'https://easysheets-ai.com/',
+  },
+  {
+    num: '02',
+    title: 'Intrafy',
+    desc: 'AI-Native Automation Consultancy',
+    link: 'https://intrafy.io/',
+  },
+  {
+    num: '03',
+    title: 'Traxsis',
+    desc: 'AI-Powered Business Consulting Platform',
+    link: 'https://traxsis.com/',
+  },
+];
 
 function Home() {
-  
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-  const resumeLink = import.meta.env.VITE_RESUME_LINK;
+  const heroRef = useRef(null);
+  const ctaRef = useMagnetic(0.18);
 
   useEffect(() => {
-    const words = ["AI Systems Builder.", "Problem Solver.", "System Architect.", "Fast Learner."];
-    const currentWord = words[currentWordIndex];
-    const typingSpeed = isDeleting ? 50 : 100;
+    const el = heroRef.current;
+    if (!el) return;
+    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
 
-    const typingEffect = setTimeout(() => {
-      if (!isDeleting) {
-        setDisplayedText(currentWord.slice(0, displayedText.length + 1));
-        if (displayedText.length === currentWord.length) {
-          setTimeout(() => setIsDeleting(true), 1000);
-        }
-      } else {
-        setDisplayedText(currentWord.slice(0, displayedText.length - 1));
-        if (displayedText === "") {
-          setIsDeleting(false);
-          setCurrentWordIndex((prev) => (prev + 1) % words.length);
-        }
-      }
-    }, typingSpeed);
+    const onMove = e => {
+      const rect = el.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      el.style.setProperty('--mx', `${x}%`);
+      el.style.setProperty('--my', `${y}%`);
+    };
 
-    return () => clearTimeout(typingEffect);
-  }, [displayedText, isDeleting, currentWordIndex]);
+    el.addEventListener('mousemove', onMove);
+    return () => el.removeEventListener('mousemove', onMove);
+  }, []);
 
   return (
-    <div className="container mx-auto px-4 py-16 lg:py-20 relative overflow-hidden">
-      <div className="flex flex-col lg:flex-row items-center justify-center lg:space-x-16 space-y-16 lg:space-y-0">
-        <div className="lg:w-1/2 flex justify-center lg:order-last relative">
-          <img src={Hero} alt="profile" className="w-60 h-60 lg:w-80 lg:h-80 object-cover z-10" />
-          <img src={Triangles} alt="triangles" className="absolute bottom-14 -right-10 lg:right-14 w-10 h-10 -translate-x-1/2 -translate-y-1/2 animate-float" />
-          <img src={Waves} alt="waves" className="absolute top-0 -left-9 lg:left-16 w-10 h-10 translate-x-10 translate-y-1/4 animate-float" />
-          <img src={Circles} alt="circles" className="absolute top-5 right-0 lg:right-28 w-8 h-8 -translate-x-1/2 -translate-y-1/2 animate-float" />
-        </div>
-        <div className="lg:w-1/2 flex flex-col items-center lg:items-start space-y-6">
-          <h1 className="text-3xl text-center lg:text-left font-bold font-playFair md:text-4xl lg:text-5xl text-text-light dark:text-text-dark">
-            I am a <span className="font-cursive text-accent-primary">Full Stack Software Engineer</span> and
-            <span className="font-lato block"> {displayedText}
-              <span className='text-accent-primary font-extrabold'>|</span>
-            </span>
-          </h1>
-          <p className="text-center lg:text-left font-lato text-gray-700 dark:text-gray-300 italic lg:text-xl">
-            Building AI-native systems, multi-agent pipelines, and scalable web applications.
+    <div className="max-w-6xl mx-auto px-6 lg:px-10">
+
+      {/* ── Hero ─────────────────────────────────────────────── */}
+      <section
+        ref={heroRef}
+        className="spotlight min-h-[calc(100svh-4rem)] flex items-center py-16"
+      >
+        <div className="w-full max-w-5xl space-y-10">
+
+          <div className="flex items-center gap-3 animate-fade-up" style={{ animationDelay: '0.05s' }}>
+            <span className="status-dot" aria-hidden="true" />
+            <p className="text-haze text-xs font-semibold tracking-[0.18em] uppercase">
+              Full Stack Engineer &amp; AI Systems Builder
+            </p>
+          </div>
+
+          {/* Name — each line reveals upward from a mask */}
+          <div className="space-y-0 -mt-2">
+            <div className="overflow-hidden pb-1">
+              <div
+                className="text-[clamp(3.6rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
+                style={{
+                  fontVariationSettings: "'wdth' 84, 'wght' 800",
+                  animationDelay: '0.2s',
+                }}
+              >
+                Aman Kumar
+              </div>
+            </div>
+            <div className="overflow-hidden pb-1">
+              <div
+                className="text-[clamp(3.6rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
+                style={{
+                  fontVariationSettings: "'wdth' 84, 'wght' 800",
+                  animationDelay: '0.35s',
+                }}
+              >
+                Verma<span className="text-signal">.</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bio */}
+          <p
+            className="text-dim text-lg leading-relaxed max-w-[50ch] animate-fade-up"
+            style={{ animationDelay: '0.7s' }}
+          >
+            I build AI-native systems, multi-agent pipelines, and full-stack
+            products — from zero to shipped.
           </p>
-          <a href={resumeLink} target='_blank' className="inline-flex items-center justify-center gap-2 text-sm font-mono px-4 py-2 rounded-full border border-text-light dark:border-text-dark hover:border-2 hover:border-accent-primary hover:text-accent-primary lg:text-base transition duration-300">
-            <button type="button" className="hover:italic">Resume</button>
-            <FaArrowRight />
-          </a>
+
+          {/* CTAs */}
+          <div
+            className="flex items-center gap-6 animate-fade-up"
+            style={{ animationDelay: '0.85s' }}
+          >
+            <Link
+              ref={ctaRef}
+              to="/projects"
+              className="btn-fill magnetic text-sm font-medium text-ink border border-wire rounded-sm px-5 py-2.5"
+            >
+              View work
+            </Link>
+            <Link
+              to="/contact"
+              className="text-sm text-dim hover:text-ink transition-colors duration-200 link-grow"
+            >
+              Get in touch →
+            </Link>
+          </div>
+
         </div>
-      </div>
+      </section>
+
+      {/* ── Selected work ────────────────────────────────────── */}
+      <section className="border-t border-wire pt-14 pb-24">
+        <div className="flex items-baseline justify-between mb-10">
+          <h2 className="text-haze text-xs font-semibold tracking-[0.18em] uppercase">
+            Selected Work
+          </h2>
+          <Link
+            to="/projects"
+            className="text-dim text-xs hover:text-ink transition-colors duration-200 link-grow"
+          >
+            All projects →
+          </Link>
+        </div>
+
+        <div className="divide-y divide-wire">
+          {selectedWork.map(({ num, title, desc, link }) => (
+            <a
+              key={num}
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center justify-between py-5 px-0 hover:px-3 transition-all duration-300"
+            >
+              <div className="flex items-baseline gap-5 min-w-0">
+                <span className="text-haze text-xs tabular-nums shrink-0 group-hover:text-ink transition-colors duration-300">
+                  {num}
+                </span>
+                <div className="min-w-0">
+                  <span className="project-title-text text-lg text-ink">
+                    {title}
+                  </span>
+                  <span className="text-dim text-sm ml-4 hidden sm:inline truncate">
+                    {desc}
+                  </span>
+                </div>
+              </div>
+              <svg
+                className="w-4 h-4 text-haze group-hover:text-ink transition-all duration-200 shrink-0 ml-4 group-hover:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.5}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+            </a>
+          ))}
+        </div>
+      </section>
+
     </div>
   );
 }
