@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import useMagnetic from '../hooks/useMagnetic';
+import Iceberg from '../Components/sketches/Iceberg';
 
 const selectedWork = [
   {
@@ -222,6 +223,11 @@ function Home() {
           ))}
         </div>
       </section>
+
+      {/* ── Easter egg: hand-drawn iceberg ─────────────────────── */}
+      <div className="flex justify-end pb-20 pt-4">
+        <Iceberg />
+      </div>
 
     </div>
   );
