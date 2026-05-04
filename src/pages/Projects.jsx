@@ -22,6 +22,20 @@ const projects = [
         github: null
     },
     {
+        title: 'EasySheets AI – AI-Powered EdTech Platform',
+        description: 'AI-powered quiz and worksheet generation platform for Indian schools, enabling educators to produce curriculum-aligned assessments in seconds instead of hours. Designed the end-to-end product: content generation pipeline, educator-facing UI, and deployment — fully independent.',
+        tech: 'Next.js, TypeScript, OpenAI, Tailwind CSS',
+        link: null,
+        github: null
+    },
+    {
+        title: 'Intrafy – AI-Native Automation Consultancy',
+        description: 'Founded an AI-native agentic workflow automation consultancy. Entire site — design, SEO, and deployment — conceived, built, and operated via AI agents. Implemented full technical SEO stack: JSON-LD schemas, Open Graph, Core Web Vitals optimization, and sitemap.',
+        tech: 'Next.js, TypeScript, Tailwind CSS',
+        link: 'https://intrafy.io/',
+        github: null
+    },
+    {
         title: 'Twitter Trends Scraper',
         description: 'Scrapes & visualizes real-time Twitter trends. Features proxy rotation, automated scraping, and animated UI with Framer Motion.',
         tech: 'React, Node.js, Selenium, ProxyMesh, MongoDB, Framer Motion',

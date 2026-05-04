@@ -30,16 +30,17 @@ function About() {
   const skills = [
     { name: 'Backend Development', level: 92, icon: <FaServer /> },
     { name: 'Frontend Development', level: 90, icon: <FaLaptopCode /> },
-    { name: 'UI/UX Design', level: 85, icon: <FaPalette /> },
+    { name: 'AI & Automation', level: 88, icon: <FaCode /> },
     { name: 'Database Management', level: 88, icon: <FaDatabase /> },
   ];
 
   const techStacks = {
-    frontend: ['React.js', 'Next.js', 'React Native', 'Expo', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Bootstrap'],
-    backend: ['Node.js', 'Express.js', 'REST APIs', 'Prisma ORM', 'Authentication', 'Authorization', 'KYC', 'Schema Design'],
-    database: ['PostgreSQL', 'MongoDB', 'Prisma ORM', 'Redis (basic)'],
-    tools: ['Docker', 'Git', 'GitHub', 'Bitbucket', 'Postman', 'Sentry', 'Jira', 'VS Code', 'Figma', 'Adobe XD'],
-    languages: ['C/C++', 'JavaScript', 'TypeScript', 'SQL', 'NoSQL', 'Python (basic)', 'Java (basic)']
+    frontend: ['React.js', 'Next.js', 'React Native', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Bootstrap'],
+    backend: ['Node.js', 'Express.js', 'Medusa', 'BullMQ', 'Shopify APIs', 'Prisma ORM', 'REST API Design'],
+    database: ['PostgreSQL', 'MongoDB (Vector Search)', 'Redis', 'Prisma ORM'],
+    tools: ['Docker', 'Git', 'GitHub', 'Postman', 'Sentry', 'Jira', 'Linear', 'VS Code', 'Figma', 'Shopify Liquid'],
+    ai: ['LLM Integration (Gemini, OpenAI)', 'RAG Systems', 'Vector Embeddings', 'Multi-Agent Orchestration', 'Prompt Engineering'],
+    languages: ['JavaScript', 'TypeScript', 'SQL', 'Python (basic)', 'Java (basic)']
   };
 
   const strengths = [
@@ -53,26 +54,21 @@ function About() {
 
 
   const experiences = [
-    // {
-    //   title: 'Full-Stack Developer',
-    //   company: 'Adyime Solutions',
-    //   period: 'Nov 2025 – Present',
-    //   location: 'Delhi',
-    //   description: 'Works on web & mobile features using React, React Native, and Next.js. Enhances UI/UX, improves performance, and collaborates across product teams.'
-    // },
+    {
+      title: 'Full Stack Software Engineer',
+      company: 'SellAbroad',
+      period: 'Nov 2025 – Present',
+      location: 'Remote',
+      description: 'Architected a 7-agent AI orchestration system that fully automates Shopify theme onboarding — covering live site analysis, DOM selector scouting, validation, code integration, and automated regression QA. Automated cross-border market expansion to 100+ countries with multi-currency pricing, geo-targeting logic, and a BNPL payment matrix — reducing per-merchant setup from hours to minutes. Built a persistent memory and state management layer for reliable multi-phase automation with automatic resume-on-failure.',
+      tech: 'Medusa · Next.js · TypeScript · Shopify APIs · PostgreSQL · Redis · BullMQ · Node.js'
+    },
     {
       title: 'Software Development Engineer',
       company: 'COOX',
       period: 'Apr 2025 – Oct 2025',
-      location: 'Noida',
-      description: 'Improved cross-platform experiences using Next.js, React Native & Expo. Refactored legacy components, reduced load times, resolved issues using Sentry, and built reusable shared components.'
-    },
-    {
-      title: 'Backend Developer Intern',
-      company: 'Rablo.in',
-      period: 'Jan 2025 – Apr 2025',
-      location: 'Remote',
-      description: 'Built REST APIs using Node.js, Express, MongoDB. Implemented auth, KYC, Google API integration. Improved schema reliability and performance.'
+      location: 'Hybrid',
+      description: 'Engineered and shipped production features across web and mobile using Next.js, React Native, and TypeScript in a cross-functional team. Identified and eliminated performance bottlenecks — reduced unnecessary re-renders and optimized API call patterns. Diagnosed and resolved production incidents using Sentry in a Scrum-based Agile workflow with sprint planning and delivery tracking via Jira.',
+      tech: 'Next.js · React Native · TypeScript · Bootstrap · Sentry · Jira'
     }
   ];
 
@@ -99,16 +95,13 @@ function About() {
               About <span className="text-accent-primary">Me</span>
             </h1>
             <p className="text-lg text-text-light dark:text-text-dark mb-6 font-lato">
-              Hi, I&#39;m <span className="font-semibold">Aman Kumar Verma</span> — a Full-Stack Developer who learns by building. I specialize in creating fast, scalable, and reliable applications across web and mobile platforms. I&#39;ve worked with Next.js, React Native, TypeScript, Prisma, PostgreSQL, and Node.js to build real-world products used at scale.
+              Hi, I&#39;m <span className="font-semibold">Aman Kumar Verma</span> — a Full-Stack Software Engineer with 2+ years of experience building scalable web apps, AI-integrated platforms, and production automation systems. I specialize in <span className="font-semibold">multi-agent AI orchestration, RAG pipelines, and LLM integrations</span> — from AI-powered SaaS to cross-border e-commerce automation at scale.
             </p>
             <p className="text-lg text-text-light dark:text-text-dark mb-6 font-lato">
-              I&#39;ve learned that you don&#39;t need to know everything to begin — you just need to start, adapt, and grow. As Mark Zuckerberg said: &#34;Ideas don&#39;t come fully formed… no one does when they begin.&#34;
+              I&#39;m passionate about building AI-native systems that replace manual workflows with intelligent, autonomous pipelines. Whether it&#39;s architecting a 7-agent orchestration system, building RAG search infrastructure, or shipping cross-platform mobile apps — I approach every problem with the same mindset: learn fast, move with purpose, deliver with clarity.
             </p>
             <p className="text-lg text-text-light dark:text-text-dark mb-6 font-lato">
-              That mindset drives my work. I&#39;m quick to pick up new technologies, curious about how systems fit together, and comfortable diving deep into unfamiliar territory until things click.
-            </p>
-            <p className="text-lg text-text-light dark:text-text-dark mb-6 font-lato">
-              I enjoy building smooth user experiences, optimizing systems, and crafting solutions that feel clean — inside the code and on the screen. Whether it&#39;s APIs, databases, or cross-platform apps, my approach stays the same: learn fast, move with purpose, and deliver with clarity.
+              As Mark Zuckerberg said: &#34;Ideas don&#39;t come fully formed… no one does when they begin.&#34; That mindset drives everything I build — I start, adapt, and grow with every project.
             </p>
             <div className="bg-gradient-to-r from-accent-primary to-black dark:from-accent-primary dark:to-white p-0.5 rounded-lg">
               <div className="bg-primary-light dark:bg-primary-dark p-5 rounded-lg">
@@ -312,6 +305,22 @@ function About() {
             
             <div className="bg-gradient-to-r from-blue-50/50 to-gray-100/50 dark:from-gray-800/50 dark:to-gray-900/50 border border-gray-200/50 dark:border-indigo-500/30 p-6 rounded-lg backdrop-blur-sm">
               <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center">
+                <FaCode className="mr-2 text-blue-500" /> AI & Automation
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {techStacks.ai.map((tech, index) => (
+                  <span
+                    key={index}
+                    className="bg-white dark:bg-gray-700 px-3 py-1 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 shadow-sm flex items-center"
+                  >
+                    <FaCode className="mr-1" /> {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-blue-50/50 to-gray-100/50 dark:from-gray-800/50 dark:to-gray-900/50 border border-gray-200/50 dark:border-indigo-500/30 p-6 rounded-lg backdrop-blur-sm">
+              <h3 className="text-xl font-semibold mb-4 dark:text-white flex items-center">
                 <FaDatabase className="mr-2 text-blue-500" /> Databases
               </h3>
               <div className="flex flex-wrap gap-3">
@@ -409,6 +418,7 @@ function About() {
                   <div className="text-gray-600 dark:text-gray-400 font-medium mb-1">{exp.company}</div>
                   {exp.location && <div className="text-gray-500 dark:text-gray-500 text-sm mb-3">{exp.location}</div>}
                   <p className="text-gray-700 dark:text-gray-300">{exp.description}</p>
+                  {exp.tech && <p className="text-xs text-gray-500 dark:text-gray-500 mt-3 font-mono border-t border-gray-100 dark:border-gray-700 pt-3">{exp.tech}</p>}
                 </div>
               </div>
             ))}
