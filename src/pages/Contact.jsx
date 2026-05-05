@@ -49,7 +49,7 @@ const Contact = () => {
           Contact
         </p>
         <h1
-          className="text-[clamp(2.4rem,5vw,4rem)] leading-[0.96] font-extrabold text-ink mb-5"
+          className="text-[clamp(1.8rem,5vw,4rem)] leading-[0.96] font-extrabold text-ink mb-5"
           style={{ fontVariationSettings: "'wdth' 84, 'wght' 800" }}
         >
           Let's talk<span className="text-signal">.</span>

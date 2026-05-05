@@ -184,7 +184,7 @@ function Projects() {
         </p>
         <div className="overflow-hidden">
           <h1
-            className="text-[clamp(2.4rem,5vw,5rem)] leading-[0.94] font-extrabold text-ink animate-line-reveal"
+            className="text-[clamp(1.8rem,5vw,5rem)] leading-[0.94] font-extrabold text-ink animate-line-reveal"
             style={{
               fontVariationSettings: "'wdth' 84, 'wght' 800",
               animationDelay: '0.15s',

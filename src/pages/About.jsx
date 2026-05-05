@@ -112,7 +112,7 @@ function About() {
       {/* ── 2. Manifesto ──────────────────────────────────────── */}
       <section className="animate-fade-up" style={{ animationDelay: '0.2s' }}>
         <h1
-          className="text-[clamp(2.2rem,5vw,4.4rem)] leading-[1.05] text-ink max-w-[22ch]"
+          className="text-[clamp(1.6rem,5vw,4.4rem)] leading-[1.05] text-ink max-w-[22ch]"
           style={{ fontVariationSettings: "'wdth' 92, 'wght' 600" }}
         >
           I build the systems that make&nbsp;the&nbsp;demos&nbsp;work<span className="text-signal">.</span>
@@ -193,7 +193,7 @@ function About() {
         </h2>
         <dl className="space-y-3 max-w-3xl">
           {plain.map(item => (
-            <div key={item.label} className="grid grid-cols-[110px_1fr] gap-4 sm:gap-6 items-baseline">
+            <div key={item.label} className="grid grid-cols-[80px_1fr] sm:grid-cols-[110px_1fr] gap-3 sm:gap-6 items-baseline">
               <dt className="font-mono-sys text-haze text-[11px] uppercase tracking-[0.14em]">
                 {item.label}
               </dt>

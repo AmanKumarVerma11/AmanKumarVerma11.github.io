@@ -116,7 +116,7 @@ function Home() {
         className="spotlight min-h-[calc(100svh-4rem)] flex items-center py-16"
       >
         {/* Easter-egg sketch in the right empty margin */}
-        <Iceberg className="absolute right-2 xl:right-6 top-[58%] hidden lg:block" />
+        <Iceberg className="absolute right-2 xl:right-6 top-[18%] hidden lg:block" />
 
         <div className="w-full max-w-5xl space-y-10">
 
@@ -131,7 +131,7 @@ function Home() {
           <div ref={nameRef} className="space-y-0 -mt-2">
             <div className="overflow-hidden pb-1">
               <div
-                className="hero-name text-[clamp(3.6rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
+                className="hero-name text-[clamp(2.2rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
                 style={{ animationDelay: '0.2s', fontVariationSettings: "'wdth' 86, 'wght' 720" }}
               >
                 Aman Kumar
@@ -139,7 +139,7 @@ function Home() {
             </div>
             <div className="overflow-hidden pb-1">
               <div
-                className="hero-name text-[clamp(3.6rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
+                className="hero-name text-[clamp(2.2rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
                 style={{ animationDelay: '0.35s', fontVariationSettings: "'wdth' 86, 'wght' 720" }}
               >
                 Verma<span className="text-signal">.</span>
