@@ -2,22 +2,19 @@ import { useEffect, useRef, useState } from 'react';
 import rough from 'roughjs';
 
 /**
- * Crystalline iceberg — chalk-on-dark style, matching the reference.
+ * Iceberg — crystalline, multi-facet, light/shadow contrast.
  *
- * Technique: white-on-dark, NOT currentColor.
- *   • Outer shape = single rough polygon per section (tip + underwater)
- *   • Internal facet lines = rough lines inside each section
- *   • Hachure fill (parallel white strokes at ~5px gap) = chalk texture
- *   • Varying hachure density per zone creates 3-D shading illusion
+ * Each section is split into distinct polygon zones with different
+ * hachure densities to simulate a 3-D crystal surface:
+ *   VERY BRIGHT  fillWeight 2.8  gap 2.2  → near-solid white (direct light)
+ *   BRIGHT       fillWeight 1.6  gap 3.5  → dense chalk
+ *   MEDIUM       fillWeight 1.0  gap 5.5  → standard hachure
+ *   DARK         fillWeight 0.25 gap 14   → sparse, nearly transparent
  *
- * Geometry:
- *   Tip (above y=182): multi-faceted mountain peak, 200px wide at base
- *   Underwater (below y=182): inverted diamond, 360px wide at mid-depth,
- *     tapering to a point at y=548. 3.6× wider than the tip.
+ * Tip   → 3 zones: peak highlight, right face, left shadow
+ * Icewater → 4 quadrants: UL dark / UR bright / LL medium / LR medium-bright
  *
- * Text:
- *   Tip   → "FULL-STACK SOFTWARE ENGINEER" (what the world sees)
- *   Below → "HIDDEN SKILLS & RESPONSIBILITIES" + depth labels
+ * No text inside underground. The iceberg says it all.
  */
 export default function Iceberg({ className = '' }) {
   const svgRef    = useRef(null);
@@ -33,107 +30,145 @@ export default function Iceberg({ className = '' }) {
 
     const rc = rough.svg(svg);
 
-    // Outer polygon — organic roughness gives natural edge wobble
-    const poly = (seed, fillWeight, gap, angle) => ({
-      roughness: 2.2,
-      bowing: 1.1,
-      seed,
-      stroke: 'rgba(255,255,255,0.82)',
-      strokeWidth: 1.4,
+    // Facet: polygon with controlled hachure shading
+    const F = (seed, weight, gap, angle, sOp = 0.82, roughness = 1.8) => ({
+      roughness, bowing: 0.7, seed,
+      stroke: `rgba(255,255,255,${sOp})`,
+      strokeWidth: 1.2,
       fill: 'white',
       fillStyle: 'hachure',
-      fillWeight,
+      fillWeight: weight,
       hachureGap: gap,
       hachureAngle: angle,
     });
 
-    // Sharp crease: low roughness = defined crystalline edge
-    const sharp = (seed, opacity) => ({
+    // Crease line styles
+    const ridge = (seed, op) => ({           // sharp primary facet edge
       roughness: 1.0, bowing: 0.3, seed,
-      stroke: `rgba(255,255,255,${opacity})`,
-      strokeWidth: 0.9,
+      stroke: `rgba(255,255,255,${op})`, strokeWidth: 1.0,
+    });
+    const crease = (seed, op, r = 1.8) => ({ // secondary facet detail
+      roughness: r, bowing: 0.6, seed,
+      stroke: `rgba(255,255,255,${op})`, strokeWidth: 0.65,
+    });
+    const fine = (seed, op) => ({             // fine texture line
+      roughness: 3.0, bowing: 1.2, seed,
+      stroke: `rgba(255,255,255,${op})`, strokeWidth: 0.45,
     });
 
-    // Rough crease: high roughness = unpolished, sketchy edge
-    const rough2 = (seed, opacity) => ({
-      roughness: 3.2, bowing: 1.5, seed,
-      stroke: `rgba(255,255,255,${opacity})`,
-      strokeWidth: 0.55,
-    });
+    // ══ TIP — 3 lighting zones ════════════════════════════════════
+    // Vertices: P(186,25) A(130,46) B(209,50) C(121,76) D(233,66)
+    //   E(110,123) F(244,92) G(104,157) H(252,124) I(107,182)
+    //   J(257,159) K(260,182)   WL-center M=(184,182)
 
-    // ── TIP — asymmetric peak, natural lopsided mountain ─────────
-    // Peak tilts slightly left; right shoulder is lower & further out;
-    // left side has a more aggressive jut — not mirrored
+    // Zone 1 — LEFT HALF (shadow face, darkest)
     g.appendChild(rc.polygon(
-      [
-        [182,  14], // peak — offset left of center
-        [118,  50], // left sub-peak — aggressive
-        [ 92, 108], // left shoulder — juts out
-        [ 80, 148], // left lower — very far left
-        [ 88, 184], // waterline left
-        [148, 178], // waterline inner-left — dips down
-        [194, 183], // waterline center
-        [252, 180], // waterline inner-right
-        [296, 186], // waterline right — extends further right
-        [290, 138], // right lower
-        [268, 105], // right shoulder — closer to center than left
-        [238,  62], // right sub-peak — lower than left sub-peak
-      ],
-      poly(1, 0.55, 5.2, -45)
+      [[186,25],[184,182],[107,182],[104,157],[110,123],[121,76],[130,46]],
+      F(1, 0.55, 9, -26, 0.70)
     ));
 
-    // Mix of sharp + rough creases inside the tip
-    g.appendChild(rc.line(182, 14,  92,108, sharp(2, 0.65)));  // peak → left shoulder (sharp ridge)
-    g.appendChild(rc.line(182, 14, 268,105, sharp(3, 0.58)));  // peak → right shoulder (sharp)
-    g.appendChild(rc.line( 92,108, 268,105, rough2(4, 0.50))); // horizontal mid (rough)
-    g.appendChild(rc.line(118, 50,  88,184, rough2(5, 0.42))); // far-left down (rough)
-    g.appendChild(rc.line(238, 62, 296,186, rough2(6, 0.40))); // far-right down (rough)
-    g.appendChild(rc.line(182, 14, 118, 50, sharp(7, 0.72)));  // peak left (sharp — bright ridge line)
-    g.appendChild(rc.line(182, 14, 238, 62, sharp(8, 0.62)));  // peak right (sharp)
-    g.appendChild(rc.line( 80,148, 252,180, rough2(9, 0.38))); // near-waterline cross (rough)
+    // Zone 2 — RIGHT HALF (illuminated face)
+    g.appendChild(rc.polygon(
+      [[186,25],[209,50],[233,66],[244,92],[252,124],[257,159],[260,182],[184,182]],
+      F(2, 1.5, 3.8, -55, 0.86)
+    ));
 
-    // ── WATERLINE ────────────────────────────────────────────────
-    g.appendChild(rc.line(8, 183, 372, 183, {
-      roughness: 1.8, bowing: 1.5, seed: 10,
-      stroke: 'rgba(255,255,255,0.72)',
-      strokeWidth: 1.1,
+    // Zone 3 — PEAK CROWN (direct light, very bright highlight)
+    g.appendChild(rc.polygon(
+      [[186,25],[209,50],[130,46]],
+      F(3, 3.0, 2.0, -44, 0.94, 1.4)
+    ));
+
+    // TIP crease lines — mix of sharp ridges and fine detail
+    g.appendChild(rc.line(186,25,  184,182, ridge(4,  0.70)));  // centre spine
+    g.appendChild(rc.line(186,25,  209, 50, ridge(5,  0.75)));  // peak → right sub
+    g.appendChild(rc.line(186,25,  130, 46, ridge(6,  0.68)));  // peak → left sub
+    g.appendChild(rc.line(186,25,  233, 66, crease(7, 0.58)));  // right outer ridge
+    g.appendChild(rc.line(186,25,  110,123, crease(8, 0.50)));  // left inner
+    g.appendChild(rc.line(130, 46, 233, 66, crease(9, 0.46))); // peak cross
+    g.appendChild(rc.line(110,123, 252,124, fine(10,  0.42))); // shoulder band
+    g.appendChild(rc.line(121, 76, 244, 92, fine(11,  0.38))); // mid-tip band
+    g.appendChild(rc.line(104,157, 257,159, fine(12,  0.34))); // near-WL band
+    g.appendChild(rc.line(130, 46, 107,182, fine(13,  0.30))); // far-left slope
+    g.appendChild(rc.line(233, 66, 260,182, crease(14,0.44))); // right jut slope
+    g.appendChild(rc.line(209, 50, 252,124, fine(15,  0.36))); // right detail
+    g.appendChild(rc.line(121, 76, 110,123, crease(16,0.40))); // left sub detail
+
+    // ══ WATERLINE ════════════════════════════════════════════════
+    g.appendChild(rc.line(5, 182, 375, 182, {
+      roughness: 1.8, bowing: 1.5, seed: 17,
+      stroke: 'rgba(255,255,255,0.80)', strokeWidth: 1.3,
+    }));
+    // Second reflected wave
+    g.appendChild(rc.line(25, 189, 355, 191, {
+      roughness: 2.2, bowing: 2.0, seed: 18,
+      stroke: 'rgba(255,255,255,0.32)', strokeWidth: 0.65,
     }));
 
-    // ── UNDERWATER — intentionally asymmetric, left side wider ───
-    // Left juts further than right; max-width points at different y;
-    // some vertices have unexpected sharp corners (extra jutting vertices)
+    // ══ UNDERGROUND — 4 lighting quadrants ═══════════════════════
+    // Split: x=184 (centre), y=317 (jut level)
+    // Interior pivot: (184, 317)
+
+    // Q1 — Upper-Left (deep shadow, barely lit)
     g.appendChild(rc.polygon(
-      [
-        [ 88, 184], // waterline left
-        [ 28, 252], // left expand — aggressive
-        [  5, 338], // left max — very wide, lower y
-        [ 22, 428], // left lower
-        [ 95, 504], // bottom-left
-        [185, 548], // deepest point — slightly left of center
-        [278, 510], // bottom-right — lower than left
-        [340, 440], // right lower — higher y than left equivalent
-        [368, 352], // right max — slightly less wide than left, higher y
-        [348, 262], // right expand
-        [296, 186], // waterline right
-      ],
-      poly(11, 0.48, 5.0, -55) // different hachure angle than tip
+      [[107,182],[78,238],[53,317],[184,317],[184,182]],
+      F(19, 0.20, 16, -18, 0.65)
     ));
 
-    // Mix of sharp and rough underwater creases
-    g.appendChild(rc.line(148,183, 185,548, sharp(12, 0.42)));  // inner-left → deep (sharp)
-    g.appendChild(rc.line(248,183, 185,548, rough2(13, 0.38))); // inner-right → deep (rough)
-    g.appendChild(rc.line( 88,183,  22,428, sharp(14, 0.48)));  // far-left edge (sharp — defined facet)
-    g.appendChild(rc.line(296,183, 340,440, rough2(15, 0.42))); // far-right edge (rough)
-    g.appendChild(rc.line( 28,252, 185,548, rough2(16, 0.36))); // upper-left → bottom (rough)
-    g.appendChild(rc.line(348,262, 185,548, rough2(17, 0.34))); // upper-right → bottom (rough)
-    // Mid horizontal — slightly diagonal (not perfectly flat = more natural)
-    g.appendChild(rc.line(  8,338, 366,352, sharp(18, 0.50)));  // mid cross (sharp)
-    g.appendChild(rc.line( 25,428, 340,440, rough2(19, 0.40))); // lower cross (rough)
-    // X-pattern cross-creases — different on each side
-    g.appendChild(rc.line( 28,252, 368,352, rough2(20, 0.35))); // left-to-right diagonal
-    g.appendChild(rc.line(348,262,   5,338, sharp(21, 0.38)));  // right-to-left (sharp)
-    g.appendChild(rc.line( 22,428, 340,352, rough2(22, 0.32))); // lower X
-    g.appendChild(rc.line(340,440,  22,338, rough2(23, 0.30))); // lower X other way
+    // Q2 — Upper-Right (primary light)
+    g.appendChild(rc.polygon(
+      [[184,182],[184,317],[327,317],[308,238],[260,182]],
+      F(20, 1.20, 4.2, -54, 0.88)
+    ));
+
+    // Q3 — Lower-Left (mid shadow)
+    g.appendChild(rc.polygon(
+      [[53,317],[89,388],[121,451],[149,502],[187,544],[184,317]],
+      F(21, 0.55, 8, -32, 0.72)
+    ));
+
+    // Q4 — Lower-Right (secondary highlight)
+    g.appendChild(rc.polygon(
+      [[184,317],[187,544],[233,502],[264,453],[294,388],[327,317]],
+      F(22, 1.05, 5.0, -58, 0.82)
+    ));
+
+    // UNDERGROUND crease lines — structural ridges + fine detail
+    // Primary ridges (bold)
+    g.appendChild(rc.line(107,182,  53,317, ridge(23, 0.58)));  // WL-L → left jut
+    g.appendChild(rc.line(260,182, 327,317, ridge(24, 0.55)));  // WL-R → right jut
+    g.appendChild(rc.line( 53,317, 187,544, ridge(25, 0.54)));  // left jut → deep
+    g.appendChild(rc.line(327,317, 187,544, ridge(26, 0.52)));  // right jut → deep
+    g.appendChild(rc.line(184,182, 184,317, ridge(27, 0.48)));  // centre divider (top)
+    g.appendChild(rc.line(184,317, 187,544, crease(28,0.42))); // centre (bottom)
+
+    // Horizontal layers
+    g.appendChild(rc.line( 53,317, 327,317, ridge(29, 0.55)));  // jut level
+    g.appendChild(rc.line( 78,238, 308,238, crease(30,0.46))); // upper band
+    g.appendChild(rc.line( 89,388, 294,388, crease(31,0.42))); // mid-low band
+    g.appendChild(rc.line(121,451, 264,453, fine(32,  0.36))); // lower band
+    g.appendChild(rc.line(149,502, 233,502, fine(33,  0.30))); // bottom band
+
+    // Cross diagonals — inner crystal faces
+    g.appendChild(rc.line(107,182, 327,317, fine(34,  0.36))); // WL-L → jut-R
+    g.appendChild(rc.line(260,182,  53,317, fine(35,  0.34))); // WL-R → jut-L
+    g.appendChild(rc.line( 78,238, 294,388, crease(36,0.34))); // UL → LR
+    g.appendChild(rc.line(308,238,  89,388, crease(37,0.32))); // UR → LL
+    g.appendChild(rc.line( 53,317, 264,453, fine(38,  0.30))); // jut-L → BR
+    g.appendChild(rc.line(327,317, 121,451, fine(39,  0.30))); // jut-R → BL
+    g.appendChild(rc.line( 78,238,  53,317, crease(40,0.44))); // UL inner edge
+    g.appendChild(rc.line(308,238, 327,317, crease(41,0.48))); // UR inner edge
+
+    // Fine texture within bright zones (Q2 — upper right)
+    g.appendChild(rc.line(260,182, 184,317, fine(42,  0.32)));
+    g.appendChild(rc.line(308,238, 184,317, fine(43,  0.28)));
+    g.appendChild(rc.line(260,182, 294,388, fine(44,  0.30)));
+    // Fine texture within Q4 — lower right
+    g.appendChild(rc.line(327,317, 233,502, fine(45,  0.28)));
+    g.appendChild(rc.line(294,388, 187,544, fine(46,  0.26)));
+    // Extra darkness detail in Q1
+    g.appendChild(rc.line( 78,238, 184,317, fine(47,  0.22)));
+    g.appendChild(rc.line(107,182, 184,317, fine(48,  0.20)));
   }, []);
 
   useEffect(() => {
@@ -152,54 +187,36 @@ export default function Iceberg({ className = '' }) {
       <svg
         ref={svgRef}
         viewBox="0 0 380 560"
-        className="w-[200px] xl:w-[240px] h-auto"
+        className="w-[220px] xl:w-[260px] h-auto"
         style={{ overflow: 'visible' }}
       >
-        {/* roughjs polygons + lines appended here by useEffect */}
         <g ref={roughGRef} />
 
-        {/* Text — rendered on top of the iceberg body */}
-        <g
-          fontFamily="'Bricolage Grotesque', ui-monospace, system-ui, sans-serif"
-          textAnchor="middle"
-          fill="white"
-        >
-          {/* Above waterline — the visible title */}
-          <text x="192" y="108" fontSize="14" fontWeight="700"
-                letterSpacing="0.08em" opacity="0.94">FULL-STACK</text>
-          <text x="192" y="126" fontSize="14" fontWeight="700"
-                letterSpacing="0.08em" opacity="0.94">SOFTWARE</text>
-          <text x="192" y="144" fontSize="14" fontWeight="700"
-                letterSpacing="0.08em" opacity="0.94">ENGINEER</text>
+        {/* Tip title */}
+        <g fill="white" fontFamily="'Bricolage Grotesque', system-ui, sans-serif"
+           textAnchor="middle">
+          <text x="184" y="112" fontSize="15" fontWeight="800"
+                letterSpacing="0.10em" opacity="0.97">FULL-STACK</text>
+          <text x="184" y="132" fontSize="14" fontWeight="800"
+                letterSpacing="0.09em" opacity="0.97">SOFTWARE ENGINEER</text>
+        </g>
 
-          {/* Below waterline — hidden skills header */}
-          <text x="192" y="276" fontSize="9.5" fontWeight="700"
-                letterSpacing="0.04em" opacity="0.72">HIDDEN SKILLS</text>
-          <text x="192" y="291" fontSize="9.5" fontWeight="700"
-                letterSpacing="0.04em" opacity="0.72">&amp; RESPONSIBILITIES</text>
-
-          {/* Depth labels — smaller and fainter going deeper */}
-          <text x="192" y="326" fontSize="8.5" opacity="0.60"
-                fontFamily="ui-monospace, monospace" letterSpacing="0.05em">multi-agent AI</text>
-          <text x="192" y="350" fontSize="8"   opacity="0.55"
-                fontFamily="ui-monospace, monospace" letterSpacing="0.05em">system architecture</text>
-          <text x="192" y="374" fontSize="7.5" opacity="0.50"
-                fontFamily="ui-monospace, monospace" letterSpacing="0.05em">production debugging</text>
-          <text x="192" y="398" fontSize="7.5" opacity="0.46"
-                fontFamily="ui-monospace, monospace" letterSpacing="0.05em">performance engineering</text>
-          <text x="192" y="420" fontSize="7"   opacity="0.42"
-                fontFamily="ui-monospace, monospace" letterSpacing="0.05em">api design</text>
-          <text x="192" y="442" fontSize="7"   opacity="0.39"
-                fontFamily="ui-monospace, monospace" letterSpacing="0.05em">security &amp; infra</text>
-          <text x="192" y="463" fontSize="6.5" opacity="0.35"
-                fontFamily="ui-monospace, monospace" letterSpacing="0.05em">technical debt</text>
+        {/* Depth labels — scattered, large, fully opaque so they read clearly */}
+        <g fill="white" fontFamily="ui-monospace, Menlo, monospace"
+           fontSize="10.5" letterSpacing="0.04em">
+          <text x="218" y="222" textAnchor="middle" opacity="0.94">multi-agent AI</text>
+          <text x="148" y="255" textAnchor="middle" opacity="0.90">system architecture</text>
+          <text x="212" y="300" textAnchor="middle" opacity="0.87">production debugging</text>
+          <text x="152" y="338" textAnchor="middle" opacity="0.83">perf. engineering</text>
+          <text x="216" y="376" textAnchor="middle" opacity="0.79">api design</text>
+          <text x="154" y="416" textAnchor="middle" opacity="0.74">security &amp; infra</text>
+          <text x="184" y="460" textAnchor="middle" opacity="0.68">technical debt</text>
         </g>
       </svg>
 
       <span className="sr-only">
-        Iceberg diagram: Full-Stack Software Engineer above the waterline.
-        Below: multi-agent AI, system architecture, production debugging,
-        performance engineering, api design, security and infra, technical debt.
+        Iceberg diagram: Full-Stack Software Engineer visible above the waterline;
+        below, all the hidden technical depth that makes the role work.
       </span>
     </div>
   );
