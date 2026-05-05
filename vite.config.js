@@ -10,6 +10,7 @@ export default defineConfig({
           react:  ['react', 'react-dom'],
           router: ['react-router-dom'],
           icons:  ['react-icons'],
+          rough:  ['roughjs'],
         },
       },
     },

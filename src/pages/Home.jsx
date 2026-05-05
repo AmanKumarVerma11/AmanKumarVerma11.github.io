@@ -115,6 +115,9 @@ function Home() {
         ref={heroRef}
         className="spotlight min-h-[calc(100svh-4rem)] flex items-center py-16"
       >
+        {/* Easter-egg sketch in the right empty margin */}
+        <Iceberg className="absolute right-2 xl:right-6 top-[58%] hidden lg:block" />
+
         <div className="w-full max-w-5xl space-y-10">
 
           <p
@@ -223,11 +226,6 @@ function Home() {
           ))}
         </div>
       </section>
-
-      {/* ── Easter egg: hand-drawn iceberg ─────────────────────── */}
-      <div className="flex justify-end pb-20 pt-4">
-        <Iceberg />
-      </div>
 
     </div>
   );

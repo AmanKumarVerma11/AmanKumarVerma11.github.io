@@ -1,130 +1,95 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import rough from 'roughjs';
 
 /**
- * Easter egg: hand-drawn iceberg.
- * Small tip above water, much larger structure below.
- * Hidden meaning: the demos vs the systems that make them work.
+ * Easter egg: roughjs-rendered iceberg.
  *
- * Drawing logic:
- *   Scroll progress 0.00 → 0.85   draws the iceberg outline.
- *   Scroll progress 0.65 → 1.00   reveals the dashed waterline.
+ * roughjs renders every path as 2–3 slightly offset overlapping
+ * strokes with per-stroke jitter — the same optical quality as
+ * a brush pen on paper. This is NOT a perfect SVG outline;
+ * it looks genuinely hand-drawn.
  *
- * Filter: feTurbulence + feDisplacementMap gives subtle ink wobble
- * so the line doesn't look digitally perfect.
+ * Entrance: fades in 2.5s after mount (after hero animations finish)
+ * with a 2s ease-in. Like a signature that slowly becomes visible.
+ *
+ * Hidden meaning: small tip vs much larger structure below —
+ * the demos vs the systems that make them work.
  */
-export default function Iceberg() {
-  const wrapperRef = useRef(null);
-  const outlineRef = useRef(null);
-  const waterRef   = useRef(null);
+export default function Iceberg({ className = '' }) {
+  const svgRef   = useRef(null);
+  const drawn    = useRef(false);
+  const [revealed, setRevealed] = useState(false);
 
+  // Draw once with roughjs (idempotent, seed = consistent output)
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const outline = outlineRef.current;
-    const water   = waterRef.current;
-    if (!wrapper || !outline) return;
+    if (drawn.current) return;
+    drawn.current = true;
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const svg = svgRef.current;
+    if (!svg) return;
 
-    const outlineLen = outline.getTotalLength();
-    const waterLen   = water ? water.getTotalLength() : 0;
+    svg.innerHTML = '';
+    const rc = rough.svg(svg);
 
-    // Static state for reduced motion: just show fully drawn.
-    if (reduced) {
-      outline.style.strokeDasharray  = `${outlineLen}`;
-      outline.style.strokeDashoffset = '0';
-      if (water) {
-        water.style.strokeDasharray  = `${waterLen}`;
-        water.style.strokeDashoffset = '0';
-      }
-      return;
-    }
+    const base = {
+      stroke: 'currentColor',
+      roughness: 2.2,
+      bowing: 1.3,
+      seed: 42,
+      disableMultiStroke: false,
+    };
 
-    // Initial state: nothing drawn.
-    outline.style.strokeDasharray  = `${outlineLen}`;
-    outline.style.strokeDashoffset = `${outlineLen}`;
-    if (water) {
-      water.style.strokeDasharray  = `${waterLen}`;
-      water.style.strokeDashoffset = `${waterLen}`;
-    }
-
-    let raf = 0;
-    let visible = false;
-
-    const obs = new IntersectionObserver(
-      ([entry]) => { visible = entry.isIntersecting; },
-      { threshold: 0, rootMargin: '120px 0px' }
+    // Iceberg outline — organic Q-bezier path, all curves, zero straight lines.
+    // Shape: narrow visible tip above waterline (y≈96), wider underwater mass below.
+    svg.appendChild(
+      rc.path(
+        `M 100 22
+         Q 116 28 120 60
+         Q 125 86 142 96
+         Q 168 100 178 130
+         Q 186 162 168 196
+         Q 158 232 116 252
+         Q 78  254  52 226
+         Q 36  192  50 156
+         Q 56  122  76 102
+         Q 86   92  80  60
+         Q 84   28 100  22 Z`,
+        { ...base, strokeWidth: 2.5, fill: 'none' }
+      )
     );
-    obs.observe(wrapper);
 
-    const tick = () => {
-      if (visible) {
-        const rect = wrapper.getBoundingClientRect();
-        const wh   = window.innerHeight;
+    // Wavy waterline — implied surface, subtle weight
+    svg.appendChild(
+      rc.path(
+        'M 4 96 Q 50 92 100 98 T 196 96',
+        { ...base, strokeWidth: 1.2, roughness: 1.8, seed: 17 }
+      )
+    );
+  }, []);
 
-        // Progress 0 when wrapper's top first enters viewport.
-        // Progress 1 when wrapper's bottom has scrolled 20% past viewport top.
-        const start = wh;
-        const end   = -rect.height * 0.2;
-        const range = start - end;
-        const value = start - rect.top;
-        const p = Math.max(0, Math.min(1, value / range));
-
-        // Outline draws over 0 → 0.85.
-        const outlineP = Math.max(0, Math.min(1, p / 0.85));
-        outline.style.strokeDashoffset = `${outlineLen * (1 - outlineP)}`;
-
-        // Waterline draws over 0.65 → 1.0 (slightly overlapping the iceberg's later strokes).
-        if (water) {
-          const waterP = Math.max(0, Math.min(1, (p - 0.65) / 0.35));
-          water.style.strokeDashoffset = `${waterLen * (1 - waterP)}`;
-        }
-      }
-      raf = requestAnimationFrame(tick);
-    };
-
-    raf = requestAnimationFrame(tick);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      obs.disconnect();
-    };
+  // Delayed reveal — hero entrance completes at ~1.5s, this starts at 2.5s
+  // and fades over 2s. Feels like it materialised while you were reading.
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const t = setTimeout(() => setRevealed(true), reduced ? 0 : 2500);
+    return () => clearTimeout(t);
   }, []);
 
   return (
-    <div ref={wrapperRef} className="text-haze relative select-none" aria-hidden="true">
+    <div
+      className={`pointer-events-none select-none transition-opacity duration-[2000ms] ease-in ${
+        revealed ? 'opacity-100' : 'opacity-0'
+      } ${className}`}
+      aria-hidden="true"
+    >
       <svg
-        viewBox="0 0 280 380"
-        className="w-[180px] sm:w-[220px] md:w-[260px] h-auto"
-        fill="none"
-        stroke="currentColor"
-      >
-        <defs>
-          <filter id="iceberg-ink" x="-5%" y="-5%" width="110%" height="110%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="7" />
-            <feDisplacementMap in="SourceGraphic" scale="1.5" />
-          </filter>
-        </defs>
-
-        <g filter="url(#iceberg-ink)" strokeLinecap="round" strokeLinejoin="round">
-          {/* Implied waterline — gentle wave */}
-          <path
-            ref={waterRef}
-            d="M 4 132 Q 50 130 100 133 T 200 132 T 276 132"
-            strokeWidth="0.7"
-            opacity="0.55"
-          />
-
-          {/* Iceberg outline — single continuous stroke, clockwise from top tip */}
-          <path
-            ref={outlineRef}
-            d="M 130 55 L 168 72 L 150 88 L 175 105 L 198 130 L 222 142 L 205 165 L 240 195 L 218 230 L 245 265 L 215 305 L 175 335 L 142 348 L 108 333 L 78 305 L 102 268 L 68 232 L 95 195 L 70 162 L 100 142 L 92 130 L 115 108 L 90 90 L 118 75 Z"
-            strokeWidth="1.2"
-          />
-        </g>
-      </svg>
-
+        ref={svgRef}
+        viewBox="0 0 200 280"
+        className="w-[120px] xl:w-[140px] h-auto text-dim"
+        style={{ overflow: 'visible' }}
+      />
       <span className="sr-only">
-        An iceberg, drawn rough — small tip above water, much larger structure below.
+        An iceberg — small visible tip, much larger structure below.
         The systems behind the demos.
       </span>
     </div>
