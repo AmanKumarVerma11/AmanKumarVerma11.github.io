@@ -1,19 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useReveal from '../hooks/useReveal';
 
-// Signal blue variants — matches site's oklch color system
 const LEVEL_COLORS = [
-  'oklch(0.14 0 0)',        // 0 — empty
-  'oklch(0.28 0.05 215)',   // 1 — low
-  'oklch(0.43 0.07 215)',   // 2 — medium
-  'oklch(0.59 0.08 215)',   // 3 — high
-  'oklch(0.74 0.09 215)',   // 4 — max (= signal)
+  'oklch(0.14 0 0)',
+  'oklch(0.28 0.05 215)',
+  'oklch(0.43 0.07 215)',
+  'oklch(0.59 0.08 215)',
+  'oklch(0.74 0.09 215)',
 ];
 
 const DAY_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
-const CELL = 10;
 const GAP = 2;
-const STEP = CELL + GAP;
 const DAY_COL = 28;
 
 function groupIntoWeeks(days) {
@@ -56,7 +53,21 @@ export default function GitHubContributions() {
   const [monthLabels, setMonthLabels] = useState([]);
   const [total, setTotal] = useState(null);
   const [status, setStatus] = useState('loading');
+  const [cellSize, setCellSize] = useState(11);
+  const containerRef = useRef(null);
   const [ref, visible] = useReveal();
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const obs = new ResizeObserver(([entry]) => {
+      const w = entry.contentRect.width;
+      const numWeeks = weeks.length || 53;
+      const cell = Math.floor((w - DAY_COL - numWeeks * GAP) / numWeeks);
+      setCellSize(Math.max(8, Math.min(20, cell)));
+    });
+    obs.observe(containerRef.current);
+    return () => obs.disconnect();
+  }, [weeks.length]);
 
   useEffect(() => {
     fetch('/api/github-contributions')
@@ -72,6 +83,7 @@ export default function GitHubContributions() {
       .catch(() => setStatus('error'));
   }, []);
 
+  const STEP = cellSize + GAP;
   const gridWidth = DAY_COL + weeks.length * STEP;
 
   return (
@@ -86,7 +98,7 @@ export default function GitHubContributions() {
       {status === 'ready' && (
         <>
           {/* Heatmap grid */}
-          <div className="overflow-x-auto">
+          <div ref={containerRef} className="overflow-x-auto">
             <div style={{ position: 'relative', width: gridWidth, paddingTop: '18px' }}>
 
               {/* Month labels */}
@@ -113,7 +125,7 @@ export default function GitHubContributions() {
                 {/* Day labels */}
                 <div style={{
                   display: 'grid',
-                  gridTemplateRows: `repeat(7, ${CELL}px)`,
+                  gridTemplateRows: `repeat(7, ${cellSize}px)`,
                   gap: GAP,
                   width: DAY_COL,
                   flexShrink: 0,
@@ -124,7 +136,7 @@ export default function GitHubContributions() {
                       className="font-mono-sys text-haze"
                       style={{
                         fontSize: '10px',
-                        lineHeight: `${CELL}px`,
+                        lineHeight: `${cellSize}px`,
                         textAlign: 'right',
                         paddingRight: 5,
                         visibility: label ? 'visible' : 'hidden',
@@ -142,7 +154,7 @@ export default function GitHubContributions() {
                       key={wi}
                       style={{
                         display: 'grid',
-                        gridTemplateRows: `repeat(7, ${CELL}px)`,
+                        gridTemplateRows: `repeat(7, ${cellSize}px)`,
                         gap: GAP,
                       }}
                     >
@@ -151,8 +163,8 @@ export default function GitHubContributions() {
                           key={di}
                           title={day ? `${day.date} · ${day.count} contribution${day.count !== 1 ? 's' : ''}` : undefined}
                           style={{
-                            width: CELL,
-                            height: CELL,
+                            width: cellSize,
+                            height: cellSize,
                             borderRadius: 2,
                             backgroundColor: day ? LEVEL_COLORS[day.level] : LEVEL_COLORS[0],
                           }}
@@ -177,7 +189,7 @@ export default function GitHubContributions() {
               {LEVEL_COLORS.map((color, i) => (
                 <div
                   key={i}
-                  style={{ width: CELL, height: CELL, borderRadius: 2, backgroundColor: color }}
+                  style={{ width: 10, height: 10, borderRadius: 2, backgroundColor: color }}
                 />
               ))}
               <span className="font-mono-sys text-haze text-[10px] tracking-[0.06em]">More</span>

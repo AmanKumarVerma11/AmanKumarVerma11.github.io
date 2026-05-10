@@ -271,7 +271,7 @@ function About() {
       </section>
 
       {/* ── 9. Plain footer block ─────────────────────────────── */}
-      <section className="border-t border-wire pt-14">
+      <section>
         <h2 className="font-mono-sys text-haze text-[11px] uppercase tracking-[0.18em] mb-8">
           The Plain Stuff
         </h2>
