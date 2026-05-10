@@ -81,9 +81,17 @@ const Contact = () => {
         <title>Contact — Aman Kumar Verma</title>
         <meta name="description" content="Open to founding-engineer roles and AI consulting engagements. Based in Delhi, available globally. Usually responds within 24 hours." />
         <link rel="canonical" href="https://www.amankrverma.in/contact" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Aman Kumar Verma" />
         <meta property="og:title" content="Contact — Aman Kumar Verma" />
         <meta property="og:description" content="Open to founding-engineer roles and AI consulting. Based in Delhi, available globally. Usually responds within 24 hours." />
         <meta property="og:url" content="https://www.amankrverma.in/contact" />
+        <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@mai_amanhoon" />
+        <meta name="twitter:title" content="Contact — Aman Kumar Verma" />
+        <meta name="twitter:description" content="Open to founding-engineer roles and AI consulting. Based in Delhi, available globally. Usually responds within 24 hours." />
+        <meta name="twitter:image" content="https://www.amankrverma.in/og-image.png" />
       </Helmet>
     <div className="max-w-6xl mx-auto px-6 lg:px-10 py-16">
       <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">

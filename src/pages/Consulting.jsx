@@ -84,9 +84,17 @@ function Consulting() {
         <title>Work With Me — Aman Kumar Verma</title>
         <meta name="description" content="Hire an AI engineer based in India for founding-engineer roles, multi-agent AI systems, Shopify automation, and full-stack product builds. Open to remote engagements globally." />
         <link rel="canonical" href="https://www.amankrverma.in/consulting" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Aman Kumar Verma" />
         <meta property="og:title" content="Work With Me — Aman Kumar Verma" />
         <meta property="og:description" content="Hire an AI engineer for founding-engineer roles, multi-agent AI systems, Shopify automation, and full-stack product builds." />
         <meta property="og:url" content="https://www.amankrverma.in/consulting" />
+        <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@mai_amanhoon" />
+        <meta name="twitter:title" content="Work With Me — Aman Kumar Verma" />
+        <meta name="twitter:description" content="Hire an AI engineer for founding-engineer roles, multi-agent AI systems, Shopify automation, and full-stack product builds." />
+        <meta name="twitter:image" content="https://www.amankrverma.in/og-image.png" />
       </Helmet>
 
       <div className="max-w-5xl mx-auto px-6 lg:px-10 py-16 space-y-28">

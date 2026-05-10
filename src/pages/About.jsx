@@ -197,9 +197,17 @@ function About() {
         <title>About — Aman Kumar Verma</title>
         <meta name="description" content="23, Delhi. Full stack engineer specialising in multi-agent AI systems. Currently at SellAbroad and running Intrafy. Open to founding-engineer roles." />
         <link rel="canonical" href="https://www.amankrverma.in/about" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Aman Kumar Verma" />
         <meta property="og:title" content="About — Aman Kumar Verma" />
         <meta property="og:description" content="23, Delhi. Full stack engineer specialising in multi-agent AI systems. Currently at SellAbroad and running Intrafy." />
         <meta property="og:url" content="https://www.amankrverma.in/about" />
+        <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@mai_amanhoon" />
+        <meta name="twitter:title" content="About — Aman Kumar Verma" />
+        <meta name="twitter:description" content="23, Delhi. Full stack engineer specialising in multi-agent AI systems. Currently at SellAbroad and running Intrafy." />
+        <meta name="twitter:image" content="https://www.amankrverma.in/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
     <div className="max-w-5xl mx-auto px-6 lg:px-10 py-16 space-y-28">

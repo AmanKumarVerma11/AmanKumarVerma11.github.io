@@ -1,5 +1,5 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import App from './App.jsx'
@@ -10,7 +10,9 @@ import Contact from './pages/Contact.jsx'
 import Consulting from './pages/Consulting.jsx'
 import './index.css'
 
-createRoot(document.getElementById('root')).render(
+const container = document.getElementById('root');
+
+const app = (
   <StrictMode>
     <HelmetProvider>
       <Router>
@@ -25,5 +27,12 @@ createRoot(document.getElementById('root')).render(
         </Routes>
       </Router>
     </HelmetProvider>
-  </StrictMode>,
-)
+  </StrictMode>
+);
+
+// Hydrate if the page was pre-rendered (has server HTML), otherwise do a fresh render
+if (container.hasChildNodes()) {
+  hydrateRoot(container, app);
+} else {
+  createRoot(container).render(app);
+}

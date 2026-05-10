@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
   plugins: [react()],
   server: {
     proxy: {
@@ -14,7 +14,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      output: {
+      output: isSsrBuild ? {} : {
         manualChunks: {
           react:  ['react', 'react-dom'],
           router: ['react-router-dom'],
@@ -24,4 +24,4 @@ export default defineConfig({
       },
     },
   },
-})
+}))

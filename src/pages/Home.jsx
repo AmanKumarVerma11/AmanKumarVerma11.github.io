@@ -114,10 +114,18 @@ function Home() {
         <title>Aman Kumar Verma — AI Systems Engineer</title>
         <meta name="description" content="Full stack engineer specialising in multi-agent AI systems and production automation. 6 products shipped, 100+ countries automated. Delhi — open to remote founding roles." />
         <link rel="canonical" href="https://www.amankrverma.in/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Aman Kumar Verma" />
         <meta property="og:title" content="Aman Kumar Verma — AI Systems Engineer" />
         <meta property="og:description" content="Full stack engineer specialising in multi-agent AI systems and production automation. 6 products shipped, 100+ countries automated." />
         <meta property="og:url" content="https://www.amankrverma.in/" />
         <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@mai_amanhoon" />
+        <meta name="twitter:title" content="Aman Kumar Verma — AI Systems Engineer" />
+        <meta name="twitter:description" content="Full stack engineer specialising in multi-agent AI systems and production automation. 6 products shipped, 100+ countries automated." />
         <meta name="twitter:image" content="https://www.amankrverma.in/og-image.png" />
       </Helmet>
       <div className="max-w-6xl mx-auto px-6 lg:px-10">
