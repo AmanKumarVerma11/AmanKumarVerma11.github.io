@@ -72,117 +72,120 @@ export default function GitHubContributions() {
       .catch(() => setStatus('error'));
   }, []);
 
-  if (status === 'loading') {
-    return (
-      <p className="font-mono-sys text-haze text-[11px] tracking-[0.1em] uppercase">
-        Loading contributions…
-      </p>
-    );
-  }
-
-  if (status === 'error') return null;
-
   const gridWidth = DAY_COL + weeks.length * STEP;
 
   return (
     <div ref={ref} className={`reveal-item${visible ? ' is-visible' : ''}`}>
-      <div className="overflow-x-auto">
-        <div style={{ position: 'relative', width: gridWidth, paddingTop: '18px' }}>
 
-          {/* Month labels */}
-          {monthLabels.map(({ col, label }) => (
-            <span
-              key={`${col}-${label}`}
-              className="font-mono-sys text-haze"
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: DAY_COL + col * STEP,
-                fontSize: '10px',
-                letterSpacing: '0.06em',
-                lineHeight: 1,
-              }}
-            >
-              {label}
-            </span>
-          ))}
+      {status === 'loading' && (
+        <p className="font-mono-sys text-haze text-[11px] tracking-[0.1em] uppercase">
+          Loading contributions…
+        </p>
+      )}
 
-          {/* Grid body */}
-          <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+      {status === 'ready' && (
+        <>
+          {/* Heatmap grid */}
+          <div className="overflow-x-auto">
+            <div style={{ position: 'relative', width: gridWidth, paddingTop: '18px' }}>
 
-            {/* Day labels */}
-            <div style={{
-              display: 'grid',
-              gridTemplateRows: `repeat(7, ${CELL}px)`,
-              gap: GAP,
-              width: DAY_COL,
-              flexShrink: 0,
-            }}>
-              {DAY_LABELS.map((label, i) => (
+              {/* Month labels */}
+              {monthLabels.map(({ col, label }) => (
                 <span
-                  key={i}
+                  key={`${col}-${label}`}
                   className="font-mono-sys text-haze"
                   style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: DAY_COL + col * STEP,
                     fontSize: '10px',
-                    lineHeight: `${CELL}px`,
-                    textAlign: 'right',
-                    paddingRight: 5,
-                    visibility: label ? 'visible' : 'hidden',
+                    letterSpacing: '0.06em',
+                    lineHeight: 1,
                   }}
                 >
                   {label}
                 </span>
               ))}
-            </div>
 
-            {/* Weeks */}
-            <div style={{ display: 'flex', gap: GAP }}>
-              {weeks.map((week, wi) => (
-                <div
-                  key={wi}
-                  style={{
-                    display: 'grid',
-                    gridTemplateRows: `repeat(7, ${CELL}px)`,
-                    gap: GAP,
-                  }}
-                >
-                  {week.map((day, di) => (
-                    <div
-                      key={di}
-                      title={day ? `${day.date} · ${day.count} contribution${day.count !== 1 ? 's' : ''}` : undefined}
+              {/* Grid body */}
+              <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+
+                {/* Day labels */}
+                <div style={{
+                  display: 'grid',
+                  gridTemplateRows: `repeat(7, ${CELL}px)`,
+                  gap: GAP,
+                  width: DAY_COL,
+                  flexShrink: 0,
+                }}>
+                  {DAY_LABELS.map((label, i) => (
+                    <span
+                      key={i}
+                      className="font-mono-sys text-haze"
                       style={{
-                        width: CELL,
-                        height: CELL,
-                        borderRadius: 2,
-                        backgroundColor: day ? LEVEL_COLORS[day.level] : LEVEL_COLORS[0],
+                        fontSize: '10px',
+                        lineHeight: `${CELL}px`,
+                        textAlign: 'right',
+                        paddingRight: 5,
+                        visibility: label ? 'visible' : 'hidden',
                       }}
-                    />
+                    >
+                      {label}
+                    </span>
                   ))}
                 </div>
-              ))}
+
+                {/* Weeks */}
+                <div style={{ display: 'flex', gap: GAP }}>
+                  {weeks.map((week, wi) => (
+                    <div
+                      key={wi}
+                      style={{
+                        display: 'grid',
+                        gridTemplateRows: `repeat(7, ${CELL}px)`,
+                        gap: GAP,
+                      }}
+                    >
+                      {week.map((day, di) => (
+                        <div
+                          key={di}
+                          title={day ? `${day.date} · ${day.count} contribution${day.count !== 1 ? 's' : ''}` : undefined}
+                          style={{
+                            width: CELL,
+                            height: CELL,
+                            borderRadius: 2,
+                            backgroundColor: day ? LEVEL_COLORS[day.level] : LEVEL_COLORS[0],
+                          }}
+                        />
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Footer row */}
-      <div className="flex items-center justify-between mt-3 flex-wrap gap-4">
-        {total !== null && (
-          <p className="font-mono-sys text-haze text-[11px] tracking-[0.08em]">
-            {total.toLocaleString()} contributions in the last year
-          </p>
-        )}
-        <div className="flex items-center gap-1.5">
-          <span className="font-mono-sys text-haze text-[10px] tracking-[0.06em]">Less</span>
-          {LEVEL_COLORS.map((color, i) => (
-            <div
-              key={i}
-              style={{ width: CELL, height: CELL, borderRadius: 2, backgroundColor: color }}
-            />
-          ))}
-          <span className="font-mono-sys text-haze text-[10px] tracking-[0.06em]">More</span>
-        </div>
-      </div>
+          {/* Footer row */}
+          <div className="flex items-center justify-between mt-3 flex-wrap gap-4">
+            {total !== null && (
+              <p className="font-mono-sys text-haze text-[11px] tracking-[0.08em]">
+                {total.toLocaleString()} contributions in the last year
+              </p>
+            )}
+            <div className="flex items-center gap-1.5">
+              <span className="font-mono-sys text-haze text-[10px] tracking-[0.06em]">Less</span>
+              {LEVEL_COLORS.map((color, i) => (
+                <div
+                  key={i}
+                  style={{ width: CELL, height: CELL, borderRadius: 2, backgroundColor: color }}
+                />
+              ))}
+              <span className="font-mono-sys text-haze text-[10px] tracking-[0.06em]">More</span>
+            </div>
+          </div>
+        </>
+      )}
+
     </div>
   );
 }
