@@ -87,7 +87,7 @@ function ProjectRow({ project, delay }) {
   return (
     <div
       ref={ref}
-      className={`reveal-item border-t border-wire${visible ? ' is-visible' : ''}`}
+      className={`reveal-item first:border-t border-b border-dashed border-wire${visible ? ' is-visible' : ''}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div className="group py-8 hover:px-4 px-0 transition-all duration-300">
@@ -202,7 +202,7 @@ function Projects() {
       </div>
 
       {/* Project roster */}
-      <div className="border-b border-wire">
+      <div>
         {projects.map((project, i) => (
           <ProjectRow key={project.num} project={project} delay={i * 60} />
         ))}

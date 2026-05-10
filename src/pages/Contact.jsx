@@ -40,120 +40,147 @@ const Contact = () => {
   const inputClass =
     'w-full bg-surface text-ink text-sm px-4 py-3 rounded-sm border border-wire placeholder:text-haze focus:outline-none focus:border-ink/50 focus:ring-1 focus:ring-ink/15 transition-all duration-200';
 
+  const sidebarSections = [
+    {
+      label: 'Direct',
+      items: [
+        { text: 'akverma11aug2002@gmail.com', href: 'mailto:akverma11aug2002@gmail.com' },
+        { text: 'LinkedIn', href: 'https://www.linkedin.com/in/aman-kr-verma11/' },
+        { text: 'GitHub', href: 'https://github.com/AmanKumarVerma11' },
+      ],
+    },
+    {
+      label: 'Location',
+      items: [{ text: 'Delhi, India · IST (UTC+5:30)' }],
+    },
+    {
+      label: 'Response',
+      items: [{ text: 'Usually within 24 hours' }],
+    },
+    {
+      label: 'Open to',
+      items: [
+        { text: 'Founding-engineer roles' },
+        { text: 'AI consulting & automation' },
+        { text: 'Saying hello' },
+      ],
+    },
+    {
+      label: 'Currently',
+      items: [
+        { text: 'SellAbroad — full-time' },
+        { text: 'Intrafy — evenings' },
+      ],
+    },
+  ];
+
   return (
     <div className="max-w-6xl mx-auto px-6 lg:px-10 py-16">
+      <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
 
-      <div className="max-w-xl">
-        {/* Header */}
-        <p className="text-haze text-xs font-semibold tracking-[0.18em] uppercase mb-3">
-          Contact
-        </p>
-        <h1
-          className="text-[clamp(1.8rem,5vw,4rem)] leading-[0.96] font-extrabold text-ink mb-5"
-          style={{ fontVariationSettings: "'wdth' 84, 'wght' 800" }}
-        >
-          Let's talk<span className="text-signal">.</span>
-        </h1>
-        <p className="text-dim text-base mb-12">
-          Have a project, a role, or just want to say hello. I read every message.
-        </p>
-
-        {/* Status messages */}
-        {submitStatus === 'success' && (
-          <div className="animate-fade-up mb-8 py-3 px-4 bg-surface border border-wire rounded-sm text-sm text-dim">
-            Message sent. I'll get back to you soon.
-          </div>
-        )}
-        {submitStatus === 'error' && (
-          <div className="animate-fade-up mb-8 py-3 px-4 bg-surface border border-wire rounded-sm text-sm text-dim">
-            Something went wrong. Email me directly at{' '}
-            <a href="mailto:akverma11aug2002@gmail.com" className="text-ink hover:underline underline-offset-4">
-              akverma11aug2002@gmail.com
-            </a>
-          </div>
-        )}
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label htmlFor="name" className="block text-dim text-xs mb-2 tracking-wide">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              placeholder="Your name"
-              className={inputClass}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-dim text-xs mb-2 tracking-wide">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="you@example.com"
-              className={inputClass}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="message" className="block text-dim text-xs mb-2 tracking-wide">
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows={6}
-              placeholder="Tell me about your project..."
-              className={`${inputClass} resize-none`}
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full text-sm font-medium text-dim border border-wire rounded-sm py-3 hover:border-ink/40 hover:text-ink disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
+        {/* ── Left: form ─────────────────────────────────────── */}
+        <div>
+          <p className="font-mono-sys text-haze text-[11px] tracking-[0.18em] uppercase mb-3">
+            Contact
+          </p>
+          <h1
+            className="text-[clamp(1.8rem,5vw,4rem)] leading-[0.96] font-extrabold text-ink mb-5"
+            style={{ fontVariationSettings: "'wdth' 84, 'wght' 800" }}
           >
-            {isSubmitting ? (
-              <>
-                <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                </svg>
-                Sending...
-              </>
-            ) : 'Send message'}
-          </button>
-        </form>
+            Let's talk<span className="text-signal">.</span>
+          </h1>
+          <p className="text-dim text-base mb-12">
+            Have a project, a role, or just want to say hello. I read every message.
+          </p>
 
-        {/* Direct links */}
-        <div className="mt-12 pt-10 border-t border-wire flex flex-wrap gap-x-8 gap-y-3 text-sm text-haze">
-          <a href="mailto:akverma11aug2002@gmail.com" className="hover:text-ink transition-colors duration-200">
-            akverma11aug2002@gmail.com
-          </a>
-          <a href="https://www.linkedin.com/in/aman-kr-verma11/" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors duration-200">
-            LinkedIn →
-          </a>
-          <a href="https://github.com/AmanKumarVerma11" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors duration-200">
-            GitHub →
-          </a>
+          {submitStatus === 'success' && (
+            <div className="animate-fade-up mb-8 py-3 px-4 bg-surface border border-wire rounded-sm text-sm text-dim">
+              Message sent. I'll get back to you soon.
+            </div>
+          )}
+          {submitStatus === 'error' && (
+            <div className="animate-fade-up mb-8 py-3 px-4 bg-surface border border-wire rounded-sm text-sm text-dim">
+              Something went wrong. Email me directly at{' '}
+              <a href="mailto:akverma11aug2002@gmail.com" className="text-ink hover:underline underline-offset-4">
+                akverma11aug2002@gmail.com
+              </a>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label htmlFor="name" className="block text-dim text-xs mb-2 tracking-wide">Name</label>
+              <input
+                type="text" id="name" name="name"
+                value={formData.name} onChange={handleChange}
+                required placeholder="Your name" className={inputClass}
+              />
+            </div>
+            <div>
+              <label htmlFor="email" className="block text-dim text-xs mb-2 tracking-wide">Email</label>
+              <input
+                type="email" id="email" name="email"
+                value={formData.email} onChange={handleChange}
+                required placeholder="you@example.com" className={inputClass}
+              />
+            </div>
+            <div>
+              <label htmlFor="message" className="block text-dim text-xs mb-2 tracking-wide">Message</label>
+              <textarea
+                id="message" name="message"
+                value={formData.message} onChange={handleChange}
+                required rows={6}
+                placeholder="Tell me about your project..."
+                className={`${inputClass} resize-none`}
+              />
+            </div>
+            <button
+              type="submit" disabled={isSubmitting}
+              className="w-full text-sm font-medium text-dim border border-wire rounded-sm py-3 hover:border-ink/40 hover:text-ink disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
+            >
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  Sending...
+                </>
+              ) : 'Send message'}
+            </button>
+          </form>
         </div>
-      </div>
 
+        {/* ── Right: info sidebar ────────────────────────────── */}
+        <div className="space-y-8 lg:space-y-0 lg:flex lg:flex-col lg:justify-between">
+          {sidebarSections.map(section => (
+            <div key={section.label}>
+              <p className="font-mono-sys text-haze text-[11px] uppercase tracking-[0.18em] mb-3">
+                {section.label}
+              </p>
+              <ul className="space-y-1.5">
+                {section.items.map(item => (
+                  <li key={item.text}>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        target={item.href.startsWith('http') ? '_blank' : undefined}
+                        rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        className="text-dim text-sm hover:text-ink transition-colors duration-200"
+                      >
+                        {item.text} →
+                      </a>
+                    ) : (
+                      <span className="text-dim text-sm">{item.text}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+      </div>
     </div>
   );
 };

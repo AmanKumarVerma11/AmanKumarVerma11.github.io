@@ -83,12 +83,12 @@ function BioRow({ item, delay }) {
   return (
     <div
       ref={ref}
-      className={`bio-row reveal-item${visible ? ' is-visible' : ''}`}
+      className={`bio-row reveal-item first:border-t border-b border-dashed border-wire px-0 py-5${visible ? ' is-visible' : ''}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <p className="bio-annotation">[ {item.annotation} ]</p>
+      <p className="bio-annotation border-r border-dashed border-wire pr-8">[ {item.annotation} ]</p>
       <p
-        className="text-ink text-xl lg:text-[1.6rem] leading-snug"
+        className="text-ink text-xl lg:text-[1.6rem] leading-snug pl-8"
         style={{ fontVariationSettings: "'wdth' 90, 'wght' 600" }}
       >
         {item.claim}
@@ -126,12 +126,12 @@ function ExperienceRow({ item, delay }) {
   );
 }
 
-function PrincipleBlock({ p, delay }) {
+function PrincipleBlock({ p, delay, extraClass }) {
   const [ref, visible] = useReveal();
   return (
     <div
       ref={ref}
-      className={`reveal-item${visible ? ' is-visible' : ''}`}
+      className={`reveal-item p-7 ${extraClass ?? ''}${visible ? ' is-visible' : ''}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       <span className="font-mono-sys text-haze text-[11px] tracking-[0.1em]">
@@ -220,7 +220,7 @@ function About() {
         <h2 className="font-mono-sys text-haze text-[11px] uppercase tracking-[0.18em] mb-10">
           About
         </h2>
-        <div className="space-y-7">
+        <div>
           {bio.map((item, i) => (
             <BioRow key={i} item={item} delay={i * 70} />
           ))}
@@ -255,10 +255,20 @@ function About() {
         <h2 className="font-mono-sys text-haze text-[11px] uppercase tracking-[0.18em] mb-10">
           Principles
         </h2>
-        <div className="grid md:grid-cols-2 gap-x-12 gap-y-10 max-w-4xl">
+        <div className="max-w-4xl">
+          <div className="grid md:grid-cols-2">
           {principles.map((p, i) => (
-            <PrincipleBlock key={p.num} p={p} delay={i * 60} />
+            <PrincipleBlock
+              key={p.num}
+              p={p}
+              delay={i * 60}
+              extraClass={[
+                i < 2       ? 'border-b border-dashed border-wire'           : '',
+                i % 2 === 0 ? 'md:border-r md:border-dashed md:border-wire'  : '',
+              ].filter(Boolean).join(' ')}
+            />
           ))}
+          </div>
         </div>
       </section>
 
