@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import useMagnetic from '../hooks/useMagnetic';
 import Iceberg from '../Components/sketches/Iceberg';
 
@@ -108,7 +109,18 @@ function Home() {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto px-6 lg:px-10">
+    <>
+      <Helmet>
+        <title>Aman Kumar Verma — AI Systems Engineer</title>
+        <meta name="description" content="Full stack engineer specialising in multi-agent AI systems and production automation. 6 products shipped, 100+ countries automated. Delhi — open to remote founding roles." />
+        <link rel="canonical" href="https://www.amankrverma.in/" />
+        <meta property="og:title" content="Aman Kumar Verma — AI Systems Engineer" />
+        <meta property="og:description" content="Full stack engineer specialising in multi-agent AI systems and production automation. 6 products shipped, 100+ countries automated." />
+        <meta property="og:url" content="https://www.amankrverma.in/" />
+        <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
+        <meta name="twitter:image" content="https://www.amankrverma.in/og-image.png" />
+      </Helmet>
+      <div className="max-w-6xl mx-auto px-6 lg:px-10">
 
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section
@@ -228,6 +240,7 @@ function Home() {
       </section>
 
     </div>
+    </>
   );
 }
 

@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 function useReveal() {
   const ref = useRef(null);
@@ -172,6 +173,15 @@ function ProjectRow({ project, delay }) {
 
 function Projects() {
   return (
+    <>
+      <Helmet>
+        <title>Projects — Aman Kumar Verma</title>
+        <meta name="description" content="6 shipped products: a 7-agent AI orchestration system, EasySheets AI, Intrafy, Traxsis, Zeetax, and Tyos Sports. Full-stack AI to production e-commerce." />
+        <link rel="canonical" href="https://www.amankrverma.in/projects" />
+        <meta property="og:title" content="Projects — Aman Kumar Verma" />
+        <meta property="og:description" content="6 shipped products: a 7-agent AI orchestration system, EasySheets AI, Intrafy, Traxsis, Zeetax, and Tyos Sports." />
+        <meta property="og:url" content="https://www.amankrverma.in/projects" />
+      </Helmet>
     <div className="max-w-6xl mx-auto px-6 lg:px-10 py-16">
 
       {/* Page header */}
@@ -209,6 +219,7 @@ function Projects() {
       </div>
 
     </div>
+    </>
   );
 }
 

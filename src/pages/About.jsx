@@ -1,5 +1,45 @@
+import { Helmet } from 'react-helmet-async';
 import useReveal from '../hooks/useReveal';
 import GitHubContributions from '../Components/GitHubContributions';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is multi-agent AI orchestration?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Multi-agent AI orchestration is a system design where multiple specialised AI agents work in sequence or in parallel to complete complex tasks autonomously. Each agent handles a specific sub-task — such as DOM analysis, code injection, or regression QA — and passes results to the next, enabling reliable end-to-end automation without human intervention.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What has Aman Kumar Verma built?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Aman Kumar Verma has built 6 shipped products including a 7-agent AI orchestration system for Shopify theme onboarding at SellAbroad, EasySheets AI (curriculum-aligned assessment generation for Indian schools), Intrafy (an AI-native automation consultancy), Traxsis (AI-assisted consulting platform), Zeetax (React Native educational app), and Tyos Sports (e-commerce + inventory management).',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is Aman Kumar Verma available for hire?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Aman is open to founding-engineer roles at AI-native startups and AI consulting engagements. He is based in Delhi, India and works remotely with global clients. Response time is typically within 24 hours.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What tech stack does Aman Kumar Verma use?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Aman works across React, Next.js, TypeScript, Node.js, PostgreSQL, Redis, BullMQ, Python, LangChain, LangGraph, and LLM APIs including OpenAI and Gemini. For infrastructure he uses Vercel, Docker, and Shopify APIs.',
+      },
+    },
+  ],
+};
 
 const stamp = ['Delhi', 'Open globally', 'Currently shipping 7-agent orchestration'];
 
@@ -152,6 +192,16 @@ function PrincipleBlock({ p, delay, extraClass }) {
 
 function About() {
   return (
+    <>
+      <Helmet>
+        <title>About — Aman Kumar Verma</title>
+        <meta name="description" content="23, Delhi. Full stack engineer specialising in multi-agent AI systems. Currently at SellAbroad and running Intrafy. Open to founding-engineer roles." />
+        <link rel="canonical" href="https://www.amankrverma.in/about" />
+        <meta property="og:title" content="About — Aman Kumar Verma" />
+        <meta property="og:description" content="23, Delhi. Full stack engineer specialising in multi-agent AI systems. Currently at SellAbroad and running Intrafy." />
+        <meta property="og:url" content="https://www.amankrverma.in/about" />
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Helmet>
     <div className="max-w-5xl mx-auto px-6 lg:px-10 py-16 space-y-28">
 
       {/* ── 1. Metadata stamp ─────────────────────────────────── */}
@@ -309,6 +359,7 @@ function About() {
       </section>
 
     </div>
+    </>
   );
 }
 

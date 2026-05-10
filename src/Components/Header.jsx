@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const navItems = [
-  { to: '/',        label: 'Home'     },
-  { to: '/about',   label: 'About'    },
-  { to: '/projects', label: 'Projects' },
-  { to: '/contact', label: 'Contact'  },
+  { to: '/',           label: 'Home'       },
+  { to: '/about',      label: 'About'      },
+  { to: '/projects',   label: 'Projects'   },
+  { to: '/consulting', label: 'Hire me'    },
+  { to: '/contact',    label: 'Contact'    },
 ];
 
 function Header() {
