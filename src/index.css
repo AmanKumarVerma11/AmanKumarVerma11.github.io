@@ -175,7 +175,7 @@
 
 @media (min-width: 1024px) {
   .bio-row {
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: max-content 1fr;
     gap: 3rem;
   }
 }

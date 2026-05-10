@@ -1,11 +1,40 @@
 import useReveal from '../hooks/useReveal';
+import GitHubContributions from '../Components/GitHubContributions';
 
 const stamp = ['Delhi', 'Open globally', 'Currently shipping 7-agent orchestration'];
 
 const rightNow = [
-  'Architecting a 7-agent AI orchestration system — full automation from DOM analysis to regression QA',
-  'Running Intrafy — AI-native automation consultancy',
+  'Full Stack SWE at SellAbroad — shipping AI systems that automate Shopify merchant onboarding at scale',
+  'Running Intrafy alongside — AI-native consultancy, multi-agent pipelines for clients end-to-end',
   'Open to founding-engineer roles at AI-native startups',
+  'Deepening expertise in LangGraph, agent memory architectures, and eval pipelines',
+];
+
+const experience = [
+  {
+    role: 'Full Stack Software Engineer',
+    company: 'SellAbroad',
+    period: 'Jan 2026 – Present',
+    location: 'Remote',
+    note: 'Architected the 7-agent AI orchestration system that automates Shopify theme onboarding end-to-end. Automated cross-border expansion to 100+ countries — multi-currency pricing, geo-targeting, BNPL matrix. Built the persistent memory layer that makes multi-phase automation reliable.',
+    tech: 'Next.js · TypeScript · Shopify APIs · PostgreSQL · Redis · BullMQ · Medusa',
+  },
+  {
+    role: 'Software Development Engineer',
+    company: 'COOX',
+    period: 'Apr 2025 – Oct 2025',
+    location: 'Hybrid',
+    note: 'Shipped production features across web and mobile in a cross-functional team. Eliminated re-render bottlenecks and optimised API call patterns. Owned incident resolution via Sentry in a Scrum workflow.',
+    tech: 'Next.js · React Native · TypeScript · Sentry · Jira',
+  },
+  {
+    role: 'Builder',
+    company: 'Intrafy',
+    period: '2024 – Present',
+    location: 'Remote',
+    note: 'AI-native automation consultancy. Design and deploy multi-agent pipelines for clients — from requirement to production.',
+    tech: 'Next.js · TypeScript · LangChain · LLMs',
+  },
 ];
 
 const bio = [
@@ -68,6 +97,35 @@ function BioRow({ item, delay }) {
   );
 }
 
+function ExperienceRow({ item, delay }) {
+  return (
+    <div
+      className="border-t border-wire pt-5 pb-5 animate-fade-up"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 mb-1">
+        <span
+          className="text-ink text-base"
+          style={{ fontVariationSettings: "'wdth' 90, 'wght' 600" }}
+        >
+          {item.role}
+          <span className="text-dim font-normal"> — {item.company}</span>
+        </span>
+        <div className="flex items-center gap-3">
+          {item.location && (
+            <span className="font-mono-sys text-haze text-[10px] tracking-[0.1em] uppercase">{item.location}</span>
+          )}
+          <span className="font-mono-sys text-haze text-[11px] tracking-[0.1em]">{item.period}</span>
+        </div>
+      </div>
+      <p className="text-dim text-sm leading-relaxed max-w-[64ch] mt-2">{item.note}</p>
+      {item.tech && (
+        <p className="font-mono-sys text-haze text-[10px] tracking-[0.08em] mt-3">{item.tech}</p>
+      )}
+    </div>
+  );
+}
+
 function PrincipleBlock({ p, delay }) {
   const [ref, visible] = useReveal();
   return (
@@ -120,6 +178,11 @@ function About() {
         <p className="font-mono-sys text-dim text-sm mt-6 tracking-wide">
           Multi-agent AI &nbsp;·&nbsp; persistent memory &nbsp;·&nbsp; recovery built-in.
         </p>
+        <p className="text-dim text-base leading-relaxed max-w-[60ch] mt-8">
+          23, Delhi. Started building for the web at 18, went full-stack at 21, and pivoted to AI systems
+          when I realised the real leverage was in the orchestration layer — not the models.
+          Today I run Intrafy, ship agents for clients, and stay close to the engineering across every layer I touch.
+        </p>
       </section>
 
       {/* ── 3. Right Now ──────────────────────────────────────── */}
@@ -139,7 +202,20 @@ function About() {
         </ul>
       </section>
 
-      {/* ── 4. Annotated bio (the centerpiece) ───────────────── */}
+      {/* ── 4. Experience ─────────────────────────────────────── */}
+      <section>
+        <h2 className="font-mono-sys text-haze text-[11px] uppercase tracking-[0.18em] mb-8">
+          Experience
+        </h2>
+        <div className="space-y-0 max-w-3xl">
+          {experience.map((item, i) => (
+            <ExperienceRow key={i} item={item} delay={i * 80} />
+          ))}
+          <div className="border-t border-wire" />
+        </div>
+      </section>
+
+      {/* ── 5. Annotated bio (the centerpiece) ───────────────── */}
       <section>
         <h2 className="font-mono-sys text-haze text-[11px] uppercase tracking-[0.18em] mb-10">
           About
@@ -151,7 +227,7 @@ function About() {
         </div>
       </section>
 
-      {/* ── 5. Shipped ────────────────────────────────────────── */}
+      {/* ── 6. Shipped ────────────────────────────────────────── */}
       <section>
         <h2 className="font-mono-sys text-haze text-[11px] uppercase tracking-[0.18em] mb-8">
           Shipped
@@ -170,11 +246,11 @@ function About() {
           href="/projects"
           className="font-mono-sys inline-block text-dim text-[11px] uppercase tracking-[0.16em] mt-8 link-grow hover:text-ink transition-colors duration-200"
         >
-          View all six projects →
+          View all projects →
         </a>
       </section>
 
-      {/* ── 6. Principles ─────────────────────────────────────── */}
+      {/* ── 7. Principles ─────────────────────────────────────── */}
       <section>
         <h2 className="font-mono-sys text-haze text-[11px] uppercase tracking-[0.18em] mb-10">
           Principles
@@ -186,7 +262,15 @@ function About() {
         </div>
       </section>
 
-      {/* ── 7. Plain footer block ─────────────────────────────── */}
+      {/* ── 8. GitHub Contributions ──────────────────────────── */}
+      <section>
+        <h2 className="font-mono-sys text-haze text-[11px] uppercase tracking-[0.18em] mb-8">
+          Activity
+        </h2>
+        <GitHubContributions />
+      </section>
+
+      {/* ── 9. Plain footer block ─────────────────────────────── */}
       <section className="border-t border-wire pt-14">
         <h2 className="font-mono-sys text-haze text-[11px] uppercase tracking-[0.18em] mb-8">
           The Plain Stuff
