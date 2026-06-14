@@ -42,26 +42,6 @@ const projects = [
   },
   {
     num: '03',
-    title: 'Traxsis',
-    subtitle: 'AI-Powered Business Consulting Platform',
-    description:
-      'Full-stack AI SaaS that democratizes business consulting. Intelligent chat with Google Gemini, semantic search via vector embeddings, real-time analytics, goal tracking, and subscription management.',
-    tech: ['Next.js', 'React 19', 'TypeScript', 'MongoDB', 'Gemini API', 'LangChain', 'Clerk', 'Prisma'],
-    link: 'https://traxsis.com/',
-    github: null,
-  },
-  {
-    num: '04',
-    title: 'Zeetax',
-    subtitle: 'Native Educational App',
-    description:
-      'Native mobile app for exploring books, notes, and digital learning content. Cross-platform UI with smooth navigation. Backend on Next.js with PostgreSQL. Optimized performance and state management.',
-    tech: ['React Native', 'Expo', 'Next.js', 'PostgreSQL', 'Prisma'],
-    link: 'https://zeetax.in/',
-    github: null,
-  },
-  {
-    num: '05',
     title: 'Portfolio Studio',
     subtitle: 'Designer-Locked Portfolio Builder',
     description:
@@ -71,7 +51,7 @@ const projects = [
     github: null,
   },
   {
-    num: '06',
+    num: '04',
     title: 'Twitter Trends Scraper',
     subtitle: 'Real-Time Trend Visualizer',
     description:
@@ -79,6 +59,26 @@ const projects = [
     tech: ['React', 'Node.js', 'Selenium', 'ProxyMesh', 'MongoDB', 'Framer Motion'],
     link: null,
     github: 'https://github.com/AmanKumarVerma11/Twitter-Trends-Scraper',
+  },
+  {
+    num: '05',
+    title: 'Traxsis',
+    subtitle: 'AI-Powered Business Consulting Platform',
+    description:
+      'Full-stack AI SaaS that democratizes business consulting. Intelligent chat with Google Gemini, semantic search via vector embeddings, real-time analytics, goal tracking, and subscription management.',
+    tech: ['Next.js', 'React 19', 'TypeScript', 'MongoDB', 'Gemini API', 'LangChain', 'Clerk', 'Prisma'],
+    link: 'https://traxsis.com/',
+    github: null,
+  },
+  {
+    num: '06',
+    title: 'Zeetax',
+    subtitle: 'Native Educational App',
+    description:
+      'Native mobile app for exploring books, notes, and digital learning content. Cross-platform UI with smooth navigation. Backend on Next.js with PostgreSQL. Optimized performance and state management.',
+    tech: ['React Native', 'Expo', 'Next.js', 'PostgreSQL', 'Prisma'],
+    link: 'https://zeetax.in/',
+    github: null,
   },
   {
     num: '07',
