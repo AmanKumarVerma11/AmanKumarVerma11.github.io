@@ -62,6 +62,16 @@ const projects = [
   },
   {
     num: '05',
+    title: 'Portfolio Studio',
+    subtitle: 'Designer-Locked Portfolio Builder',
+    description:
+      'A SaaS that turns one form into an art-directed personal site across four designer-locked themes, then exports a single self-contained HTML file you own forever. Built the full stack: PKCE + Google auth, private-bucket signed-URL media, ISR public pages, theme-native social cards, and an offline-capable export pipeline.',
+    tech: ['Next.js', 'React 19', 'TypeScript', 'Tailwind CSS', 'Supabase'],
+    link: 'https://studio.amankrverma.in/',
+    github: null,
+  },
+  {
+    num: '06',
     title: 'Twitter Trends Scraper',
     subtitle: 'Real-Time Trend Visualizer',
     description:
@@ -71,7 +81,7 @@ const projects = [
     github: 'https://github.com/AmanKumarVerma11/Twitter-Trends-Scraper',
   },
   {
-    num: '06',
+    num: '07',
     title: 'Tyos Sports',
     subtitle: 'E-Commerce + Inventory System',
     description:
