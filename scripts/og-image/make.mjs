@@ -55,7 +55,7 @@ const path = (d, fill) => `    <path fill="${fill}" d="${d}"/>`;
 function buildSvg() {
   const out = [];
 
-  out.push(path(run('FULL STACK ENGINEER · AI SYSTEMS BUILDER',
+  out.push(path(run('FORWARD DEPLOYED ENGINEER · FULL-STACK + AI',
     { size: 16, wght: 600, opsz: 14, tracking: 3.6, x: 104, y: 140 }).d, HAZE));
 
   // The hero's exact axis settings, so the card and the page agree
@@ -66,7 +66,7 @@ function buildSvg() {
   out.push(path(verma.d, INK));
   out.push(path(run('.', { ...NAME, x: 100 + verma.width, y: 404 }).d, SIGNAL));
 
-  out.push(path(run('Multi-agent AI systems · persistent memory · recovery built-in',
+  out.push(path(run('Full-stack product · AI systems · shipped end to end',
     { size: 20, wght: 500, opsz: 18, x: 104, y: 516 }).d, DIM));
 
   const site = { size: 20, wght: 600, opsz: 18, tracking: 1 };

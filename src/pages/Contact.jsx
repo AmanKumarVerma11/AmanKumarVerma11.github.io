@@ -63,16 +63,17 @@ const Contact = () => {
     {
       label: 'Open to',
       items: [
-        { text: 'Founding-engineer roles' },
-        { text: 'AI consulting & automation' },
+        { text: 'Product & software engineering roles' },
+        { text: 'Forward-deployed / FDE roles' },
+        { text: 'Select AI engagements' },
         { text: 'Saying hello' },
       ],
     },
     {
       label: 'Currently',
       items: [
-        { text: 'SellAbroad — full-time' },
-        { text: 'Intrafy — evenings' },
+        { text: 'SellAbroad, full-time' },
+        { text: 'Intrafy, on the side' },
       ],
     },
   ];
@@ -81,19 +82,19 @@ const Contact = () => {
     <>
       <Helmet>
         <title>Contact — Aman Kumar Verma</title>
-        <meta name="description" content="Open to founding-engineer roles and AI consulting engagements. Based in Delhi, available globally. Usually responds within 24 hours." />
+        <meta name="description" content="Open to product, forward-deployed, and software engineering roles, plus select AI engagements. Based in Delhi, open to remote and relocation. Usually responds within 24 hours." />
         <link rel="canonical" href="https://www.amankrverma.in/contact" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Aman Kumar Verma" />
         <meta property="og:title" content="Contact — Aman Kumar Verma" />
-        <meta property="og:description" content="Open to founding-engineer roles and AI consulting. Based in Delhi, available globally. Usually responds within 24 hours." />
+        <meta property="og:description" content="Open to product, FDE, and software engineering roles, plus select AI engagements. Based in Delhi, open to remote and relocation." />
         <meta property="og:url" content="https://www.amankrverma.in/contact" />
         <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
-        <meta property="og:image:alt" content="Aman Kumar Verma — Full Stack Engineer and AI Systems Builder" />
+        <meta property="og:image:alt" content="Aman Kumar Verma, Forward Deployed Engineer building full-stack and AI products." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@mai_amanhoon" />
         <meta name="twitter:title" content="Contact — Aman Kumar Verma" />
-        <meta name="twitter:description" content="Open to founding-engineer roles and AI consulting. Based in Delhi, available globally. Usually responds within 24 hours." />
+        <meta name="twitter:description" content="Open to product, FDE, and software engineering roles, plus select AI engagements. Based in Delhi, open to remote and relocation." />
         <meta name="twitter:image" content="https://www.amankrverma.in/og-image.png" />
       </Helmet>
     <div className="max-w-6xl mx-auto px-6 lg:px-10 py-16">

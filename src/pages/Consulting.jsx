@@ -4,43 +4,43 @@ import useReveal from '../hooks/useReveal';
 const services = [
   {
     num: '01',
-    title: 'AI Agent Systems',
-    desc: 'Design and ship multi-agent pipelines that run autonomously in production. Persistent memory, auto-resume on failure, structured handoffs between agents. Built to replace manual workflows, not assist them.',
-    tags: ['LangGraph', 'LangChain', 'OpenAI', 'Gemini', 'BullMQ'],
+    title: 'Full-stack product, end to end',
+    desc: 'Zero to production: schema design, backend, frontend, deployment. I own the whole stack, keep the surface area tight, and optimise for speed of iteration over architecture astronautics.',
+    tags: ['Next.js', 'TypeScript', 'Node', 'PostgreSQL', 'React Native'],
   },
   {
     num: '02',
-    title: 'Full-Stack AI Products',
-    desc: 'End-to-end product builds — from schema design to deployment. React, Next.js, Node, Postgres. I own the whole stack and keep the surface area tight. Optimised for speed of iteration, not architecture astronautics.',
-    tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Redis', 'Vercel'],
+    title: 'AI agent systems',
+    desc: 'Multi-agent pipelines that run in production, not just demos. Persistent memory, auto-resume on failure, structured handoffs between agents. Built to replace manual workflows, not assist them.',
+    tags: ['LangGraph', 'LangChain', 'OpenAI', 'Gemini', 'RAG'],
   },
   {
     num: '03',
-    title: 'Shopify & E-Commerce Automation',
-    desc: 'Automated cross-border market expansion, multi-currency pricing, geo-targeting logic, and BNPL payment matrices. Reduced per-merchant onboarding from hours to minutes at SellAbroad.',
-    tags: ['Shopify APIs', 'Medusa', 'Node.js', 'TypeScript'],
+    title: 'Payments & commerce automation',
+    desc: 'High-risk merchant dashboards, payment orchestration, and cross-border expansion: multi-currency pricing, geo-targeting, and BNPL logic. Cut per-merchant onboarding from hours to minutes at SellAbroad.',
+    tags: ['Shopify APIs', 'Razorpay', 'Payments', 'Node.js'],
   },
   {
     num: '04',
-    title: 'Founding Engineer (Embedded)',
-    desc: 'Join your team as a founding engineer — not as a contractor who disappears. I own the technical roadmap, make architecture decisions, and ship. Best fit for pre-seed to Series A AI-native startups.',
-    tags: ['Full ownership', 'System design', 'Technical leadership'],
+    title: 'Forward-deployed / embedded engineer',
+    desc: 'Drop into your team as the engineer who owns outcomes, not tickets. I sit close to your customers, make the architecture calls, and ship. Best fit for pre-seed to Series A teams moving fast.',
+    tags: ['Full ownership', 'System design', 'Customer-facing'],
   },
 ];
 
 const process = [
-  { step: '01', title: 'Scope call', desc: 'One hour. You explain the problem, I ask hard questions. No NDA required upfront.' },
-  { step: '02', title: 'Proposal', desc: 'Within 48 hours: scope, approach, timeline, and fixed or milestone-based pricing.' },
-  { step: '03', title: 'Build', desc: 'Weekly updates. Code in your repo from day one. No black boxes.' },
-  { step: '04', title: 'Ship & hand over', desc: 'Full documentation, working CI/CD, and a walkthrough. You own everything.' },
+  { step: '01', title: 'Scope call', desc: 'One hour. You explain the problem, I ask the hard questions. Role or project, same starting point.' },
+  { step: '02', title: 'Plan', desc: 'Within 48 hours: scope, approach, and a realistic timeline. No hand-waving.' },
+  { step: '03', title: 'Build in the open', desc: 'Weekly updates. Code in your repo from day one. No black boxes.' },
+  { step: '04', title: 'Ship & hand over', desc: 'Documentation, working CI/CD, and a walkthrough. You own everything.' },
 ];
 
 const facts = [
   { label: 'Based',        value: 'Delhi, India · IST (UTC+5:30)' },
-  { label: 'Availability', value: 'Open to consulting — limited slots' },
+  { label: 'Open to',      value: 'Full-time roles and select engagements' },
   { label: 'Response',     value: 'Within 24 hours' },
-  { label: 'Timezone fit', value: 'Works async with US/EU teams daily' },
-  { label: 'Rate style',   value: 'Fixed-scope or milestone — no surprise invoices' },
+  { label: 'Timezone fit', value: 'Works async with US and EU teams daily' },
+  { label: 'Relocation',   value: 'Open, with visa and accommodation support' },
   { label: 'Contact',      value: 'akverma11aug2002@gmail.com', href: 'mailto:akverma11aug2002@gmail.com' },
 ];
 
@@ -82,19 +82,19 @@ function Consulting() {
     <>
       <Helmet>
         <title>Work With Me — Aman Kumar Verma</title>
-        <meta name="description" content="Hire an AI engineer based in India for founding-engineer roles, multi-agent AI systems, Shopify automation, and full-stack product builds. Open to remote engagements globally." />
+        <meta name="description" content="Work with Aman Kumar Verma, a forward-deployed product engineer. Full-stack, AI systems, and payments, from scope to production. Open to roles and engagements, remote or relocation." />
         <link rel="canonical" href="https://www.amankrverma.in/consulting" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Aman Kumar Verma" />
         <meta property="og:title" content="Work With Me — Aman Kumar Verma" />
-        <meta property="og:description" content="Hire an AI engineer for founding-engineer roles, multi-agent AI systems, Shopify automation, and full-stack product builds." />
+        <meta property="og:description" content="Forward-deployed product engineer: full-stack, AI systems, and payments, from scope to production. Open to roles and engagements." />
         <meta property="og:url" content="https://www.amankrverma.in/consulting" />
         <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
-        <meta property="og:image:alt" content="Aman Kumar Verma — Full Stack Engineer and AI Systems Builder" />
+        <meta property="og:image:alt" content="Aman Kumar Verma, Forward Deployed Engineer building full-stack and AI products." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@mai_amanhoon" />
         <meta name="twitter:title" content="Work With Me — Aman Kumar Verma" />
-        <meta name="twitter:description" content="Hire an AI engineer for founding-engineer roles, multi-agent AI systems, Shopify automation, and full-stack product builds." />
+        <meta name="twitter:description" content="Forward-deployed product engineer: full-stack, AI systems, and payments, from scope to production. Open to roles and engagements." />
         <meta name="twitter:image" content="https://www.amankrverma.in/og-image.png" />
       </Helmet>
 
@@ -112,9 +112,10 @@ function Consulting() {
             The systems that make your product work<span className="text-signal">.</span>
           </h1>
           <p className="text-dim text-base leading-relaxed max-w-[58ch] mt-6">
-            I’m a full-stack engineer specialising in multi-agent AI systems and production automation.
-            Based in Delhi, working with global teams. I build the things founders need that are too
-            complex for no-code and too expensive to hand off to a big agency.
+            I’m a forward-deployed product engineer: full-stack, AI, and the judgment to know what to
+            actually build. I take the messy, high-stakes problems (the ones too complex for no-code
+            and too core to hand to an agency) from scope to production, and I stay close to the people
+            using the thing. Works as a role or an engagement.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <a

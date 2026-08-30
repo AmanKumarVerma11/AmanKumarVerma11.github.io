@@ -16,7 +16,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-6 lg:px-10 pt-20 pb-10">
 
         <p className="text-haze text-xs font-semibold tracking-[0.18em] uppercase mb-5">
-          Available for new projects
+          Open to new roles and projects
         </p>
 
         <a

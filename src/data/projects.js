@@ -11,7 +11,7 @@ export const projects = [
     title: 'EasySheets AI',
     subtitle: 'AI-Powered EdTech Platform',
     description:
-      'Quiz and worksheet generation platform for Indian schools — educators produce curriculum-aligned assessments in seconds instead of hours. Designed the end-to-end product: content generation pipeline, educator-facing UI, and deployment.',
+      'Quiz and worksheet generation platform for Indian schools. Educators produce curriculum-aligned assessments in seconds instead of hours. Designed the end-to-end product: content generation pipeline, educator-facing UI, and deployment.',
     tech: ['Next.js', 'TypeScript', 'OpenAI', 'Tailwind CSS'],
     link: 'https://easysheets-ai.com/',
     github: null,
@@ -21,7 +21,7 @@ export const projects = [
     title: 'Intrafy',
     subtitle: 'AI-Native Automation Consultancy',
     description:
-      'Founded an AI-native agentic workflow automation consultancy. Entire site — design, SEO, and deployment — conceived, built, and operated via AI agents. Full technical SEO stack: JSON-LD schemas, Open Graph, Core Web Vitals, sitemap.',
+      'Founded an AI-native agentic workflow automation consultancy. The entire site (design, SEO, and deployment) was conceived, built, and operated via AI agents. Full technical SEO stack: JSON-LD schemas, Open Graph, Core Web Vitals, sitemap.',
     tech: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     link: 'https://intrafy.in/',
     github: null,
@@ -76,10 +76,20 @@ export const projects = [
     link: 'https://tyos.co.in/',
     github: null,
   },
+  {
+    id: 'claude-career-journal',
+    title: 'Claude Career Journal',
+    subtitle: 'Open-Source Claude Code Skills',
+    description:
+      "A set of Claude Code skills that keep a developer's career journal current and hand back profile-ready copy for resumes, LinkedIn, and portfolios. Public repo with an MIT license, templates, and privacy-safe defaults.",
+    tech: ['Claude Code', 'Agent Skills', 'Node.js', 'Open Source'],
+    link: null,
+    github: 'https://github.com/AmanKumarVerma11/claude-career-journal',
+  },
 ];
 
 /** Ids surfaced in the Home page's "Selected Work" strip, in display order. */
-export const FEATURED_IDS = ['easysheets', 'intrafy', 'traxsis'];
+export const FEATURED_IDS = ['easysheets', 'traxsis', 'tyos'];
 
 export const featuredProjects = FEATURED_IDS.map(id =>
   projects.find(p => p.id === id)

@@ -95,7 +95,7 @@ function ProjectRow({ project, num, delay }) {
 }
 
 function Projects() {
-  const description = `${projectCount} shipped products: ${projectListSentence}. Full-stack AI to production e-commerce.`;
+  const description = `${projectCount} shipped products: ${projectListSentence}. AI systems, payments, commerce, and developer tools, from zero to production.`;
 
   return (
     <>
@@ -109,7 +109,7 @@ function Projects() {
         <meta property="og:description" content={description} />
         <meta property="og:url" content="https://www.amankrverma.in/projects" />
         <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
-        <meta property="og:image:alt" content="Aman Kumar Verma — Full Stack Engineer and AI Systems Builder" />
+        <meta property="og:image:alt" content="Aman Kumar Verma, Forward Deployed Engineer building full-stack and AI products." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@mai_amanhoon" />
         <meta name="twitter:title" content="Projects — Aman Kumar Verma" />
@@ -141,7 +141,7 @@ function Projects() {
           className="text-dim text-base mt-5 max-w-[50ch] animate-fade-up"
           style={{ animationDelay: '0.4s' }}
         >
-          Things I have built — from AI pipelines to production e-commerce.
+          Things I have built. AI systems, payments, commerce, and developer tools, from zero to production.
         </p>
       </div>
 

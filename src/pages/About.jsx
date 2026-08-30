@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import useReveal from '../hooks/useReveal';
 import GitHubContributions from '../Components/GitHubContributions';
+import CareerGraph from '../Components/CareerGraph';
 import { projectCount, projectListDetailed } from '../data/projects';
 
 const faqSchema = {
@@ -12,7 +13,7 @@ const faqSchema = {
       name: 'What is multi-agent AI orchestration?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Multi-agent AI orchestration is a system design where multiple specialised AI agents work in sequence or in parallel to complete complex tasks autonomously. Each agent handles a specific sub-task — such as DOM analysis, code injection, or regression QA — and passes results to the next, enabling reliable end-to-end automation without human intervention.',
+        text: 'Multi-agent AI orchestration is a system design where multiple specialised AI agents work in sequence or in parallel to complete complex tasks autonomously. Each agent handles a specific sub-task, such as DOM analysis, code injection, or regression QA, and passes results to the next, enabling reliable end-to-end automation without human intervention.',
       },
     },
     {
@@ -20,7 +21,7 @@ const faqSchema = {
       name: 'What has Aman Kumar Verma built?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: `Aman Kumar Verma has shipped ${projectCount} products — ${projectListDetailed} — alongside the 7-agent AI orchestration system for Shopify theme onboarding he architected at SellAbroad.`,
+        text: `Aman Kumar Verma has shipped ${projectCount} products, including ${projectListDetailed}. At SellAbroad he built a high-risk merchant and payment dashboard solo, from design to production, and architected a multi-agent system that automates Shopify onboarding end to end across 100+ countries.`,
       },
     },
     {
@@ -28,7 +29,7 @@ const faqSchema = {
       name: 'Is Aman Kumar Verma available for hire?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Aman is open to founding-engineer roles at AI-native startups and AI consulting engagements. He is based in Delhi, India and works remotely with global clients. Response time is typically within 24 hours.',
+        text: 'Yes. Aman is open to product-engineering, forward-deployed, and software-engineering roles, plus select AI engagements. He is based in Delhi, India, works remotely, and is open to relocation. Response time is typically within 24 hours.',
       },
     },
     {
@@ -36,71 +37,117 @@ const faqSchema = {
       name: 'What tech stack does Aman Kumar Verma use?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Aman works across React, Next.js, TypeScript, Node.js, PostgreSQL, Redis, BullMQ, Python, LangChain, LangGraph, and LLM APIs including OpenAI and Gemini. For infrastructure he uses Vercel, Docker, and Shopify APIs.',
+        text: 'Aman works across React, React Native, Next.js, TypeScript, Node.js, PostgreSQL, MongoDB, Redis, and Python. On the AI side he builds with LangChain, LangGraph, RAG pipelines, and LLM APIs including OpenAI and Gemini. He also ships payments and commerce integrations across Shopify, Razorpay, and Shiprocket, deployed on Vercel, AWS, and Docker.',
       },
     },
   ],
 };
 
-const stamp = ['Delhi', 'Open globally', 'Currently shipping 7-agent orchestration'];
+const stamp = ['Delhi, India', 'Forward Deployed Engineer', 'Open to roles worldwide'];
 
 const rightNow = [
-  'Full Stack SWE at SellAbroad — shipping AI systems that automate Shopify merchant onboarding at scale',
-  'Running Intrafy alongside — AI-native consultancy, multi-agent pipelines for clients end-to-end',
-  'Open to founding-engineer roles at AI-native startups',
-  'Deepening expertise in LangGraph, agent memory architectures, and eval pipelines',
+  'Forward Deployed Engineer at SellAbroad, owning customer-facing product from problem to production',
+  'Shipping AI systems and payments infrastructure that move real money across 100+ countries',
+  'Open to product-engineering, FDE, and software-engineering roles, remote or relocation',
+  'Going deeper on agent architectures, evals, and the reliability work that makes AI actually ship',
 ];
 
-const experience = [
+// Career history as a git graph. Newest first (git-log order); lane 0 is main,
+// lane 1 is the SellAbroad promotion branch. `branch` spawns lane 1 and `merge`
+// folds it back in. Rendered by <CareerGraph>.
+const career = [
   {
-    role: 'Full Stack Software Engineer',
-    company: 'SellAbroad',
-    period: 'Jan 2026 – Present',
+    lane: 0,
+    kind: 'head',
+    merge: true,
+    refs: ['HEAD → main', 'tag: fde'],
+    hash: 'a1f9c2e',
+    role: 'Forward Deployed Engineer',
+    org: 'SellAbroad',
+    period: 'Aug 2026 – Present',
     location: 'Remote',
-    note: 'Architected the 7-agent AI orchestration system that automates Shopify theme onboarding end-to-end. Automated cross-border expansion to 100+ countries — multi-currency pricing, geo-targeting, BNPL matrix. Built the persistent memory layer that makes multi-phase automation reliable.',
-    tech: 'Next.js · TypeScript · Shopify APIs · PostgreSQL · Redis · BullMQ · Medusa',
+    note: 'Promoted into the forward-deployed seat: everything technical between the customer and production. I run discovery, build, and rollout for the accounts I own, and keep the AI and payments systems underneath them healthy.',
+    tech: 'Customer-facing · Full-stack · AI systems · Payments',
   },
   {
+    lane: 1,
+    refs: ['feat/fde'],
+    hash: '7d3b0aa',
+    role: 'Built the merchant + payments surface',
+    org: 'SellAbroad',
+    period: '2026',
+    note: 'The work that earned the move. Designed and shipped a high-risk merchant and payment dashboard solo, from blank page to production, for merchants other processors turn away. Owned payment orchestration and covered technical support when the team ran short.',
+    tech: 'React · Node · PostgreSQL · Payments',
+  },
+  {
+    lane: 0,
+    branch: true,
+    hash: '4e8c115',
+    role: 'Full-Stack Software Engineer',
+    org: 'SellAbroad',
+    period: 'Jan 2026 – Aug 2026',
+    location: 'Remote',
+    note: 'Joined to build AI-native commerce. Architected a multi-agent pipeline that automates Shopify onboarding end to end (DOM analysis, code injection, validation, QA) and shipped cross-border expansion to 100+ countries: multi-currency pricing, geo-targeting, and a BNPL matrix.',
+    tech: 'Next.js · TypeScript · Shopify APIs · PostgreSQL · Redis · BullMQ',
+  },
+  {
+    lane: 0,
+    hash: 'c02f9d1',
     role: 'Software Development Engineer',
-    company: 'COOX',
+    org: 'COOX',
     period: 'Apr 2025 – Oct 2025',
-    location: 'Hybrid',
-    note: 'Shipped production features across web and mobile in a cross-functional team. Eliminated re-render bottlenecks and optimised API call patterns. Owned incident resolution via Sentry in a Scrum workflow.',
-    tech: 'Next.js · React Native · TypeScript · Sentry · Jira',
+    location: 'Noida · Hybrid',
+    note: "Shipped web and mobile features for India's on-demand chefs platform, 5 lakh+ users across 15+ cities. Killed re-render bottlenecks, tightened API call patterns, and owned incident resolution through Sentry in a Scrum team.",
+    tech: 'Next.js · React Native · Expo · TypeScript · Sentry',
   },
   {
-    role: 'Builder',
-    company: 'Intrafy',
-    period: '2024 – Present',
+    lane: 0,
+    hash: 'b6710e3',
+    role: 'Backend Engineer, Intern',
+    org: 'Rablo',
+    period: 'Jan 2025 – Apr 2025',
     location: 'Remote',
-    note: 'AI-native automation consultancy. Design and deploy multi-agent pipelines for clients — from requirement to production.',
-    tech: 'Next.js · TypeScript · LangChain · LLMs',
+    note: 'Built REST APIs and KYC verification flows on a Node, Express, and MongoDB stack.',
+    tech: 'Node.js · Express · MongoDB · REST',
+  },
+  {
+    lane: 0,
+    kind: 'root',
+    refs: ['root'],
+    hash: '0000000',
+    role: 'B.Tech, Information Technology',
+    org: 'IPEC, AKTU',
+    period: '2020 – 2024',
+    location: 'Ghaziabad',
+    note: 'Where it started. CS fundamentals, my first sites at 18, and the habit that stuck: ship it, then make it good.',
+    tech: '',
   },
 ];
 
 const bio = [
   {
-    annotation: '7 agents · live in production',
-    claim: 'I architect multi-agent AI systems.',
+    annotation: 'solo · design to prod',
+    claim: 'I own features end to end.',
+  },
+  {
+    annotation: 'multi-agent · in production',
+    claim: 'I architect AI systems that run themselves.',
   },
   {
     annotation: `${projectCount} products · 100+ countries`,
-    claim: 'I ship products from zero to production.',
+    claim: 'I ship from zero to production.',
   },
   {
-    annotation: 'Persistent memory · auto-resume',
-    claim: 'I build systems that recover themselves.',
-  },
-  {
-    annotation: 'Next · Node · Postgres · LLMs',
-    claim: 'I own what I build — frontend to deployment.',
+    annotation: 'new stack? one day',
+    claim: 'Range is the skill. I close the gaps fast.',
   },
 ];
 
 const shipped = [
-  'A 7-agent AI orchestration that automates Shopify theme onboarding — DOM analysis, code injection, validation, and regression QA — replacing 4+ hours of per-merchant manual setup.',
-  'EasySheets AI — curriculum-aligned assessment generation for Indian schools, hours of teacher work compressed into seconds.',
-  'Intrafy — an AI-native automation consultancy where agents run client engagements end-to-end.',
+  'A high-risk merchant and payment dashboard, built and shipped solo from design to production, moving real money for merchants other processors turn away.',
+  'A multi-agent system that automates Shopify onboarding end to end: DOM analysis, code injection, validation, and QA, replacing hours of manual setup per merchant.',
+  'EasySheets AI, curriculum-aligned assessment generation for Indian schools, compressing hours of teacher work into seconds.',
+  'Intrafy, an AI automation consultancy I run on the side, where agent pipelines run client engagements end to end.',
 ];
 
 const principles = [
@@ -111,9 +158,9 @@ const principles = [
 ];
 
 const plain = [
-  { label: 'Location',  value: 'Delhi, India · Open globally' },
-  { label: 'Education', value: 'B.Tech IT, IPEC AKTU · 2024' },
-  { label: 'Stack',     value: 'React · Next.js · TypeScript · Node · Postgres · Redis · Python · LLMs · LangChain' },
+  { label: 'Location',  value: 'Delhi, India · Open to remote + relocation' },
+  { label: 'Education', value: 'B.Tech Information Technology, IPEC (AKTU) · 2024' },
+  { label: 'Stack',     value: 'React · Next.js · TypeScript · Node · Postgres · React Native · Python · LLMs · RAG · AWS' },
   { label: 'Email',     value: 'akverma11aug2002@gmail.com', href: 'mailto:akverma11aug2002@gmail.com' },
   { label: 'GitHub',    value: 'github.com/AmanKumarVerma11', href: 'https://github.com/AmanKumarVerma11' },
   { label: 'LinkedIn',  value: 'linkedin.com/in/aman-kr-verma11', href: 'https://www.linkedin.com/in/aman-kr-verma11/' },
@@ -134,35 +181,6 @@ function BioRow({ item, delay }) {
       >
         {item.claim}
       </p>
-    </div>
-  );
-}
-
-function ExperienceRow({ item, delay }) {
-  return (
-    <div
-      className="border-t border-wire pt-5 pb-5 animate-fade-up"
-      style={{ animationDelay: `${delay}ms` }}
-    >
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 mb-1">
-        <span
-          className="text-ink text-base"
-          style={{ fontVariationSettings: "'wdth' 90, 'wght' 600" }}
-        >
-          {item.role}
-          <span className="text-dim font-normal"> — {item.company}</span>
-        </span>
-        <div className="flex items-center gap-3">
-          {item.location && (
-            <span className="font-mono-sys text-haze text-[10px] tracking-[0.1em] uppercase">{item.location}</span>
-          )}
-          <span className="font-mono-sys text-haze text-[11px] tracking-[0.1em]">{item.period}</span>
-        </div>
-      </div>
-      <p className="text-dim text-sm leading-relaxed max-w-[64ch] mt-2">{item.note}</p>
-      {item.tech && (
-        <p className="font-mono-sys text-haze text-[10px] tracking-[0.08em] mt-3">{item.tech}</p>
-      )}
     </div>
   );
 }
@@ -196,19 +214,19 @@ function About() {
     <>
       <Helmet>
         <title>About — Aman Kumar Verma</title>
-        <meta name="description" content="23, Delhi. Full stack engineer specialising in multi-agent AI systems. Currently at SellAbroad and running Intrafy. Open to founding-engineer roles." />
+        <meta name="description" content="Forward Deployed Engineer at SellAbroad. Full-stack and AI, product from zero to production. I own features end to end, from a solo-shipped payments dashboard to multi-agent systems. Delhi, open to roles worldwide." />
         <link rel="canonical" href="https://www.amankrverma.in/about" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Aman Kumar Verma" />
         <meta property="og:title" content="About — Aman Kumar Verma" />
-        <meta property="og:description" content="23, Delhi. Full stack engineer specialising in multi-agent AI systems. Currently at SellAbroad and running Intrafy." />
+        <meta property="og:description" content="Forward Deployed Engineer at SellAbroad. Full-stack and AI, product shipped end to end. Delhi, open to roles worldwide." />
         <meta property="og:url" content="https://www.amankrverma.in/about" />
         <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
-        <meta property="og:image:alt" content="Aman Kumar Verma — Full Stack Engineer and AI Systems Builder" />
+        <meta property="og:image:alt" content="Aman Kumar Verma, Forward Deployed Engineer building full-stack and AI products." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@mai_amanhoon" />
         <meta name="twitter:title" content="About — Aman Kumar Verma" />
-        <meta name="twitter:description" content="23, Delhi. Full stack engineer specialising in multi-agent AI systems. Currently at SellAbroad and running Intrafy." />
+        <meta name="twitter:description" content="Forward Deployed Engineer at SellAbroad. Full-stack and AI, product shipped end to end. Delhi, open to roles worldwide." />
         <meta name="twitter:image" content="https://www.amankrverma.in/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
@@ -236,12 +254,13 @@ function About() {
           I build the systems that make&nbsp;the&nbsp;demos&nbsp;work<span className="text-signal">.</span>
         </h1>
         <p className="font-mono-sys text-dim text-sm mt-6 tracking-wide">
-          Multi-agent AI &nbsp;·&nbsp; persistent memory &nbsp;·&nbsp; recovery built-in.
+          Full-stack product &nbsp;·&nbsp; AI systems &nbsp;·&nbsp; shipped end to end.
         </p>
         <p className="text-dim text-base leading-relaxed max-w-[60ch] mt-8">
-          23, Delhi. Started building for the web at 18, went full-stack at 21, and pivoted to AI systems
-          when I realised the real leverage was in the orchestration layer — not the models.
-          Today I run Intrafy, ship agents for clients, and stay close to the engineering across every layer I touch.
+          24, Delhi. Started building for the web at 18, went full-stack by 21, and now sit in the
+          forward-deployed seat: the engineer between the customer and production. I own features
+          end to end, from the schema to the ship, and reach for AI where it earns its place.
+          Deep where it counts, and quick to pick up whatever the next problem needs.
         </p>
       </section>
 
@@ -262,16 +281,13 @@ function About() {
         </ul>
       </section>
 
-      {/* ── 4. Experience ─────────────────────────────────────── */}
+      {/* ── 4. Experience (career as a git graph) ─────────────── */}
       <section>
         <h2 className="font-mono-sys text-haze text-[11px] uppercase tracking-[0.18em] mb-8">
           Experience
         </h2>
-        <div className="space-y-0 max-w-3xl">
-          {experience.map((item, i) => (
-            <ExperienceRow key={i} item={item} delay={i * 80} />
-          ))}
-          <div className="border-t border-wire" />
+        <div className="max-w-3xl">
+          <CareerGraph commits={career} />
         </div>
       </section>
 

@@ -120,22 +120,22 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>Aman Kumar Verma — AI Systems Engineer</title>
-        <meta name="description" content={`Full stack engineer specialising in multi-agent AI systems and production automation. ${projectCount} products shipped, 100+ countries automated. Delhi — open to remote founding roles.`} />
+        <title>Aman Kumar Verma — Product Engineer (Full-Stack + AI)</title>
+        <meta name="description" content={`Forward Deployed Engineer at SellAbroad. I take product from zero to shipped: full-stack, AI systems, and payments across 100+ countries. ${projectCount} products shipped. Delhi, open to roles worldwide.`} />
         <link rel="canonical" href="https://www.amankrverma.in/" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Aman Kumar Verma" />
-        <meta property="og:title" content="Aman Kumar Verma — AI Systems Engineer" />
-        <meta property="og:description" content={`Full stack engineer specialising in multi-agent AI systems and production automation. ${projectCount} products shipped, 100+ countries automated.`} />
+        <meta property="og:title" content="Aman Kumar Verma — Product Engineer (Full-Stack + AI)" />
+        <meta property="og:description" content={`Forward Deployed Engineer at SellAbroad. Product from zero to shipped: full-stack, AI systems, and payments across 100+ countries. ${projectCount} products shipped.`} />
         <meta property="og:url" content="https://www.amankrverma.in/" />
         <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Aman Kumar Verma — Full Stack Engineer and AI Systems Builder" />
+        <meta property="og:image:alt" content="Aman Kumar Verma, Forward Deployed Engineer building full-stack and AI products." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@mai_amanhoon" />
-        <meta name="twitter:title" content="Aman Kumar Verma — AI Systems Engineer" />
-        <meta name="twitter:description" content={`Full stack engineer specialising in multi-agent AI systems and production automation. ${projectCount} products shipped, 100+ countries automated.`} />
+        <meta name="twitter:title" content="Aman Kumar Verma — Product Engineer (Full-Stack + AI)" />
+        <meta name="twitter:description" content={`Forward Deployed Engineer at SellAbroad. Product from zero to shipped: full-stack, AI systems, and payments across 100+ countries. ${projectCount} products shipped.`} />
         <meta name="twitter:image" content="https://www.amankrverma.in/og-image.png" />
       </Helmet>
       <div className="max-w-6xl mx-auto px-6 lg:px-10">
@@ -158,7 +158,7 @@ function Home() {
             className="text-haze text-xs font-semibold tracking-[0.18em] uppercase animate-fade-up"
             style={{ animationDelay: '0.05s' }}
           >
-            Full Stack Engineer &amp; AI Systems Builder
+            Forward Deployed Engineer &nbsp;·&nbsp; Full-Stack + AI
           </p>
 
           {/* Name — line-mask reveal + live font instrumentation */}
@@ -188,8 +188,9 @@ function Home() {
             className="text-dim text-lg leading-relaxed max-w-[50ch] animate-fade-up"
             style={{ animationDelay: '0.7s' }}
           >
-            I build AI-native systems, multi-agent pipelines, and full-stack
-            products — from zero to shipped.
+            I take problems from zero to shipped. Full-stack product, AI systems,
+            and everything the demo needs to survive production. Deep where it
+            counts, fast on the rest.
           </p>
 
           <div
