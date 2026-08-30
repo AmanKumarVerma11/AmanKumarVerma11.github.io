@@ -1,11 +1,11 @@
-import { FaGithub, FaLinkedin, FaTwitterSquare, FaFigma } from 'react-icons/fa';
+import { GithubIcon, LinkedinIcon, FigmaIcon, TwitterIcon } from './SocialIcons';
 import useMagnetic from '../hooks/useMagnetic';
 
 const links = [
-  { href: 'https://github.com/AmanKumarVerma11',          Icon: FaGithub,        label: 'GitHub'   },
-  { href: 'https://www.linkedin.com/in/aman-kr-verma11/', Icon: FaLinkedin,      label: 'LinkedIn' },
-  { href: 'https://www.figma.com/@akv',                   Icon: FaFigma,         label: 'Figma'    },
-  { href: 'https://x.com/mai_amanhoon',                   Icon: FaTwitterSquare, label: 'Twitter'  },
+  { href: 'https://github.com/AmanKumarVerma11',          Icon: GithubIcon,   label: 'GitHub'   },
+  { href: 'https://www.linkedin.com/in/aman-kr-verma11/', Icon: LinkedinIcon, label: 'LinkedIn' },
+  { href: 'https://www.figma.com/@akv',                   Icon: FigmaIcon,    label: 'Figma'    },
+  { href: 'https://x.com/mai_amanhoon',                   Icon: TwitterIcon,  label: 'Twitter'  },
 ];
 
 function Footer() {
@@ -25,11 +25,11 @@ function Footer() {
           className="magnetic inline-block text-[clamp(2.8rem,7vw,7.5rem)] text-ink leading-[0.88] mb-16 hover:text-dim transition-colors duration-300"
           style={{ fontVariationSettings: "'wdth' 84, 'wght' 800" }}
         >
-          Let's build<span className="text-signal">.</span>
+          Let’s build<span className="text-signal">.</span>
         </a>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 border-t border-wire">
-          <p className="text-haze text-sm">© 2025 Aman Kumar Verma</p>
+          <p className="text-haze text-sm">© {new Date().getFullYear()} Aman Kumar Verma</p>
           <div className="flex items-center gap-5">
             {links.map(({ href, Icon, label }) => (
               <a
@@ -40,7 +40,7 @@ function Footer() {
                 aria-label={label}
                 className="text-haze hover:text-ink transition-colors duration-200"
               >
-                <Icon className="w-[18px] h-[18px]" />
+                <Icon className="w-[18px] h-[18px]" aria-hidden="true" />
               </a>
             ))}
           </div>

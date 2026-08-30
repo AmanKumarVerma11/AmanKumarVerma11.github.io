@@ -1,13 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
-import App from './App.jsx'
-import About from './pages/About.jsx'
-import Home from './pages/Home.jsx'
-import Projects from './pages/Projects.jsx'
-import Contact from './pages/Contact.jsx'
-import Consulting from './pages/Consulting.jsx'
+import { routes } from './routes.jsx'
 import './index.css'
 
 const container = document.getElementById('root');
@@ -16,15 +11,7 @@ const app = (
   <StrictMode>
     <HelmetProvider>
       <Router>
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="projects" element={<Projects />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="consulting" element={<Consulting />} />
-          </Route>
-        </Routes>
+        <Routes>{routes}</Routes>
       </Router>
     </HelmetProvider>
   </StrictMode>

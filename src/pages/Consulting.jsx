@@ -90,6 +90,7 @@ function Consulting() {
         <meta property="og:description" content="Hire an AI engineer for founding-engineer roles, multi-agent AI systems, Shopify automation, and full-stack product builds." />
         <meta property="og:url" content="https://www.amankrverma.in/consulting" />
         <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
+        <meta property="og:image:alt" content="Aman Kumar Verma — Full Stack Engineer and AI Systems Builder" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@mai_amanhoon" />
         <meta name="twitter:title" content="Work With Me — Aman Kumar Verma" />
@@ -111,7 +112,7 @@ function Consulting() {
             The systems that make your product work<span className="text-signal">.</span>
           </h1>
           <p className="text-dim text-base leading-relaxed max-w-[58ch] mt-6">
-            I'm a full-stack engineer specialising in multi-agent AI systems and production automation.
+            I’m a full-stack engineer specialising in multi-agent AI systems and production automation.
             Based in Delhi, working with global teams. I build the things founders need that are too
             complex for no-code and too expensive to hand off to a big agency.
           </p>

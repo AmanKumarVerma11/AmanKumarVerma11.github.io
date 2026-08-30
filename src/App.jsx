@@ -7,8 +7,9 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-canvas text-ink font-sans">
+      <a href="#main" className="skip-link">Skip to content</a>
       <Header />
-      <main className="flex-grow w-full">
+      <main id="main" tabIndex={-1} className="flex-grow w-full">
         <div key={location.pathname} className="animate-page-in">
           <Outlet />
         </div>

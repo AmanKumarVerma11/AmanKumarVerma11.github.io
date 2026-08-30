@@ -1,34 +1,26 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import useMagnetic from '../hooks/useMagnetic';
-import Iceberg from '../Components/sketches/Iceberg';
+import { featuredProjects, displayNum, projectCount } from '../data/projects';
 
-const selectedWork = [
-  {
-    num: '01',
-    title: 'EasySheets AI',
-    desc: 'AI-Powered EdTech Platform',
-    link: 'https://easysheets-ai.com/',
-  },
-  {
-    num: '02',
-    title: 'Intrafy',
-    desc: 'AI-Native Automation Consultancy',
-    link: 'https://intrafy.in/',
-  },
-  {
-    num: '03',
-    title: 'Traxsis',
-    desc: 'AI-Powered Business Consulting Platform',
-    link: 'https://traxsis.com/',
-  },
-];
+// roughjs is ~28 kB and only ever renders on desktop, so keep it off the
+// critical path and out of the mobile bundle entirely.
+const Iceberg = lazy(() => import('../Components/sketches/Iceberg'));
 
 function Home() {
   const heroRef = useRef(null);
-  const nameRef = useRef(null);
   const ctaRef = useMagnetic(0.18);
+  const [showSketch, setShowSketch] = useState(false);
+
+  // Only mount (and therefore only download) the sketch on desktop widths.
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const sync = () => setShowSketch(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
 
   // Cursor-spotlight position
   useEffect(() => {
@@ -48,10 +40,14 @@ function Home() {
   }, []);
 
   // Live instrumentation: cursor velocity → wght, scroll → wdth.
-  // Idle drifts both axes back to baseline.
+  // The loop parks itself once both axes settle and is woken by input, so an
+  // idle or touch-only visitor is not paying for a permanent rAF.
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+    const nodes = Array.from(document.querySelectorAll('.hero-name'));
+    if (!nodes.length) return;
 
     const BASE_WGHT = 720;
     const PEAK_WGHT = 820;
@@ -62,21 +58,7 @@ function Home() {
     let wght = BASE_WGHT;
     let wdth = BASE_WDTH;
     let lastX = 0, lastY = 0, lastT = 0;
-    let raf;
-
-    const onMove = e => {
-      const now = performance.now();
-      if (lastT) {
-        const dt = Math.max(now - lastT, 1);
-        const dx = e.clientX - lastX;
-        const dy = e.clientY - lastY;
-        const speed = Math.hypot(dx, dy) / dt;
-        energy = Math.min(energy + speed * 22, 100);
-      }
-      lastX = e.clientX;
-      lastY = e.clientY;
-      lastT = now;
-    };
+    let raf = null;
 
     const tick = () => {
       energy *= 0.92;
@@ -90,42 +72,70 @@ function Home() {
       wdth += (targetWdth - wdth) * 0.14;
 
       const fvs = `'wdth' ${wdth.toFixed(2)}, 'wght' ${wght.toFixed(1)}`;
-      document.querySelectorAll('.hero-name').forEach(el => {
-        el.style.fontVariationSettings = fvs;
-      });
+      for (const el of nodes) el.style.fontVariationSettings = fvs;
 
-      raf = requestAnimationFrame(tick);
+      // Park once there is nothing left to animate towards.
+      const settled =
+        energy < 0.05 &&
+        Math.abs(targetWght - wght) < 0.05 &&
+        Math.abs(targetWdth - wdth) < 0.01;
+
+      raf = settled ? null : requestAnimationFrame(tick);
+    };
+
+    const wake = () => { if (raf === null) raf = requestAnimationFrame(tick); };
+
+    const onMove = e => {
+      const now = performance.now();
+      if (lastT) {
+        const dt = Math.max(now - lastT, 1);
+        const dx = e.clientX - lastX;
+        const dy = e.clientY - lastY;
+        const speed = Math.hypot(dx, dy) / dt;
+        energy = Math.min(energy + speed * 22, 100);
+      }
+      lastX = e.clientX;
+      lastY = e.clientY;
+      lastT = now;
+      wake();
     };
 
     if (!isTouch) {
       window.addEventListener('mousemove', onMove, { passive: true });
     }
-    raf = requestAnimationFrame(tick);
+    // Scroll drives the width axis on every device, touch included.
+    window.addEventListener('scroll', wake, { passive: true });
+    wake();
 
     return () => {
       window.removeEventListener('mousemove', onMove);
-      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', wake);
+      if (raf !== null) cancelAnimationFrame(raf);
     };
   }, []);
+
+  const heroLineClass =
+    'hero-name block text-[clamp(2.2rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal';
 
   return (
     <>
       <Helmet>
         <title>Aman Kumar Verma — AI Systems Engineer</title>
-        <meta name="description" content="Full stack engineer specialising in multi-agent AI systems and production automation. 6 products shipped, 100+ countries automated. Delhi — open to remote founding roles." />
+        <meta name="description" content={`Full stack engineer specialising in multi-agent AI systems and production automation. ${projectCount} products shipped, 100+ countries automated. Delhi — open to remote founding roles.`} />
         <link rel="canonical" href="https://www.amankrverma.in/" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Aman Kumar Verma" />
         <meta property="og:title" content="Aman Kumar Verma — AI Systems Engineer" />
-        <meta property="og:description" content="Full stack engineer specialising in multi-agent AI systems and production automation. 6 products shipped, 100+ countries automated." />
+        <meta property="og:description" content={`Full stack engineer specialising in multi-agent AI systems and production automation. ${projectCount} products shipped, 100+ countries automated.`} />
         <meta property="og:url" content="https://www.amankrverma.in/" />
         <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Aman Kumar Verma — Full Stack Engineer and AI Systems Builder" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@mai_amanhoon" />
         <meta name="twitter:title" content="Aman Kumar Verma — AI Systems Engineer" />
-        <meta name="twitter:description" content="Full stack engineer specialising in multi-agent AI systems and production automation. 6 products shipped, 100+ countries automated." />
+        <meta name="twitter:description" content={`Full stack engineer specialising in multi-agent AI systems and production automation. ${projectCount} products shipped, 100+ countries automated.`} />
         <meta name="twitter:image" content="https://www.amankrverma.in/og-image.png" />
       </Helmet>
       <div className="max-w-6xl mx-auto px-6 lg:px-10">
@@ -135,8 +145,12 @@ function Home() {
         ref={heroRef}
         className="spotlight min-h-[calc(100svh-4rem)] flex items-center py-16"
       >
-        {/* Easter-egg sketch in the right empty margin */}
-        <Iceberg className="absolute right-2 xl:right-6 top-[18%] hidden lg:block" />
+        {/* Easter-egg sketch in the right empty margin (desktop only) */}
+        {showSketch && (
+          <Suspense fallback={null}>
+            <Iceberg className="absolute right-2 xl:right-6 top-[18%]" />
+          </Suspense>
+        )}
 
         <div className="w-full max-w-5xl space-y-10">
 
@@ -148,24 +162,27 @@ function Home() {
           </p>
 
           {/* Name — line-mask reveal + live font instrumentation */}
-          <div ref={nameRef} className="space-y-0 -mt-2">
-            <div className="overflow-hidden pb-1">
-              <div
-                className="hero-name text-[clamp(2.2rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
+          <h1 className="space-y-0 -mt-2">
+            <span className="block overflow-hidden pb-1">
+              <span
+                className={heroLineClass}
                 style={{ animationDelay: '0.2s', fontVariationSettings: "'wdth' 86, 'wght' 720" }}
               >
                 Aman Kumar
-              </div>
-            </div>
-            <div className="overflow-hidden pb-1">
-              <div
-                className="hero-name text-[clamp(2.2rem,9.5vw,9rem)] leading-[0.90] tracking-tight text-ink animate-line-reveal"
+              </span>
+            </span>
+            {/* Keeps the accessible name "Aman Kumar Verma." rather than
+                "Aman KumarVerma." — collapses to nothing visually. */}
+            {' '}
+            <span className="block overflow-hidden pb-1">
+              <span
+                className={heroLineClass}
                 style={{ animationDelay: '0.35s', fontVariationSettings: "'wdth' 86, 'wght' 720" }}
               >
                 Verma<span className="text-signal">.</span>
-              </div>
-            </div>
-          </div>
+              </span>
+            </span>
+          </h1>
 
           <p
             className="text-dim text-lg leading-relaxed max-w-[50ch] animate-fade-up"
@@ -212,24 +229,24 @@ function Home() {
         </div>
 
         <div className="divide-y divide-wire">
-          {selectedWork.map(({ num, title, desc, link }) => (
+          {featuredProjects.map((project, i) => (
             <a
-              key={num}
-              href={link}
+              key={project.id}
+              href={project.link ?? project.github}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center justify-between py-5 px-0 hover:px-3 transition-all duration-300"
             >
               <div className="flex items-baseline gap-5 min-w-0">
                 <span className="text-haze text-xs tabular-nums shrink-0 group-hover:text-ink transition-colors duration-300">
-                  {num}
+                  {displayNum(i)}
                 </span>
                 <div className="min-w-0">
                   <span className="project-title-text text-lg text-ink">
-                    {title}
+                    {project.title}
                   </span>
                   <span className="text-dim text-sm ml-4 hidden sm:inline truncate">
-                    {desc}
+                    {project.subtitle}
                   </span>
                 </div>
               </div>
@@ -239,6 +256,7 @@ function Home() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
                 strokeWidth={1.5}
+                aria-hidden="true"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
               </svg>

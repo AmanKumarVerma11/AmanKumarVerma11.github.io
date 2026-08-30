@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import useReveal from '../hooks/useReveal';
 import GitHubContributions from '../Components/GitHubContributions';
+import { projectCount, projectListDetailed } from '../data/projects';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -19,7 +20,7 @@ const faqSchema = {
       name: 'What has Aman Kumar Verma built?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Aman Kumar Verma has built 6 shipped products including a 7-agent AI orchestration system for Shopify theme onboarding at SellAbroad, EasySheets AI (curriculum-aligned assessment generation for Indian schools), Intrafy (an AI-native automation consultancy), Traxsis (AI-assisted consulting platform), Zeetax (React Native educational app), and Tyos Sports (e-commerce + inventory management).',
+        text: `Aman Kumar Verma has shipped ${projectCount} products — ${projectListDetailed} — alongside the 7-agent AI orchestration system for Shopify theme onboarding he architected at SellAbroad.`,
       },
     },
     {
@@ -83,7 +84,7 @@ const bio = [
     claim: 'I architect multi-agent AI systems.',
   },
   {
-    annotation: '6 products · 100+ countries',
+    annotation: `${projectCount} products · 100+ countries`,
     claim: 'I ship products from zero to production.',
   },
   {
@@ -203,6 +204,7 @@ function About() {
         <meta property="og:description" content="23, Delhi. Full stack engineer specialising in multi-agent AI systems. Currently at SellAbroad and running Intrafy." />
         <meta property="og:url" content="https://www.amankrverma.in/about" />
         <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
+        <meta property="og:image:alt" content="Aman Kumar Verma — Full Stack Engineer and AI Systems Builder" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@mai_amanhoon" />
         <meta name="twitter:title" content="About — Aman Kumar Verma" />

@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', website: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -24,14 +25,15 @@ const Contact = () => {
       });
 
       if (!res.ok) {
-        const data = await res.json();
+        const data = await res.json().catch(() => ({}));
         throw new Error(data.error || 'Failed to send');
       }
 
       setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', message: '', website: '' });
     } catch (err) {
       console.error(err);
+      setErrorMessage(`${err.message || 'Something went wrong.'} You can also email me directly at`);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -87,6 +89,7 @@ const Contact = () => {
         <meta property="og:description" content="Open to founding-engineer roles and AI consulting. Based in Delhi, available globally. Usually responds within 24 hours." />
         <meta property="og:url" content="https://www.amankrverma.in/contact" />
         <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
+        <meta property="og:image:alt" content="Aman Kumar Verma — Full Stack Engineer and AI Systems Builder" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@mai_amanhoon" />
         <meta name="twitter:title" content="Contact — Aman Kumar Verma" />
@@ -105,25 +108,27 @@ const Contact = () => {
             className="text-[clamp(1.8rem,5vw,4rem)] leading-[0.96] font-extrabold text-ink mb-5"
             style={{ fontVariationSettings: "'wdth' 84, 'wght' 800" }}
           >
-            Let's talk<span className="text-signal">.</span>
+            Let’s talk<span className="text-signal">.</span>
           </h1>
           <p className="text-dim text-base mb-12">
             Have a project, a role, or just want to say hello. I read every message.
           </p>
 
-          {submitStatus === 'success' && (
-            <div className="animate-fade-up mb-8 py-3 px-4 bg-surface border border-wire rounded-sm text-sm text-dim">
-              Message sent. I'll get back to you soon.
-            </div>
-          )}
-          {submitStatus === 'error' && (
-            <div className="animate-fade-up mb-8 py-3 px-4 bg-surface border border-wire rounded-sm text-sm text-dim">
-              Something went wrong. Email me directly at{' '}
-              <a href="mailto:akverma11aug2002@gmail.com" className="text-ink hover:underline underline-offset-4">
-                akverma11aug2002@gmail.com
-              </a>
-            </div>
-          )}
+          <div role="status" aria-live="polite">
+            {submitStatus === 'success' && (
+              <div className="animate-fade-up mb-8 py-3 px-4 bg-surface border border-wire rounded-sm text-sm text-dim">
+                Message sent. I’ll get back to you soon.
+              </div>
+            )}
+            {submitStatus === 'error' && (
+              <div className="animate-fade-up mb-8 py-3 px-4 bg-surface border border-wire rounded-sm text-sm text-dim">
+                {errorMessage}{' '}
+                <a href="mailto:akverma11aug2002@gmail.com" className="text-ink hover:underline underline-offset-4">
+                  akverma11aug2002@gmail.com
+                </a>
+              </div>
+            )}
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
@@ -152,13 +157,23 @@ const Contact = () => {
                 className={`${inputClass} resize-none`}
               />
             </div>
+            {/* Honeypot — must stay empty; see api/send-email.js */}
+            <div className="hidden" aria-hidden="true">
+              <label htmlFor="website">Website</label>
+              <input
+                type="text" id="website" name="website"
+                value={formData.website} onChange={handleChange}
+                tabIndex={-1} autoComplete="off"
+              />
+            </div>
+
             <button
               type="submit" disabled={isSubmitting}
               className="w-full text-sm font-medium text-dim border border-wire rounded-sm py-3 hover:border-ink/40 hover:text-ink disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
                 <>
-                  <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                  <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24" aria-hidden="true">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>

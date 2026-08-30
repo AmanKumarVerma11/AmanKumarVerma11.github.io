@@ -41,6 +41,37 @@
     background-color: oklch(0.74 0.09 215 / 0.85);
     color: oklch(0.09 0 0);
   }
+
+  /* Visible focus for keyboard users, suppressed for pointer input */
+  :focus-visible {
+    outline: 2px solid oklch(0.74 0.09 215);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  main:focus {
+    outline: none;
+  }
+}
+
+/* ── Skip link (off-screen until focused) ─────────────────── */
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  background-color: oklch(0.13 0 0);
+  color: oklch(0.96 0 0);
+  border: 1px solid oklch(0.38 0 0);
+  border-radius: 2px;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
 }
 
 /* ── Hero entrance ────────────────────────────────────────── */

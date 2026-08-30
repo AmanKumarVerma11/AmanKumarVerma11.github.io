@@ -1,98 +1,8 @@
-import { useRef, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import useReveal from '../hooks/useReveal';
+import { projects, projectCount, projectListSentence, displayNum } from '../data/projects';
 
-function useReveal() {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold: 0.08 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  return [ref, visible];
-}
-
-const projects = [
-  {
-    num: '01',
-    title: 'EasySheets AI',
-    subtitle: 'AI-Powered EdTech Platform',
-    description:
-      'Quiz and worksheet generation platform for Indian schools — educators produce curriculum-aligned assessments in seconds instead of hours. Designed the end-to-end product: content generation pipeline, educator-facing UI, and deployment.',
-    tech: ['Next.js', 'TypeScript', 'OpenAI', 'Tailwind CSS'],
-    link: 'https://easysheets-ai.com/',
-    github: null,
-  },
-  {
-    num: '02',
-    title: 'Intrafy',
-    subtitle: 'AI-Native Automation Consultancy',
-    description:
-      'Founded an AI-native agentic workflow automation consultancy. Entire site — design, SEO, and deployment — conceived, built, and operated via AI agents. Full technical SEO stack: JSON-LD schemas, Open Graph, Core Web Vitals, sitemap.',
-    tech: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-    link: 'https://intrafy.in/',
-    github: null,
-  },
-  {
-    num: '03',
-    title: 'Portfolio Studio',
-    subtitle: 'Designer-Locked Portfolio Builder',
-    description:
-      'A SaaS that turns one form into an art-directed personal site across four designer-locked themes, then exports a single self-contained HTML file you own forever. Built the full stack: PKCE + Google auth, private-bucket signed-URL media, ISR public pages, theme-native social cards, and an offline-capable export pipeline.',
-    tech: ['Next.js', 'React 19', 'TypeScript', 'Tailwind CSS', 'Supabase'],
-    link: 'https://studio.amankrverma.in/',
-    github: null,
-  },
-  {
-    num: '04',
-    title: 'Twitter Trends Scraper',
-    subtitle: 'Real-Time Trend Visualizer',
-    description:
-      'Scrapes and visualizes real-time Twitter trends with proxy rotation, automated scraping pipeline, and animated UI.',
-    tech: ['React', 'Node.js', 'Selenium', 'ProxyMesh', 'MongoDB', 'Framer Motion'],
-    link: null,
-    github: 'https://github.com/AmanKumarVerma11/Twitter-Trends-Scraper',
-  },
-  {
-    num: '05',
-    title: 'Traxsis',
-    subtitle: 'AI-Powered Business Consulting Platform',
-    description:
-      'Full-stack AI SaaS that democratizes business consulting. Intelligent chat with Google Gemini, semantic search via vector embeddings, real-time analytics, goal tracking, and subscription management.',
-    tech: ['Next.js', 'React 19', 'TypeScript', 'MongoDB', 'Gemini API', 'LangChain', 'Clerk', 'Prisma'],
-    link: 'https://traxsis.com/',
-    github: null,
-  },
-  {
-    num: '06',
-    title: 'Zeetax',
-    subtitle: 'Native Educational App',
-    description:
-      'Native mobile app for exploring books, notes, and digital learning content. Cross-platform UI with smooth navigation. Backend on Next.js with PostgreSQL. Optimized performance and state management.',
-    tech: ['React Native', 'Expo', 'Next.js', 'PostgreSQL', 'Prisma'],
-    link: 'https://zeetax.in/',
-    github: null,
-  },
-  {
-    num: '07',
-    title: 'Tyos Sports',
-    subtitle: 'E-Commerce + Inventory System',
-    description:
-      'Full-stack e-commerce platform with automated order and delivery workflows. Admin dashboards, Razorpay payments, and Shiprocket logistics integration.',
-    tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'Razorpay', 'Shiprocket'],
-    link: 'https://tyos.co.in/',
-    github: null,
-  },
-];
-
-function ProjectRow({ project, delay }) {
+function ProjectRow({ project, num, delay }) {
   const [ref, visible] = useReveal();
 
   return (
@@ -107,7 +17,7 @@ function ProjectRow({ project, delay }) {
 
             {/* Number */}
             <span className="text-haze text-xs tabular-nums mt-[3px] shrink-0 w-5 group-hover:text-ink transition-colors duration-300">
-              {project.num}
+              {num}
             </span>
 
             <div className="min-w-0 space-y-3">
@@ -145,7 +55,8 @@ function ProjectRow({ project, delay }) {
                     rel="noopener noreferrer"
                     className="text-dim text-xs hover:text-ink hover:underline underline-offset-4 transition-colors duration-200"
                   >
-                    Live site →
+                    Live site <span aria-hidden="true">→</span>
+                    <span className="sr-only">for {project.title}</span>
                   </a>
                 )}
                 {project.github && (
@@ -155,7 +66,8 @@ function ProjectRow({ project, delay }) {
                     rel="noopener noreferrer"
                     className="text-dim text-xs hover:text-ink hover:underline underline-offset-4 transition-colors duration-200"
                   >
-                    GitHub →
+                    GitHub <span aria-hidden="true">→</span>
+                    <span className="sr-only">repository for {project.title}</span>
                   </a>
                 )}
               </div>
@@ -170,6 +82,7 @@ function ProjectRow({ project, delay }) {
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={1.5}
+              aria-hidden="true"
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
             </svg>
@@ -182,22 +95,25 @@ function ProjectRow({ project, delay }) {
 }
 
 function Projects() {
+  const description = `${projectCount} shipped products: ${projectListSentence}. Full-stack AI to production e-commerce.`;
+
   return (
     <>
       <Helmet>
         <title>Projects — Aman Kumar Verma</title>
-        <meta name="description" content="6 shipped products: a 7-agent AI orchestration system, EasySheets AI, Intrafy, Traxsis, Zeetax, and Tyos Sports. Full-stack AI to production e-commerce." />
+        <meta name="description" content={description} />
         <link rel="canonical" href="https://www.amankrverma.in/projects" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Aman Kumar Verma" />
         <meta property="og:title" content="Projects — Aman Kumar Verma" />
-        <meta property="og:description" content="6 shipped products: a 7-agent AI orchestration system, EasySheets AI, Intrafy, Traxsis, Zeetax, and Tyos Sports." />
+        <meta property="og:description" content={description} />
         <meta property="og:url" content="https://www.amankrverma.in/projects" />
         <meta property="og:image" content="https://www.amankrverma.in/og-image.png" />
+        <meta property="og:image:alt" content="Aman Kumar Verma — Full Stack Engineer and AI Systems Builder" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@mai_amanhoon" />
         <meta name="twitter:title" content="Projects — Aman Kumar Verma" />
-        <meta name="twitter:description" content="6 shipped products: a 7-agent AI orchestration system, EasySheets AI, Intrafy, Traxsis, Zeetax, and Tyos Sports." />
+        <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content="https://www.amankrverma.in/og-image.png" />
       </Helmet>
     <div className="max-w-6xl mx-auto px-6 lg:px-10 py-16">
@@ -232,7 +148,7 @@ function Projects() {
       {/* Project roster */}
       <div>
         {projects.map((project, i) => (
-          <ProjectRow key={project.num} project={project} delay={i * 60} />
+          <ProjectRow key={project.id} project={project} num={displayNum(i)} delay={i * 60} />
         ))}
       </div>
 
