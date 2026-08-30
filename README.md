@@ -35,6 +35,7 @@ without running the serverless function. The contact form does **not** — use
 | `npm run preview` | Serve the built `dist/` |
 | `npm run lint` | ESLint over the repo |
 | `npm run og:image` | Regenerate the social card (macOS only — see below) |
+| `npm run deps:report` | Refresh `.github/reports/dependencies.md` |
 
 ## How the pre-rendering works
 
@@ -93,6 +94,30 @@ to visitors; the site loads Bricolage Grotesque from Google Fonts at runtime.
 See [`.env.example`](.env.example). `RESEND_API_KEY` is server-only;
 `VITE_RESUME_LINK` is inlined into the client bundle, so never put a secret
 behind a `VITE_` prefix.
+
+## Scheduled workflows
+
+Two live in [`.github/workflows/`](.github/workflows/).
+
+**[`daily-activity.yml`](.github/workflows/daily-activity.yml)** writes a
+timestamp to `.github/daily/latest.txt` and commits it, 2–10 times, once a day.
+
+GitHub's cron has no randomness and a long `sleep` would only burn runner
+minutes, so the workflow wakes on eight three-hourly slots and each run decides
+whether it is today's: `cksum` of the UTC date modulo 8 picks the slot. Exactly
+one run per day passes that gate, and which one drifts with the date. The commit
+count comes from bash's `$RANDOM` (`RANDOM % 9 + 2`), and iterations are spaced
+5–45s apart. A `concurrency` group prevents overlap, and the job rebases before
+pushing.
+
+**[`dependency-report.yml`](.github/workflows/dependency-report.yml)** regenerates
+[`.github/reports/dependencies.md`](.github/reports/dependencies.md) from
+`npm audit` and `npm outdated`, and commits **only when the file actually
+changed**. The report deliberately carries no "generated at" timestamp, so quiet
+days produce no commit and `git log` on that file is a real history of when
+advisories appeared and were cleared.
+
+Both use `[skip ci]` so they never trigger each other or a redeploy.
 
 ## Deployment notes
 

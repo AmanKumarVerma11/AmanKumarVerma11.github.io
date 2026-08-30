@@ -1,13 +1,25 @@
 name: Daily Activity
 
+# Runs once a day, at a time that varies day to day, and makes a random number
+# of commits (2–10).
+#
+# GitHub's cron has no randomness, and a long `sleep` would just burn runner
+# time, so instead the workflow wakes every 3 hours and each run decides
+# whether it is "the" run for today: a checksum of the UTC date picks one of
+# the eight slots. Exactly one run per day passes that gate; which one moves
+# around as the date changes.
+
 on:
   schedule:
-    # 12:00 AM IST = 18:30 UTC
-    - cron: '30 18 * * *'
-  workflow_dispatch:
+    - cron: '17 */3 * * *'   # 8 slots/day at :17 past — one is chosen below
+  workflow_dispatch:         # manual runs always proceed
 
 permissions:
   contents: write
+
+concurrency:
+  group: daily-activity      # never let two slots overlap
+  cancel-in-progress: false
 
 jobs:
   commit:
@@ -15,15 +27,61 @@ jobs:
     steps:
       - uses: actions/checkout@v4.2.2
 
-      - name: Update activity log
+      - name: Decide whether this slot is today's
+        id: gate
         run: |
-          mkdir -p .github/daily
-          echo "active: $(date -u +%Y-%m-%dT%H:%M:%SZ)" > .github/daily/latest.txt
+          set -euo pipefail
 
-      - name: Commit and push
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Manual run — proceeding."
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Stable per-day pick: same answer for every slot on a given date.
+          today=$(date -u +%Y-%m-%d)
+          digest=$(printf '%s' "$today" | cksum | cut -d' ' -f1)
+          chosen=$(( digest % 8 ))
+          current=$(( 10#$(date -u +%H) / 3 ))
+
+          echo "date=$today  chosen slot=$chosen  current slot=$current"
+          if [ "$chosen" -eq "$current" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Not today's slot — exiting."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit a random number of times
+        if: steps.gate.outputs.run == 'true'
         run: |
+          set -euo pipefail
+
           git config user.email "akverma11aug2002@gmail.com"
           git config user.name "aman"
-          git add .github/daily/latest.txt
-          git diff --staged --quiet || git commit -m "chore: daily activity [skip ci]"
+
+          mkdir -p .github/daily
+
+          # bash builtin rather than shuf(1) — no coreutils dependency
+          total=$(( RANDOM % 9 + 2 ))          # 2..10 inclusive
+          echo "Making $total commits."
+
+          for i in $(seq 1 "$total"); do
+            {
+              echo "active: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+              echo "run:    ${{ github.run_id }}"
+              echo "entry:  $i/$total"
+            } > .github/daily/latest.txt
+
+            git add .github/daily/latest.txt
+            git commit -m "chore: daily activity ($i/$total) [skip ci]"
+
+            # Space the timestamps out a little; skip after the last one.
+            if [ "$i" -lt "$total" ]; then
+              sleep $(( RANDOM % 41 + 5 ))     # 5..45 seconds
+            fi
+          done
+
+          # Rebase in case something else landed on main while we were looping.
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
           git push

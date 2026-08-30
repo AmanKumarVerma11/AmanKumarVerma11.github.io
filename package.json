@@ -8,7 +8,8 @@
     "build": "vite build && node scripts/prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
-    "og:image": "node scripts/og-image/make.mjs"
+    "og:image": "node scripts/og-image/make.mjs",
+    "deps:report": "node scripts/dependency-report.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
