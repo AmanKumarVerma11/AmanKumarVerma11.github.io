@@ -1,19 +1,16 @@
-import { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import useMagnetic from '../hooks/useMagnetic';
+import FlowField from '../Components/FlowField';
 import { featuredProjects, displayNum, projectCount } from '../data/projects';
-
-// roughjs is ~28 kB and only ever renders on desktop, so keep it off the
-// critical path and out of the mobile bundle entirely.
-const Iceberg = lazy(() => import('../Components/sketches/Iceberg'));
 
 function Home() {
   const heroRef = useRef(null);
   const ctaRef = useMagnetic(0.18);
   const [showSketch, setShowSketch] = useState(false);
 
-  // Only mount (and therefore only download) the sketch on desktop widths.
+  // Only mount the interactive flow field on desktop widths (touch has no cursor).
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)');
     const sync = () => setShowSketch(mq.matches);
@@ -138,21 +135,19 @@ function Home() {
         <meta name="twitter:description" content={`Forward Deployed Engineer at SellAbroad. Product from zero to shipped: full-stack, AI systems, and payments across 100+ countries. ${projectCount} products shipped.`} />
         <meta name="twitter:image" content="https://www.amankrverma.in/og-image.png" />
       </Helmet>
-      <div className="max-w-6xl mx-auto px-6 lg:px-10">
-
-      {/* ── Hero ─────────────────────────────────────────────── */}
+      {/* ── Hero — full-bleed background, content on the grid ─── */}
       <section
         ref={heroRef}
-        className="spotlight min-h-[calc(100svh-4rem)] flex items-center py-16"
+        className="spotlight overflow-hidden min-h-[calc(100svh-4rem)] flex items-center py-16"
       >
-        {/* Easter-egg sketch in the right empty margin (desktop only) */}
+        {/* Interactive flow field spanning the full hero width (desktop only).
+            Hidden notes surface on hover; typing "akv" resolves the monogram. */}
         {showSketch && (
-          <Suspense fallback={null}>
-            <Iceberg className="absolute right-2 xl:right-6 top-[18%]" />
-          </Suspense>
+          <FlowField className="hero-flow-mask absolute inset-0 w-full h-full z-0 pointer-events-none" />
         )}
 
-        <div className="w-full max-w-5xl space-y-10">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-10">
+          <div className="max-w-5xl space-y-10">
 
           <p
             className="text-haze text-xs font-semibold tracking-[0.18em] uppercase animate-fade-up"
@@ -212,10 +207,12 @@ function Home() {
             </Link>
           </div>
 
+          </div>
         </div>
       </section>
 
       {/* ── Selected work ────────────────────────────────────── */}
+      <div className="max-w-6xl mx-auto px-6 lg:px-10">
       <section className="border-t border-wire pt-14 pb-24">
         <div className="flex items-baseline justify-between mb-10">
           <h2 className="text-haze text-xs font-semibold tracking-[0.18em] uppercase">
@@ -265,8 +262,7 @@ function Home() {
           ))}
         </div>
       </section>
-
-    </div>
+      </div>
     </>
   );
 }

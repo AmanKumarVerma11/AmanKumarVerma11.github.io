@@ -7,16 +7,6 @@
 
 export const projects = [
   {
-    id: 'easysheets',
-    title: 'EasySheets AI',
-    subtitle: 'AI-Powered EdTech Platform',
-    description:
-      'Quiz and worksheet generation platform for Indian schools. Educators produce curriculum-aligned assessments in seconds instead of hours. Designed the end-to-end product: content generation pipeline, educator-facing UI, and deployment.',
-    tech: ['Next.js', 'TypeScript', 'OpenAI', 'Tailwind CSS'],
-    link: 'https://easysheets-ai.com/',
-    github: null,
-  },
-  {
     id: 'intrafy',
     title: 'Intrafy',
     subtitle: 'AI-Native Automation Consultancy',
@@ -35,6 +25,16 @@ export const projects = [
     tech: ['Next.js', 'React 19', 'TypeScript', 'Tailwind CSS', 'Supabase'],
     link: 'https://studio.amankrverma.in/',
     github: null,
+  },
+  {
+    id: 'wanderlore',
+    title: 'Wanderlore',
+    subtitle: 'AI Cultural Trip Planner',
+    description:
+      'An AI travel planner that builds day-by-day cultural itineraries: hidden gems, heritage, and local festivals, not just the tourist checklist. Every Gemini suggestion is grounded in real OpenStreetMap locations and Wikipedia, so the plan is geographically verified, not hallucinated.',
+    tech: ['Next.js', 'TypeScript', 'Gemini API', 'Leaflet', 'OpenStreetMap', 'Supabase'],
+    link: 'https://wanderlore.amankrverma.in/',
+    github: 'https://github.com/AmanKumarVerma11/wanderlore',
   },
   {
     id: 'twitter-trends',
@@ -86,10 +86,20 @@ export const projects = [
     link: null,
     github: 'https://github.com/AmanKumarVerma11/claude-career-journal',
   },
+  {
+    id: 'easysheets',
+    title: 'EasySheets AI',
+    subtitle: 'AI-Powered EdTech Platform',
+    description:
+      'Quiz and worksheet generation platform for Indian schools. Educators produce curriculum-aligned assessments in seconds instead of hours. Designed the end-to-end product: content generation pipeline, educator-facing UI, and deployment.',
+    tech: ['Next.js', 'TypeScript', 'OpenAI', 'Tailwind CSS'],
+    link: null,
+    github: null,
+  },
 ];
 
 /** Ids surfaced in the Home page's "Selected Work" strip, in display order. */
-export const FEATURED_IDS = ['easysheets', 'traxsis', 'tyos'];
+export const FEATURED_IDS = ['portfolio-studio', 'wanderlore', 'traxsis'];
 
 export const featuredProjects = FEATURED_IDS.map(id =>
   projects.find(p => p.id === id)
