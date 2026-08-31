@@ -7,6 +7,16 @@
 
 export const projects = [
   {
+    id: 'warden',
+    title: 'Warden',
+    subtitle: 'Visibility + Control for Claude Code',
+    description:
+      'A local dashboard that shows and controls everything Claude Code keeps on your machine. Ranks MCP connections by how much they can touch, surfaces secrets and PII (always masked), and maps rules, memory, and disk footprint. Zero dependencies, fully local, read-only by default, no network calls.',
+    tech: ['Node.js', 'Vanilla JS', 'Security', 'Local-first', 'Open Source'],
+    link: 'https://warden.amankrverma.in/',
+    github: 'https://github.com/AmanKumarVerma11/warden',
+  },
+  {
     id: 'intrafy',
     title: 'Intrafy',
     subtitle: 'AI-Native Automation Consultancy',
@@ -99,7 +109,7 @@ export const projects = [
 ];
 
 /** Ids surfaced in the Home page's "Selected Work" strip, in display order. */
-export const FEATURED_IDS = ['portfolio-studio', 'wanderlore', 'traxsis'];
+export const FEATURED_IDS = ['warden', 'portfolio-studio', 'wanderlore'];
 
 export const featuredProjects = FEATURED_IDS.map(id =>
   projects.find(p => p.id === id)
