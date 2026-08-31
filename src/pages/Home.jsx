@@ -5,15 +5,31 @@ import useMagnetic from '../hooks/useMagnetic';
 import FlowField from '../Components/FlowField';
 import { featuredProjects, displayNum, projectCount } from '../data/projects';
 
+// Surfaced on the home page so the story reads without reaching /about — which
+// matters most on mobile, where the nav is hidden behind the burger menu.
+const claims = [
+  { n: '01', t: 'I own features end to end.', d: 'Design, build, ship, and the parts that keep it alive. From the schema to production.' },
+  { n: '02', t: 'I build AI systems that run themselves.', d: 'Multi-agent pipelines with persistent memory and recovery, live in production, not just demos.' },
+  { n: '03', t: 'I ship from zero to production.', d: `${projectCount} products across 100+ countries, from AI systems to a payments dashboard I built solo.` },
+  { n: '04', t: 'Range is the skill.', d: 'Deep where it counts, and quick to pick up whatever the next problem needs.' },
+];
+
+const shipped = [
+  { t: 'A payments dashboard for high-risk merchants', d: 'Built and shipped solo, design to production. It moves real money for merchants other processors turn away.' },
+  { t: 'A multi-agent system that onboards Shopify stores', d: 'DOM analysis, code injection, validation, and QA, end to end. Hours of manual setup per merchant, gone.' },
+  { t: 'Cross-border commerce to 100+ countries', d: 'Multi-currency pricing, geo-targeting, and a BNPL matrix, live at SellAbroad.' },
+];
+
 function Home() {
   const heroRef = useRef(null);
   const ctaRef = useMagnetic(0.18);
-  const [showSketch, setShowSketch] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
-  // Only mount the interactive flow field on desktop widths (touch has no cursor).
+  // Desktop gets the interactive flow field (cursor, hidden notes, "akv"
+  // monogram); mobile gets a calm ambient version behind the hero.
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)');
-    const sync = () => setShowSketch(mq.matches);
+    const sync = () => setIsDesktop(mq.matches);
     sync();
     mq.addEventListener('change', sync);
     return () => mq.removeEventListener('change', sync);
@@ -138,13 +154,16 @@ function Home() {
       {/* ── Hero — full-bleed background, content on the grid ─── */}
       <section
         ref={heroRef}
-        className="spotlight overflow-hidden min-h-[calc(100svh-4rem)] flex items-center py-16"
+        className="spotlight overflow-hidden flex items-center py-20 lg:py-16 lg:min-h-[calc(100svh-4rem)]"
       >
-        {/* Interactive flow field spanning the full hero width (desktop only).
-            Hidden notes surface on hover; typing "akv" resolves the monogram. */}
-        {showSketch && (
-          <FlowField className="hero-flow-mask absolute inset-0 w-full h-full z-0 pointer-events-none" />
-        )}
+        {/* Flow field behind the hero. Desktop: interactive (cursor, hidden
+            notes, "akv" monogram). Mobile: a calm ambient backdrop. */}
+        <FlowField
+          ambient={!isDesktop}
+          className={`absolute inset-0 w-full h-full z-0 pointer-events-none ${
+            isDesktop ? 'hero-flow-mask' : 'hero-flow-mask-mobile'
+          }`}
+        />
 
         <div className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-10">
           <div className="max-w-5xl space-y-10">
@@ -211,8 +230,69 @@ function Home() {
         </div>
       </section>
 
-      {/* ── Selected work ────────────────────────────────────── */}
+      {/* ── What I do (surfaces the story for mobile, where nav is hidden) ─ */}
       <div className="max-w-6xl mx-auto px-6 lg:px-10">
+      <section className="border-t border-wire pt-14 pb-2">
+        <div className="flex items-baseline justify-between mb-6">
+          <h2 className="text-haze text-xs font-semibold tracking-[0.18em] uppercase">
+            What I do
+          </h2>
+          <Link
+            to="/about"
+            className="text-dim text-xs hover:text-ink transition-colors duration-200 link-grow"
+          >
+            The full story →
+          </Link>
+        </div>
+        <p className="text-dim text-base leading-relaxed max-w-[56ch] mb-10">
+          Forward Deployed Engineer at SellAbroad, owning customer-facing product
+          from problem to production. In practice:
+        </p>
+        <ul className="space-y-8 max-w-3xl">
+          {claims.map(c => (
+            <li key={c.n} className="flex gap-5 sm:gap-8">
+              <span className="font-mono-sys text-haze text-[11px] tabular-nums mt-[6px] shrink-0">
+                {c.n}
+              </span>
+              <div>
+                <p
+                  className="text-ink text-lg sm:text-xl leading-snug"
+                  style={{ fontVariationSettings: "'wdth' 92, 'wght' 620" }}
+                >
+                  {c.t}
+                </p>
+                <p className="text-dim text-sm leading-relaxed mt-1.5 max-w-[54ch]">
+                  {c.d}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* ── Shipped (concrete proof, esp. for mobile) ────────── */}
+      <section className="border-t border-wire pt-14 pb-2">
+        <h2 className="text-haze text-xs font-semibold tracking-[0.18em] uppercase mb-8">
+          Shipped
+        </h2>
+        <ul className="max-w-3xl">
+          {shipped.map((s, i) => (
+            <li key={i} className="first:border-t border-b border-dashed border-wire py-5">
+              <p
+                className="text-ink text-base sm:text-lg"
+                style={{ fontVariationSettings: "'wdth' 92, 'wght' 600" }}
+              >
+                {s.t}
+              </p>
+              <p className="text-dim text-sm leading-relaxed mt-1.5 max-w-[60ch]">
+                {s.d}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* ── Selected work ────────────────────────────────────── */}
       <section className="border-t border-wire pt-14 pb-24">
         <div className="flex items-baseline justify-between mb-10">
           <h2 className="text-haze text-xs font-semibold tracking-[0.18em] uppercase">

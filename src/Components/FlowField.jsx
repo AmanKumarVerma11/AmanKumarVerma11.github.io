@@ -8,7 +8,10 @@ import { useEffect, useRef } from 'react';
 // The canvas is a transparent overlay (destination-out fade) that sits BEHIND
 // the hero content with pointer-events:none, so it never blocks the buttons and
 // the cursor-spotlight glow still shows through. Cursor is tracked at the window
-// level and mapped into canvas space. Desktop-only, mounted by Home.
+// level and mapped into canvas space.
+//
+// `ambient` (mobile) runs the flow alone: no cursor, notes, or monogram, and
+// fewer particles. The animation pauses whenever the hero scrolls out of view.
 
 const CYAN = 'rgba(97,185,206,';
 const WHITE = 'rgba(228,231,235,';
@@ -24,7 +27,7 @@ const NOTES = [
   { nx: 0.78, ny: 0.87, t: 'runs on caffeine and Claude Code' },
 ];
 
-export default function FlowField({ className = '' }) {
+export default function FlowField({ className = '', ambient = false }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -45,7 +48,7 @@ export default function FlowField({ className = '' }) {
       cnv.width = Math.max(1, Math.round(W * dpr));
       cnv.height = Math.max(1, Math.round(H * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const n = Math.min(3400, Math.round(W * H / 240));
+      const n = Math.min(ambient ? 1400 : 3400, Math.round(W * H / (ambient ? 360 : 240)));
       particles = Array.from({ length: n }, () => ({
         x: Math.random() * W, y: Math.random() * H,
         c: Math.random() < 0.07, tx: 0, ty: 0, live: true,
@@ -97,18 +100,20 @@ export default function FlowField({ className = '' }) {
       ctx.fillStyle = 'rgba(0,0,0,0.04)'; ctx.fillRect(0, 0, W, H);
       ctx.globalCompositeOperation = 'source-over';
 
-      for (const nn of notes) {
-        const d = Math.hypot(mouse.x - nn.x, mouse.y - nn.y);
-        nn.a += (((mouse.on && d < 150) ? 1 : 0) - nn.a) * 0.07;
-        ctx.beginPath(); ctx.arc(nn.x, nn.y, 1.6 + nn.a * 2.4, 0, 6.2832);
-        ctx.fillStyle = CYAN + (0.22 + 0.6 * nn.a) + ')'; ctx.fill();
-        if (nn.a > 0.02) {
-          const right = nn.nx > 0.68;
-          ctx.font = '12.5px ui-monospace, SFMono-Regular, Menlo, monospace';
-          ctx.textAlign = right ? 'end' : 'start';
-          ctx.textBaseline = 'middle';
-          ctx.fillStyle = WHITE + (0.9 * nn.a) + ')';
-          ctx.fillText(nn.t, nn.x + (right ? -14 : 14), nn.y);
+      if (!ambient) {
+        for (const nn of notes) {
+          const d = Math.hypot(mouse.x - nn.x, mouse.y - nn.y);
+          nn.a += (((mouse.on && d < 150) ? 1 : 0) - nn.a) * 0.07;
+          ctx.beginPath(); ctx.arc(nn.x, nn.y, 1.6 + nn.a * 2.4, 0, 6.2832);
+          ctx.fillStyle = CYAN + (0.22 + 0.6 * nn.a) + ')'; ctx.fill();
+          if (nn.a > 0.02) {
+            const right = nn.nx > 0.68;
+            ctx.font = '12.5px ui-monospace, SFMono-Regular, Menlo, monospace';
+            ctx.textAlign = right ? 'end' : 'start';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = WHITE + (0.9 * nn.a) + ')';
+            ctx.fillText(nn.t, nn.x + (right ? -14 : 14), nn.y);
+          }
         }
       }
 
@@ -166,26 +171,45 @@ export default function FlowField({ className = '' }) {
 
     if (REDUCED) {
       for (let i = 0; i < 3; i++) flowFrame();
-      for (const nn of notes) {
-        ctx.beginPath(); ctx.arc(nn.x, nn.y, 2.2, 0, 6.2832);
-        ctx.fillStyle = CYAN + '0.5)'; ctx.fill();
+      if (!ambient) {
+        for (const nn of notes) {
+          ctx.beginPath(); ctx.arc(nn.x, nn.y, 2.2, 0, 6.2832);
+          ctx.fillStyle = CYAN + '0.5)'; ctx.fill();
+        }
       }
       return () => {};
     }
 
-    window.addEventListener('pointermove', onMove, { passive: true });
-    window.addEventListener('keydown', onKey);
     window.addEventListener('resize', onResize);
-    const loop = () => { (mode === 'flow' ? flowFrame : morphFrame)(); raf = requestAnimationFrame(loop); };
+    if (!ambient) {
+      window.addEventListener('pointermove', onMove, { passive: true });
+      window.addEventListener('keydown', onKey);
+    }
+
+    // Pause the animation whenever the hero scrolls out of view — saves battery,
+    // and matters most on mobile where this runs as an ambient backdrop.
+    let visible = true;
+    const loop = () => {
+      (mode === 'flow' ? flowFrame : morphFrame)();
+      raf = visible ? requestAnimationFrame(loop) : null;
+    };
+    const io = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (visible && raf === null) raf = requestAnimationFrame(loop);
+    }, { threshold: 0 });
+    io.observe(cnv);
     raf = requestAnimationFrame(loop);
 
     return () => {
       if (raf) cancelAnimationFrame(raf);
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('keydown', onKey);
+      io.disconnect();
       window.removeEventListener('resize', onResize);
+      if (!ambient) {
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('keydown', onKey);
+      }
     };
-  }, []);
+  }, [ambient]);
 
   return <canvas ref={canvasRef} aria-hidden="true" className={className} />;
 }

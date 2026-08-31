@@ -155,6 +155,14 @@
           mask-composite: intersect;
 }
 
+/* Mobile: a calm full-width ambient backdrop, softened top and bottom and
+   dialed back so the hero text stays perfectly legible on top of it. */
+.hero-flow-mask-mobile {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 76%, transparent);
+          mask-image: linear-gradient(to bottom, transparent, #000 16%, #000 76%, transparent);
+  opacity: 0.6;
+}
+
 /* ── Magnetic element (set transform via JS) ──────────────── */
 
 .magnetic {
