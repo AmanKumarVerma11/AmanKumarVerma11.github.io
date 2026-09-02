@@ -6,7 +6,12 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**No known vulnerabilities.**
+**2 vulnerabilitys** — 1 high · 1 low
+
+| Package | Severity | Advisory | Fix |
+|---|---|---|---|
+| `browserslist` | high | Browserslist: Unbounded memory growth (no cache eviction) via distinct query results, leading to eventual OOM; Browserslist: Uncaught crash / prototype write via untrusted browserslist-stats.json custom stats (normalizeStats) | yes |
+| `postcss-selector-parser` | low | postcss-selector-parser allows denial of service through uncontrolled AST recursion | yes |
 
 ## Outdated direct dependencies
 
@@ -21,7 +26,7 @@ real record of when advisories appeared and were cleared._
 | `eslint` | 9.39.2 | 10.9.1 | major |
 | `eslint-plugin-react-hooks` | 5.2.0 | 7.1.1 | major |
 | `eslint-plugin-react-refresh` | 0.4.26 | 0.5.5 | minor/patch |
-| `globals` | 15.15.0 | 17.11.0 | major |
+| `globals` | 15.15.0 | 17.12.0 | major |
 | `react` | 18.3.1 | 19.2.8 | major |
 | `react-dom` | 18.3.1 | 19.2.8 | major |
 | `tailwindcss` | 3.4.19 | 4.3.3 | major |
