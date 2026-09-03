@@ -6,27 +6,29 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**2 vulnerabilitys** — 1 high · 1 low
+**3 vulnerabilitys** — 1 high · 1 moderate · 1 low
 
 | Package | Severity | Advisory | Fix |
 |---|---|---|---|
 | `browserslist` | high | Browserslist: Unbounded memory growth (no cache eviction) via distinct query results, leading to eventual OOM; Browserslist: Uncaught crash / prototype write via untrusted browserslist-stats.json custom stats (normalizeStats) | yes |
+| `@humanfs/node` | moderate | humanfs: Recursive copy follows symlinked files and copies data from outside the source tree | yes |
 | `postcss-selector-parser` | low | postcss-selector-parser allows denial of service through uncontrolled AST recursion | yes |
 
 ## Outdated direct dependencies
 
-**11 direct dependencies are behind latest.**
+**12 direct dependencies are behind latest.**
 
 | Package | Current | Latest | Jump |
 |---|---|---|---|
 | `@eslint/js` | 9.39.2 | 10.0.1 | major |
 | `@types/react` | 18.3.27 | 19.2.18 | major |
-| `@types/react-dom` | 18.3.7 | 19.2.5 | major |
+| `@types/react-dom` | 18.3.7 | 19.2.6 | major |
 | `autoprefixer` | 10.4.23 | 10.5.4 | minor/patch |
 | `eslint` | 9.39.2 | 10.9.1 | major |
 | `eslint-plugin-react-hooks` | 5.2.0 | 7.1.1 | major |
-| `eslint-plugin-react-refresh` | 0.4.26 | 0.5.5 | minor/patch |
+| `eslint-plugin-react-refresh` | 0.4.26 | 0.5.6 | minor/patch |
 | `globals` | 15.15.0 | 17.12.0 | major |
+| `postcss` | 8.5.26 | 8.5.27 | minor/patch |
 | `react` | 18.3.1 | 19.2.8 | major |
 | `react-dom` | 18.3.1 | 19.2.8 | major |
 | `tailwindcss` | 3.4.19 | 4.3.3 | major |
