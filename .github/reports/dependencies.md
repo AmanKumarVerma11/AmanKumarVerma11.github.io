@@ -6,13 +6,11 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**3 vulnerabilitys** — 1 high · 1 moderate · 1 low
+**1 vulnerability** — 1 high
 
 | Package | Severity | Advisory | Fix |
 |---|---|---|---|
 | `browserslist` | high | Browserslist: Unbounded memory growth (no cache eviction) via distinct query results, leading to eventual OOM; Browserslist: Uncaught crash / prototype write via untrusted browserslist-stats.json custom stats (normalizeStats) | yes |
-| `@humanfs/node` | moderate | humanfs: Recursive copy follows symlinked files and copies data from outside the source tree | yes |
-| `postcss-selector-parser` | low | postcss-selector-parser allows denial of service through uncontrolled AST recursion | yes |
 
 ## Outdated direct dependencies
 
