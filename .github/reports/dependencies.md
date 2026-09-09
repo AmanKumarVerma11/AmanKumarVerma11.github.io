@@ -6,11 +6,12 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**1 vulnerability** — 1 high
+**2 vulnerabilitys** — 1 high · 1 moderate
 
 | Package | Severity | Advisory | Fix |
 |---|---|---|---|
 | `browserslist` | high | Browserslist: Unbounded memory growth (no cache eviction) via distinct query results, leading to eventual OOM; Browserslist: Uncaught crash / prototype write via untrusted browserslist-stats.json custom stats (normalizeStats) | yes |
+| `baseline-browser-mapping` | moderate | baseline-browser-mapping process termination on invalid input causes denial of service | yes |
 
 ## Outdated direct dependencies
 
