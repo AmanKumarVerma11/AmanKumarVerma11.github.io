@@ -20,16 +20,16 @@ real record of when advisories appeared and were cleared._
 | Package | Current | Latest | Jump |
 |---|---|---|---|
 | `@eslint/js` | 9.39.2 | 10.0.1 | major |
-| `@types/react` | 18.3.27 | 19.2.18 | major |
-| `@types/react-dom` | 18.3.7 | 19.2.7 | major |
+| `@types/react` | 18.3.27 | 19.3.0 | major |
+| `@types/react-dom` | 18.3.7 | 19.3.0 | major |
 | `autoprefixer` | 10.4.23 | 10.5.5 | minor/patch |
 | `eslint` | 9.39.2 | 10.10.0 | major |
 | `eslint-plugin-react-hooks` | 5.2.0 | 7.1.1 | major |
 | `eslint-plugin-react-refresh` | 0.4.26 | 0.5.6 | minor/patch |
 | `globals` | 15.15.0 | 17.12.0 | major |
 | `postcss` | 8.5.26 | 8.5.28 | minor/patch |
-| `react` | 18.3.1 | 19.2.8 | major |
-| `react-dom` | 18.3.1 | 19.2.8 | major |
-| `resend` | 6.25.0 | 6.26.0 | minor/patch |
+| `react` | 18.3.1 | 19.3.0 | major |
+| `react-dom` | 18.3.1 | 19.3.0 | major |
+| `resend` | 6.25.0 | 6.27.0 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.3 | major |
 
