@@ -6,10 +6,11 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**2 vulnerabilitys** — 1 high · 1 moderate
+**3 vulnerabilitys** — 2 high · 1 moderate
 
 | Package | Severity | Advisory | Fix |
 |---|---|---|---|
+| `brace-expansion` | high | brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service; brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion; brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion | yes |
 | `browserslist` | high | Browserslist: Unbounded memory growth (no cache eviction) via distinct query results, leading to eventual OOM; Browserslist: Uncaught crash / prototype write via untrusted browserslist-stats.json custom stats (normalizeStats) | yes |
 | `baseline-browser-mapping` | moderate | baseline-browser-mapping process termination on invalid input causes denial of service | yes |
 
@@ -31,7 +32,7 @@ real record of when advisories appeared and were cleared._
 | `react` | 18.3.1 | 19.3.0 | major |
 | `react-dom` | 18.3.1 | 19.3.0 | major |
 | `react-router-dom` | 7.18.3 | 7.18.4 | minor/patch |
-| `resend` | 6.25.0 | 6.30.0 | minor/patch |
+| `resend` | 6.25.0 | 6.31.0 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.3 | major |
 | `vite` | 8.2.2 | 8.3.1 | minor/patch |
 
