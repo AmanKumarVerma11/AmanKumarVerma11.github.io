@@ -27,12 +27,12 @@ real record of when advisories appeared and were cleared._
 | `eslint` | 9.39.2 | 10.11.0 | major |
 | `eslint-plugin-react-hooks` | 5.2.0 | 7.1.1 | major |
 | `eslint-plugin-react-refresh` | 0.4.26 | 0.5.7 | minor/patch |
-| `globals` | 15.15.0 | 17.12.0 | major |
+| `globals` | 15.15.0 | 17.13.0 | major |
 | `postcss` | 8.5.26 | 8.5.28 | minor/patch |
 | `react` | 18.3.1 | 19.3.0 | major |
 | `react-dom` | 18.3.1 | 19.3.0 | major |
 | `react-router-dom` | 7.18.3 | 7.18.4 | minor/patch |
 | `resend` | 6.25.0 | 6.31.0 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.3 | major |
-| `vite` | 8.2.2 | 8.3.1 | minor/patch |
+| `vite` | 8.2.2 | 8.3.2 | minor/patch |
 
