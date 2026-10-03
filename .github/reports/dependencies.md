@@ -6,12 +6,17 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**3 vulnerabilitys** — 2 high · 1 moderate
+**8 vulnerabilitys** — 7 high · 1 moderate
 
 | Package | Severity | Advisory | Fix |
 |---|---|---|---|
 | `brace-expansion` | high | brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service; brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion; brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion | yes |
+| `braces` | high | braces vulnerable to stack-exhaustion denial of service through deeply nested patterns | `tailwindcss@4.3.3` (breaking) |
 | `browserslist` | high | Browserslist: Unbounded memory growth (no cache eviction) via distinct query results, leading to eventual OOM; Browserslist: Uncaught crash / prototype write via untrusted browserslist-stats.json custom stats (normalizeStats) | yes |
+| `chokidar` | high | via braces | `tailwindcss@4.3.3` (breaking) |
+| `fast-glob` | high | via micromatch | yes |
+| `micromatch` | high | via braces | `tailwindcss@4.3.3` (breaking) |
+| `tailwindcss` | high | via chokidar, fast-glob, micromatch | `tailwindcss@4.3.3` (breaking) |
 | `baseline-browser-mapping` | moderate | baseline-browser-mapping process termination on invalid input causes denial of service | yes |
 
 ## Outdated direct dependencies
@@ -24,7 +29,7 @@ real record of when advisories appeared and were cleared._
 | `@types/react` | 18.3.27 | 19.3.0 | major |
 | `@types/react-dom` | 18.3.7 | 19.3.0 | major |
 | `autoprefixer` | 10.4.23 | 10.6.1 | minor/patch |
-| `eslint` | 9.39.2 | 10.11.0 | major |
+| `eslint` | 9.39.2 | 10.12.0 | major |
 | `eslint-plugin-react-hooks` | 5.2.0 | 7.1.1 | major |
 | `eslint-plugin-react-refresh` | 0.4.26 | 0.5.7 | minor/patch |
 | `globals` | 15.15.0 | 17.13.0 | major |
