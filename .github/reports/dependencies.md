@@ -21,19 +21,20 @@ real record of when advisories appeared and were cleared._
 
 ## Outdated direct dependencies
 
-**15 direct dependencies are behind latest.**
+**16 direct dependencies are behind latest.**
 
 | Package | Current | Latest | Jump |
 |---|---|---|---|
 | `@eslint/js` | 9.39.2 | 10.0.1 | major |
 | `@types/react` | 18.3.27 | 19.3.0 | major |
 | `@types/react-dom` | 18.3.7 | 19.3.0 | major |
+| `@vitejs/plugin-react` | 6.1.1 | 6.1.2 | minor/patch |
 | `autoprefixer` | 10.4.23 | 10.6.1 | minor/patch |
 | `eslint` | 9.39.2 | 10.12.0 | major |
 | `eslint-plugin-react-hooks` | 5.2.0 | 7.1.1 | major |
 | `eslint-plugin-react-refresh` | 0.4.26 | 0.5.7 | minor/patch |
 | `globals` | 15.15.0 | 17.13.0 | major |
-| `postcss` | 8.5.26 | 8.5.28 | minor/patch |
+| `postcss` | 8.5.26 | 8.5.29 | minor/patch |
 | `react` | 18.3.1 | 19.3.0 | major |
 | `react-dom` | 18.3.1 | 19.3.0 | major |
 | `react-router-dom` | 7.18.3 | 7.18.4 | minor/patch |
