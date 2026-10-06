@@ -6,7 +6,7 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**8 vulnerabilitys** — 7 high · 1 moderate
+**11 vulnerabilitys** — 8 high · 3 moderate
 
 | Package | Severity | Advisory | Fix |
 |---|---|---|---|
@@ -16,8 +16,11 @@ real record of when advisories appeared and were cleared._
 | `chokidar` | high | via braces | `tailwindcss@4.3.3` (breaking) |
 | `fast-glob` | high | via micromatch | yes |
 | `micromatch` | high | via braces | `tailwindcss@4.3.3` (breaking) |
-| `tailwindcss` | high | via chokidar, fast-glob, micromatch | `tailwindcss@4.3.3` (breaking) |
+| `source-map-js` | high | source-map-js allows event-loop denial of service through indexed source-map section offsets | yes |
+| `tailwindcss` | high | via chokidar, fast-glob, micromatch, postcss-nested, postcss-selector-parser | `tailwindcss@4.3.3` (breaking) |
 | `baseline-browser-mapping` | moderate | baseline-browser-mapping process termination on invalid input causes denial of service | yes |
+| `postcss-nested` | moderate | via postcss-selector-parser | yes |
+| `postcss-selector-parser` | moderate | PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion | `tailwindcss@4.3.3` (breaking) |
 
 ## Outdated direct dependencies
 
@@ -40,5 +43,5 @@ real record of when advisories appeared and were cleared._
 | `react-router-dom` | 7.18.3 | 7.18.4 | minor/patch |
 | `resend` | 6.25.0 | 6.32.0 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.3 | major |
-| `vite` | 8.2.2 | 8.3.2 | minor/patch |
+| `vite` | 8.2.2 | 8.3.3 | minor/patch |
 
