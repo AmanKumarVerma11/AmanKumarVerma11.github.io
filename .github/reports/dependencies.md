@@ -43,5 +43,5 @@ real record of when advisories appeared and were cleared._
 | `react-router-dom` | 7.18.3 | 7.18.4 | minor/patch |
 | `resend` | 6.25.0 | 6.32.1 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.3 | major |
-| `vite` | 8.2.2 | 8.3.3 | minor/patch |
+| `vite` | 8.2.2 | 8.3.4 | minor/patch |
 
