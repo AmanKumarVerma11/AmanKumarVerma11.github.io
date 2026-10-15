@@ -38,10 +38,10 @@ real record of when advisories appeared and were cleared._
 | `eslint-plugin-react-refresh` | 0.4.26 | 0.5.7 | minor/patch |
 | `globals` | 15.15.0 | 17.13.0 | major |
 | `postcss` | 8.5.26 | 8.5.30 | minor/patch |
-| `react` | 18.3.1 | 19.3.0 | major |
-| `react-dom` | 18.3.1 | 19.3.0 | major |
+| `react` | 18.3.1 | 19.3.1 | major |
+| `react-dom` | 18.3.1 | 19.3.1 | major |
 | `react-router-dom` | 7.18.3 | 7.18.4 | minor/patch |
-| `resend` | 6.25.0 | 6.32.1 | minor/patch |
+| `resend` | 6.25.0 | 6.33.0 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.3 | major |
 | `vite` | 8.2.2 | 8.3.4 | minor/patch |
 
