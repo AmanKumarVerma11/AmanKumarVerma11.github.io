@@ -6,23 +6,43 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**No known vulnerabilities.**
+**12 vulnerabilitys** — 9 high · 3 moderate
+
+| Package | Severity | Advisory | Fix |
+|---|---|---|---|
+| `brace-expansion` | high | brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service; brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion; brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion | yes |
+| `braces` | high | braces vulnerable to stack-exhaustion denial of service through deeply nested patterns | `tailwindcss@4.3.3` (breaking) |
+| `browserslist` | high | Browserslist: Unbounded memory growth (no cache eviction) via distinct query results, leading to eventual OOM; Browserslist: Uncaught crash / prototype write via untrusted browserslist-stats.json custom stats (normalizeStats) | yes |
+| `chokidar` | high | via braces | `tailwindcss@4.3.3` (breaking) |
+| `fast-glob` | high | via micromatch | yes |
+| `micromatch` | high | via braces | `tailwindcss@4.3.3` (breaking) |
+| `source-map-js` | high | source-map-js allows event-loop denial of service through indexed source-map section offsets | yes |
+| `tailwindcss` | high | via chokidar, fast-glob, micromatch, postcss-nested, postcss-selector-parser | `tailwindcss@4.3.3` (breaking) |
+| `vite` | high | launch-editor: escapeCmdArgs() omits % escaping on Windows; launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors; launch-editor: `fs.existsSync()` existence check can be bypassed on Windows | yes |
+| `baseline-browser-mapping` | moderate | baseline-browser-mapping process termination on invalid input causes denial of service | yes |
+| `postcss-nested` | moderate | via postcss-selector-parser | yes |
+| `postcss-selector-parser` | moderate | PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion | `tailwindcss@4.3.3` (breaking) |
 
 ## Outdated direct dependencies
 
-**11 direct dependencies are behind latest.**
+**16 direct dependencies are behind latest.**
 
 | Package | Current | Latest | Jump |
 |---|---|---|---|
 | `@eslint/js` | 9.39.2 | 10.0.1 | major |
-| `@types/react` | 18.3.27 | 19.2.18 | major |
-| `@types/react-dom` | 18.3.7 | 19.2.5 | major |
-| `autoprefixer` | 10.4.23 | 10.5.4 | minor/patch |
-| `eslint` | 9.39.2 | 10.9.1 | major |
+| `@types/react` | 18.3.27 | 19.3.0 | major |
+| `@types/react-dom` | 18.3.7 | 19.3.0 | major |
+| `@vitejs/plugin-react` | 6.1.1 | 6.1.2 | minor/patch |
+| `autoprefixer` | 10.4.23 | 10.6.1 | minor/patch |
+| `eslint` | 9.39.2 | 10.13.0 | major |
 | `eslint-plugin-react-hooks` | 5.2.0 | 7.1.1 | major |
-| `eslint-plugin-react-refresh` | 0.4.26 | 0.5.5 | minor/patch |
-| `globals` | 15.15.0 | 17.11.0 | major |
-| `react` | 18.3.1 | 19.2.8 | major |
-| `react-dom` | 18.3.1 | 19.2.8 | major |
+| `eslint-plugin-react-refresh` | 0.4.26 | 0.5.7 | minor/patch |
+| `globals` | 15.15.0 | 17.13.0 | major |
+| `postcss` | 8.5.26 | 8.5.31 | minor/patch |
+| `react` | 18.3.1 | 19.3.1 | major |
+| `react-dom` | 18.3.1 | 19.3.1 | major |
+| `react-router-dom` | 7.18.3 | 7.18.4 | minor/patch |
+| `resend` | 6.25.0 | 6.34.1 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.3 | major |
+| `vite` | 8.2.2 | 8.3.5 | minor/patch |
 
