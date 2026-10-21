@@ -6,7 +6,7 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**11 vulnerabilitys** — 8 high · 3 moderate
+**12 vulnerabilitys** — 9 high · 3 moderate
 
 | Package | Severity | Advisory | Fix |
 |---|---|---|---|
@@ -18,6 +18,7 @@ real record of when advisories appeared and were cleared._
 | `micromatch` | high | via braces | `tailwindcss@4.3.3` (breaking) |
 | `source-map-js` | high | source-map-js allows event-loop denial of service through indexed source-map section offsets | yes |
 | `tailwindcss` | high | via chokidar, fast-glob, micromatch, postcss-nested, postcss-selector-parser | `tailwindcss@4.3.3` (breaking) |
+| `vite` | high | launch-editor: escapeCmdArgs() omits % escaping on Windows; launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors; launch-editor: `fs.existsSync()` existence check can be bypassed on Windows | yes |
 | `baseline-browser-mapping` | moderate | baseline-browser-mapping process termination on invalid input causes denial of service | yes |
 | `postcss-nested` | moderate | via postcss-selector-parser | yes |
 | `postcss-selector-parser` | moderate | PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion | `tailwindcss@4.3.3` (breaking) |
@@ -43,5 +44,5 @@ real record of when advisories appeared and were cleared._
 | `react-router-dom` | 7.18.3 | 7.18.4 | minor/patch |
 | `resend` | 6.25.0 | 6.34.1 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.3 | major |
-| `vite` | 8.2.2 | 8.3.4 | minor/patch |
+| `vite` | 8.2.2 | 8.3.5 | minor/patch |
 
