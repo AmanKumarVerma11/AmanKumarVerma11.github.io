@@ -12,7 +12,7 @@ const navItems = [
 function Header() {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const resumeLink = import.meta.env.VITE_RESUME_LINK;
+  const resumeLink = 'https://cv.amankrverma.in/';
 
   // Close the mobile menu on route change and on Escape.
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);

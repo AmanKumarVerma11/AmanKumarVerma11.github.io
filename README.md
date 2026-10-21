@@ -91,9 +91,10 @@ to visitors; the site loads Bricolage Grotesque from Google Fonts at runtime.
 
 ## Environment variables
 
-See [`.env.example`](.env.example). `RESEND_API_KEY` is server-only;
-`VITE_RESUME_LINK` is inlined into the client bundle, so never put a secret
-behind a `VITE_` prefix.
+See [`.env.example`](.env.example). `RESEND_API_KEY` is server-only; never put a
+secret behind a `VITE_` prefix, since those values are inlined into the client
+bundle. The Resume link opens [cv.amankrverma.in](https://cv.amankrverma.in/)
+on both desktop and mobile and does not require an environment variable.
 
 ## Scheduled workflows
 
