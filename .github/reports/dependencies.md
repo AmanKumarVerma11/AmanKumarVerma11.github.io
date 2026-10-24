@@ -6,20 +6,16 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**10 vulnerabilitys** — 8 high · 2 moderate
+**6 vulnerabilitys** — 3 high · 3 moderate
 
 | Package | Severity | Advisory | Fix |
 |---|---|---|---|
 | `brace-expansion` | high | brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service; brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion; brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion | yes |
-| `braces` | high | braces vulnerable to stack-exhaustion denial of service through deeply nested patterns | `tailwindcss@4.3.3` (breaking) |
-| `chokidar` | high | via braces | `tailwindcss@4.3.3` (breaking) |
-| `fast-glob` | high | via micromatch | yes |
-| `micromatch` | high | via braces | `tailwindcss@4.3.3` (breaking) |
 | `source-map-js` | high | source-map-js allows event-loop denial of service through indexed source-map section offsets | yes |
-| `tailwindcss` | high | via chokidar, fast-glob, micromatch, postcss-nested, postcss-selector-parser | `tailwindcss@4.3.3` (breaking) |
 | `vite` | high | launch-editor: escapeCmdArgs() omits % escaping on Windows; launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors; launch-editor: `fs.existsSync()` existence check can be bypassed on Windows; Vite: Cross origin script execution through Vite custom middleware; Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine; Vite: First 4 bytes of files outside of `server.fs` setting is exposed by `?vite-wasm-instance` | yes |
 | `postcss-nested` | moderate | via postcss-selector-parser | yes |
 | `postcss-selector-parser` | moderate | PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion | `tailwindcss@4.3.3` (breaking) |
+| `tailwindcss` | moderate | via postcss-nested, postcss-selector-parser | `tailwindcss@4.3.3` (breaking) |
 
 ## Outdated direct dependencies
 
