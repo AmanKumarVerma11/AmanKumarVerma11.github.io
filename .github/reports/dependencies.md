@@ -33,8 +33,8 @@ real record of when advisories appeared and were cleared._
 | `postcss` | 8.5.26 | 8.5.32 | minor/patch |
 | `react` | 18.3.1 | 19.3.1 | major |
 | `react-dom` | 18.3.1 | 19.3.1 | major |
-| `react-router-dom` | 7.18.3 | 7.18.4 | minor/patch |
-| `resend` | 6.25.0 | 6.34.1 | minor/patch |
+| `react-router-dom` | 7.18.3 | 7.18.5 | minor/patch |
+| `resend` | 6.25.0 | 6.35.0 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.3 | major |
 | `vite` | 8.2.2 | 8.3.5 | minor/patch |
 
