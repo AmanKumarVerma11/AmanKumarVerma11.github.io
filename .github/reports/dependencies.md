@@ -6,13 +6,20 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**4 vulnerabilitys** — 3 high · 1 moderate
+**11 vulnerabilitys** — 3 high · 8 moderate
 
 | Package | Severity | Advisory | Fix |
 |---|---|---|---|
 | `brace-expansion` | high | brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service; brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion; brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion | yes |
 | `source-map-js` | high | source-map-js allows event-loop denial of service through indexed source-map section offsets | yes |
 | `vite` | high | launch-editor: escapeCmdArgs() omits % escaping on Windows; launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors; launch-editor: `fs.existsSync()` existence check can be bypassed on Windows; Vite: Cross origin script execution through Vite custom middleware; Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine; Vite: First 4 bytes of files outside of `server.fs` setting is exposed by `?vite-wasm-instance` | yes |
+| `@eslint-community/eslint-utils` | moderate | via eslint | none |
+| `@eslint/config-array` | moderate | via minimatch | none |
+| `@eslint/eslintrc` | moderate | via minimatch | none |
+| `eslint` | moderate | via @eslint-community/eslint-utils, @eslint/config-array, @eslint/eslintrc, minimatch | none |
+| `eslint-plugin-react` | moderate | via minimatch | `eslint-plugin-react@7.22.0` (breaking) |
+| `eslint-plugin-react-refresh` | moderate | via eslint | none |
+| `minimatch` | moderate | minimatch has potential denial of service via globparts amplification | none |
 | `postcss-selector-parser` | moderate | PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion | yes |
 
 ## Outdated direct dependencies
@@ -26,7 +33,7 @@ real record of when advisories appeared and were cleared._
 | `@types/react-dom` | 18.3.7 | 19.3.0 | major |
 | `@vitejs/plugin-react` | 6.1.1 | 6.1.2 | minor/patch |
 | `autoprefixer` | 10.4.23 | 10.6.2 | minor/patch |
-| `eslint` | 9.39.2 | 10.13.0 | major |
+| `eslint` | 9.39.2 | 10.14.0 | major |
 | `eslint-plugin-react-hooks` | 5.2.0 | 7.1.1 | major |
 | `eslint-plugin-react-refresh` | 0.4.26 | 0.5.7 | minor/patch |
 | `globals` | 15.15.0 | 17.13.0 | major |
@@ -34,7 +41,7 @@ real record of when advisories appeared and were cleared._
 | `react` | 18.3.1 | 19.3.1 | major |
 | `react-dom` | 18.3.1 | 19.3.1 | major |
 | `react-router-dom` | 7.18.3 | 7.18.5 | minor/patch |
-| `resend` | 6.25.0 | 6.35.0 | minor/patch |
+| `resend` | 6.25.0 | 6.37.0 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.3 | major |
 | `vite` | 8.2.2 | 8.3.5 | minor/patch |
 
