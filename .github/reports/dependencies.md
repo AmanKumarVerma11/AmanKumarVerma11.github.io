@@ -36,7 +36,7 @@ real record of when advisories appeared and were cleared._
 | `eslint` | 9.39.2 | 10.14.0 | major |
 | `eslint-plugin-react-hooks` | 5.2.0 | 7.1.1 | major |
 | `eslint-plugin-react-refresh` | 0.4.26 | 0.5.7 | minor/patch |
-| `globals` | 15.15.0 | 17.13.0 | major |
+| `globals` | 15.15.0 | 17.14.0 | major |
 | `postcss` | 8.5.26 | 8.5.32 | minor/patch |
 | `react` | 18.3.1 | 19.3.1 | major |
 | `react-dom` | 18.3.1 | 19.3.1 | major |
