@@ -6,20 +6,13 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**11 vulnerabilitys** — 3 high · 8 moderate
+**4 vulnerabilitys** — 3 high · 1 moderate
 
 | Package | Severity | Advisory | Fix |
 |---|---|---|---|
 | `brace-expansion` | high | brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service; brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion; brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion | yes |
 | `source-map-js` | high | source-map-js allows event-loop denial of service through indexed source-map section offsets | yes |
 | `vite` | high | launch-editor: escapeCmdArgs() omits % escaping on Windows; launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors; launch-editor: `fs.existsSync()` existence check can be bypassed on Windows; Vite: Cross origin script execution through Vite custom middleware; Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine; Vite: First 4 bytes of files outside of `server.fs` setting is exposed by `?vite-wasm-instance` | yes |
-| `@eslint-community/eslint-utils` | moderate | via eslint | none |
-| `@eslint/config-array` | moderate | via minimatch | none |
-| `@eslint/eslintrc` | moderate | via minimatch | none |
-| `eslint` | moderate | via @eslint-community/eslint-utils, @eslint/config-array, @eslint/eslintrc, minimatch | none |
-| `eslint-plugin-react` | moderate | via minimatch | `eslint-plugin-react@7.22.0` (breaking) |
-| `eslint-plugin-react-refresh` | moderate | via eslint | none |
-| `minimatch` | moderate | minimatch has potential denial of service via globparts amplification | none |
 | `postcss-selector-parser` | moderate | PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion | yes |
 
 ## Outdated direct dependencies
@@ -43,5 +36,5 @@ real record of when advisories appeared and were cleared._
 | `react-router-dom` | 7.18.3 | 7.18.5 | minor/patch |
 | `resend` | 6.25.0 | 6.37.0 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.4 | major |
-| `vite` | 8.2.2 | 8.3.5 | minor/patch |
+| `vite` | 8.2.2 | 8.3.6 | minor/patch |
 
