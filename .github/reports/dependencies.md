@@ -24,7 +24,7 @@ real record of when advisories appeared and were cleared._
 | `@eslint/js` | 9.39.2 | 10.0.1 | major |
 | `@types/react` | 18.3.27 | 19.3.0 | major |
 | `@types/react-dom` | 18.3.7 | 19.3.0 | major |
-| `@vitejs/plugin-react` | 6.1.1 | 6.2.1 | minor/patch |
+| `@vitejs/plugin-react` | 6.1.1 | 6.3.0 | minor/patch |
 | `autoprefixer` | 10.4.23 | 10.6.2 | minor/patch |
 | `eslint` | 9.39.2 | 10.14.0 | major |
 | `eslint-plugin-react-hooks` | 5.2.0 | 7.1.1 | major |
@@ -36,5 +36,5 @@ real record of when advisories appeared and were cleared._
 | `react-router-dom` | 7.18.3 | 7.18.5 | minor/patch |
 | `resend` | 6.25.0 | 6.37.0 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.5 | major |
-| `vite` | 8.2.2 | 8.3.6 | minor/patch |
+| `vite` | 8.2.2 | 8.3.7 | minor/patch |
 
