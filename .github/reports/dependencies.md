@@ -28,7 +28,7 @@ real record of when advisories appeared and were cleared._
 | `autoprefixer` | 10.4.23 | 10.6.2 | minor/patch |
 | `eslint` | 9.39.2 | 10.15.0 | major |
 | `eslint-plugin-react-hooks` | 5.2.0 | 7.1.1 | major |
-| `eslint-plugin-react-refresh` | 0.4.26 | 0.5.7 | minor/patch |
+| `eslint-plugin-react-refresh` | 0.4.26 | 0.5.8 | minor/patch |
 | `fontkit` | 2.0.4 | 3.0.0 | major |
 | `globals` | 15.15.0 | 17.14.0 | major |
 | `postcss` | 8.5.26 | 8.5.33 | minor/patch |
