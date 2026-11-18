@@ -6,12 +6,22 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**4 vulnerabilitys** — 3 high · 1 moderate
+**14 vulnerabilitys** — 13 high · 1 moderate
 
 | Package | Severity | Advisory | Fix |
 |---|---|---|---|
+| `anymatch` | high | via picomatch | yes |
 | `brace-expansion` | high | brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service; brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion; brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion | yes |
+| `chokidar` | high | via anymatch, readdirp | `tailwindcss@4.3.5` (breaking) |
+| `fast-glob` | high | via micromatch | yes |
+| `fdir` | high | via picomatch | yes |
+| `micromatch` | high | via picomatch | `tailwindcss@4.3.5` (breaking) |
+| `picomatch` | high | picomatch vulnerable to ReDoS through single-branch repeated extglobs | `tailwindcss@4.3.5` (breaking) |
+| `readdirp` | high | via picomatch | `tailwindcss@4.3.5` (breaking) |
 | `source-map-js` | high | source-map-js allows event-loop denial of service through indexed source-map section offsets | yes |
+| `sucrase` | high | via tinyglobby | yes |
+| `tailwindcss` | high | via chokidar, fast-glob, micromatch | `tailwindcss@4.3.5` (breaking) |
+| `tinyglobby` | high | via fdir, picomatch | yes |
 | `vite` | high | launch-editor: escapeCmdArgs() omits % escaping on Windows; launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors; launch-editor: `fs.existsSync()` existence check can be bypassed on Windows; Vite: Cross origin script execution through Vite custom middleware; Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine; Vite: First 4 bytes of files outside of `server.fs` setting is exposed by `?vite-wasm-instance` | yes |
 | `postcss-selector-parser` | moderate | PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion | yes |
 
