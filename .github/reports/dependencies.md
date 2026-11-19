@@ -6,22 +6,12 @@ real record of when advisories appeared and were cleared._
 
 ## Vulnerabilities
 
-**14 vulnerabilitys** — 13 high · 1 moderate
+**4 vulnerabilitys** — 3 high · 1 moderate
 
 | Package | Severity | Advisory | Fix |
 |---|---|---|---|
-| `anymatch` | high | via picomatch | yes |
 | `brace-expansion` | high | brace-expansion: Quadratic-time expansion of the `{a},b}` rewrite causes CPU denial of service; brace-expansion: DoS via uncontrolled recursion on nested brace groups causing stack exhaustion; brace-expansion: DoS via uncontrolled recursion in parseCommaParts causing stack exhaustion | yes |
-| `chokidar` | high | via anymatch, readdirp | `tailwindcss@4.3.5` (breaking) |
-| `fast-glob` | high | via micromatch | yes |
-| `fdir` | high | via picomatch | yes |
-| `micromatch` | high | via picomatch | `tailwindcss@4.3.5` (breaking) |
-| `picomatch` | high | picomatch vulnerable to ReDoS through single-branch repeated extglobs | `tailwindcss@4.3.5` (breaking) |
-| `readdirp` | high | via picomatch | `tailwindcss@4.3.5` (breaking) |
 | `source-map-js` | high | source-map-js allows event-loop denial of service through indexed source-map section offsets | yes |
-| `sucrase` | high | via tinyglobby | yes |
-| `tailwindcss` | high | via chokidar, fast-glob, micromatch | `tailwindcss@4.3.5` (breaking) |
-| `tinyglobby` | high | via fdir, picomatch | yes |
 | `vite` | high | launch-editor: escapeCmdArgs() omits % escaping on Windows; launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors; launch-editor: `fs.existsSync()` existence check can be bypassed on Windows; Vite: Cross origin script execution through Vite custom middleware; Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine; Vite: First 4 bytes of files outside of `server.fs` setting is exposed by `?vite-wasm-instance` | yes |
 | `postcss-selector-parser` | moderate | PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion | yes |
 
@@ -45,8 +35,8 @@ real record of when advisories appeared and were cleared._
 | `react` | 18.3.1 | 19.3.1 | major |
 | `react-dom` | 18.3.1 | 19.3.1 | major |
 | `react-helmet-async` | 3.0.0 | 3.1.0 | minor/patch |
-| `react-router-dom` | 7.18.3 | 7.18.5 | minor/patch |
-| `resend` | 6.25.0 | 6.38.1 | minor/patch |
+| `react-router-dom` | 7.18.3 | 7.18.6 | minor/patch |
+| `resend` | 6.25.0 | 6.39.0 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.5 | major |
 | `vite` | 8.2.2 | 8.3.8 | minor/patch |
 
