@@ -25,7 +25,7 @@ real record of when advisories appeared and were cleared._
 | `@types/react` | 18.3.27 | 19.3.0 | major |
 | `@types/react-dom` | 18.3.7 | 19.3.0 | major |
 | `@vitejs/plugin-react` | 6.1.1 | 6.3.0 | minor/patch |
-| `autoprefixer` | 10.4.23 | 10.6.2 | minor/patch |
+| `autoprefixer` | 10.4.23 | 10.7.0 | minor/patch |
 | `eslint` | 9.39.2 | 10.15.0 | major |
 | `eslint-plugin-react-hooks` | 5.2.0 | 7.1.1 | major |
 | `eslint-plugin-react-refresh` | 0.4.26 | 0.5.8 | minor/patch |
