@@ -22,7 +22,7 @@ real record of when advisories appeared and were cleared._
 | Package | Current | Latest | Jump |
 |---|---|---|---|
 | `@eslint/js` | 9.39.2 | 10.0.1 | major |
-| `@types/react` | 18.3.27 | 19.3.0 | major |
+| `@types/react` | 18.3.27 | 19.3.3 | major |
 | `@types/react-dom` | 18.3.7 | 19.3.0 | major |
 | `@vitejs/plugin-react` | 6.1.1 | 6.3.0 | minor/patch |
 | `autoprefixer` | 10.4.23 | 10.7.0 | minor/patch |
@@ -35,7 +35,7 @@ real record of when advisories appeared and were cleared._
 | `react` | 18.3.1 | 19.3.1 | major |
 | `react-dom` | 18.3.1 | 19.3.1 | major |
 | `react-helmet-async` | 3.0.0 | 3.2.0 | minor/patch |
-| `react-router-dom` | 7.18.3 | 7.18.6 | minor/patch |
+| `react-router-dom` | 7.18.3 | 7.18.7 | minor/patch |
 | `resend` | 6.25.0 | 6.39.0 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.5 | major |
 | `vite` | 8.2.2 | 8.3.8 | minor/patch |
