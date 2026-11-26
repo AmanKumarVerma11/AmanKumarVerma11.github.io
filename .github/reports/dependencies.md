@@ -36,7 +36,7 @@ real record of when advisories appeared and were cleared._
 | `react-dom` | 18.3.1 | 19.3.1 | major |
 | `react-helmet-async` | 3.0.0 | 3.2.0 | minor/patch |
 | `react-router-dom` | 7.18.3 | 7.18.7 | minor/patch |
-| `resend` | 6.25.0 | 6.39.0 | minor/patch |
+| `resend` | 6.25.0 | 6.40.1 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.5 | major |
-| `vite` | 8.2.2 | 8.3.8 | minor/patch |
+| `vite` | 8.2.2 | 8.4.0 | minor/patch |
 
