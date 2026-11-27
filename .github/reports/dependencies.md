@@ -31,7 +31,7 @@ real record of when advisories appeared and were cleared._
 | `eslint-plugin-react-refresh` | 0.4.26 | 0.5.8 | minor/patch |
 | `fontkit` | 2.0.4 | 3.0.0 | major |
 | `globals` | 15.15.0 | 17.14.0 | major |
-| `postcss` | 8.5.26 | 8.5.33 | minor/patch |
+| `postcss` | 8.5.26 | 8.5.34 | minor/patch |
 | `react` | 18.3.1 | 19.3.1 | major |
 | `react-dom` | 18.3.1 | 19.3.1 | major |
 | `react-helmet-async` | 3.0.0 | 3.2.0 | minor/patch |
