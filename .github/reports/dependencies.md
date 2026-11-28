@@ -25,8 +25,8 @@ real record of when advisories appeared and were cleared._
 | `@types/react` | 18.3.27 | 19.3.3 | major |
 | `@types/react-dom` | 18.3.7 | 19.3.0 | major |
 | `@vitejs/plugin-react` | 6.1.1 | 6.3.0 | minor/patch |
-| `autoprefixer` | 10.4.23 | 10.7.0 | minor/patch |
-| `eslint` | 9.39.2 | 10.15.0 | major |
+| `autoprefixer` | 10.4.23 | 10.7.1 | minor/patch |
+| `eslint` | 9.39.2 | 10.16.0 | major |
 | `eslint-plugin-react-hooks` | 5.2.0 | 7.1.1 | major |
 | `eslint-plugin-react-refresh` | 0.4.26 | 0.5.8 | minor/patch |
 | `fontkit` | 2.0.4 | 3.0.0 | major |
@@ -36,7 +36,7 @@ real record of when advisories appeared and were cleared._
 | `react-dom` | 18.3.1 | 19.3.1 | major |
 | `react-helmet-async` | 3.0.0 | 3.2.0 | minor/patch |
 | `react-router-dom` | 7.18.3 | 7.18.7 | minor/patch |
-| `resend` | 6.25.0 | 6.40.1 | minor/patch |
+| `resend` | 6.25.0 | 6.41.0 | minor/patch |
 | `tailwindcss` | 3.4.19 | 4.3.5 | major |
 | `vite` | 8.2.2 | 8.4.0 | minor/patch |
 
